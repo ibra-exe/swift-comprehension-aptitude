@@ -1937,6 +1937,386 @@ const QUESTIONS = [
     answer: ["There is an error in the Tier"],
     explanation:
       "Matching original row (Derek Lowe):\n  Member: Derek Lowe  (correct)\n  ID: MB-90216  (correct)\n  Tier: code G = Gold, but re-entered 'Silver'  (ERROR - wrong tier after decoding)\n  Renewal: 01/03  (correct)\nOnly the Tier contains an error."
+  },
+
+  /* ======================================================================
+   * BANK GROWTH 2 (more original content across all formats)
+   * ==================================================================== */
+
+  /* ---- Verbal: Passage F (Four-day week trial) -------------------------- */
+  {
+    id: "verb-29", section: "verbal", topic: "verbal-synonym",
+    stimulus: { passage: "A medium-sized accountancy firm trialled a four-day working week for six months, keeping salaries unchanged while reducing contracted hours. During the trial, the firm measured client billing, staff wellbeing and rates of staff turnover. Billing remained stable, while reported wellbeing improved and the number of employees leaving the firm fell. The partners acknowledged that the trial took place during a traditionally quieter period for the business, and said a fuller assessment would be needed before making the change permanent." },
+    question: "Which one of the following would best replace 'acknowledged' while keeping the meaning of the passage?",
+    options: ["admitted", "denied", "predicted", "demanded"],
+    answer: "admitted",
+    explanation: "Here 'acknowledged' means the partners accepted or admitted a point about the timing of the trial. 'Admitted' preserves that meaning; the others change it."
+  },
+  {
+    id: "verb-30", section: "verbal", topic: "verbal-detail",
+    stimulus: { passage: "A medium-sized accountancy firm trialled a four-day working week for six months, keeping salaries unchanged while reducing contracted hours. During the trial, the firm measured client billing, staff wellbeing and rates of staff turnover. Billing remained stable, while reported wellbeing improved and the number of employees leaving the firm fell. The partners acknowledged that the trial took place during a traditionally quieter period for the business, and said a fuller assessment would be needed before making the change permanent." },
+    question: "Which one of the following did the firm measure during the trial?",
+    options: ["Client billing", "Office rent", "Energy use", "Advertising spend"],
+    answer: "Client billing",
+    explanation: "The passage lists what was measured: 'client billing, staff wellbeing and rates of staff turnover'. Only client billing appears among the options."
+  },
+  {
+    id: "verb-31", section: "verbal", topic: "verbal-inference",
+    stimulus: { passage: "A medium-sized accountancy firm trialled a four-day working week for six months, keeping salaries unchanged while reducing contracted hours. During the trial, the firm measured client billing, staff wellbeing and rates of staff turnover. Billing remained stable, while reported wellbeing improved and the number of employees leaving the firm fell. The partners acknowledged that the trial took place during a traditionally quieter period for the business, and said a fuller assessment would be needed before making the change permanent." },
+    question: "Salaries were kept unchanged during the trial.",
+    options: ["True on the basis of the passage", "False on the basis of the passage", "Not possible to say on the basis of the passage"],
+    answer: "True on the basis of the passage",
+    explanation: "The passage states the firm trialled the week 'keeping salaries unchanged while reducing contracted hours', which directly supports the statement."
+  },
+  {
+    id: "verb-32", section: "verbal", topic: "verbal-inference",
+    stimulus: { passage: "A medium-sized accountancy firm trialled a four-day working week for six months, keeping salaries unchanged while reducing contracted hours. During the trial, the firm measured client billing, staff wellbeing and rates of staff turnover. Billing remained stable, while reported wellbeing improved and the number of employees leaving the firm fell. The partners acknowledged that the trial took place during a traditionally quieter period for the business, and said a fuller assessment would be needed before making the change permanent." },
+    question: "The firm has decided to make the four-day week permanent.",
+    options: ["True on the basis of the passage", "False on the basis of the passage", "Not possible to say on the basis of the passage"],
+    answer: "Not possible to say on the basis of the passage",
+    explanation: "The partners said 'a fuller assessment would be needed before making the change permanent'. No decision is reported, so the answer is Not possible to say."
+  },
+
+  /* ---- Verbal: Passage G (Recycling scheme) ----------------------------- */
+  {
+    id: "verb-33", section: "verbal", topic: "verbal-synonym",
+    stimulus: { passage: "A city council introduced a new kerbside recycling scheme aimed at increasing the proportion of household waste that is recycled rather than sent to landfill. Residents were given separate containers for paper, glass and food waste. In the first year, the recycling rate rose from 38% to 49%. The council reported that contamination of recycling, where non-recyclable items are placed in the wrong container, persisted as a challenge, and launched an information campaign to address it." },
+    question: "Which one of the following would best replace 'persisted' while keeping the meaning of the passage?",
+    options: ["continued", "ceased", "eased", "began"],
+    answer: "continued",
+    explanation: "Contamination 'persisted as a challenge' means it carried on being a problem. 'Continued' keeps that meaning; 'ceased' and 'eased' suggest it stopped or lessened, and 'began' suggests it was new."
+  },
+  {
+    id: "verb-34", section: "verbal", topic: "verbal-detail",
+    stimulus: { passage: "A city council introduced a new kerbside recycling scheme aimed at increasing the proportion of household waste that is recycled rather than sent to landfill. Residents were given separate containers for paper, glass and food waste. In the first year, the recycling rate rose from 38% to 49%. The council reported that contamination of recycling, where non-recyclable items are placed in the wrong container, persisted as a challenge, and launched an information campaign to address it." },
+    question: "Residents were given separate containers for which materials?",
+    options: ["Paper, glass and food waste", "Plastic only", "Garden waste only", "Metal and textiles"],
+    answer: "Paper, glass and food waste",
+    explanation: "The passage states residents 'were given separate containers for paper, glass and food waste'."
+  },
+  {
+    id: "verb-35", section: "verbal", topic: "verbal-inference",
+    stimulus: { passage: "A city council introduced a new kerbside recycling scheme aimed at increasing the proportion of household waste that is recycled rather than sent to landfill. Residents were given separate containers for paper, glass and food waste. In the first year, the recycling rate rose from 38% to 49%. The council reported that contamination of recycling, where non-recyclable items are placed in the wrong container, persisted as a challenge, and launched an information campaign to address it." },
+    question: "The recycling rate increased during the first year of the scheme.",
+    options: ["True on the basis of the passage", "False on the basis of the passage", "Not possible to say on the basis of the passage"],
+    answer: "True on the basis of the passage",
+    explanation: "The recycling rate 'rose from 38% to 49%' in the first year, which supports the statement, so it is True."
+  },
+  {
+    id: "verb-36", section: "verbal", topic: "verbal-inference",
+    stimulus: { passage: "A city council introduced a new kerbside recycling scheme aimed at increasing the proportion of household waste that is recycled rather than sent to landfill. Residents were given separate containers for paper, glass and food waste. In the first year, the recycling rate rose from 38% to 49%. The council reported that contamination of recycling, where non-recyclable items are placed in the wrong container, persisted as a challenge, and launched an information campaign to address it." },
+    question: "This is the most successful recycling scheme in the country.",
+    options: ["True on the basis of the passage", "False on the basis of the passage", "Not possible to say on the basis of the passage"],
+    answer: "Not possible to say on the basis of the passage",
+    explanation: "The passage gives no comparison with other schemes anywhere else, so there is no basis to judge this claim. The answer is Not possible to say."
+  },
+
+  /* ---- Verbal: Passage H (Open-plan office) ----------------------------- */
+  {
+    id: "verb-37", section: "verbal", topic: "verbal-synonym",
+    stimulus: { passage: "When a technology company moved to a new building, it chose an open-plan layout in the hope of encouraging collaboration between teams. Some employees welcomed the change, saying it made it easier to ask colleagues quick questions. Others complained that noise levels made it harder to concentrate on detailed tasks. In response, the company created a number of bookable quiet rooms and introduced a set of guidelines on acceptable noise. A follow-up survey showed mixed opinions about the new arrangement." },
+    question: "Which one of the following would best replace 'acceptable' while keeping the meaning of the passage?",
+    options: ["permissible", "excessive", "unclear", "free"],
+    answer: "permissible",
+    explanation: "Guidelines on 'acceptable' noise set out what level is allowed. 'Permissible' captures that meaning; 'excessive' means too much, and the others do not fit."
+  },
+  {
+    id: "verb-38", section: "verbal", topic: "verbal-detail",
+    stimulus: { passage: "When a technology company moved to a new building, it chose an open-plan layout in the hope of encouraging collaboration between teams. Some employees welcomed the change, saying it made it easier to ask colleagues quick questions. Others complained that noise levels made it harder to concentrate on detailed tasks. In response, the company created a number of bookable quiet rooms and introduced a set of guidelines on acceptable noise. A follow-up survey showed mixed opinions about the new arrangement." },
+    question: "What did the company introduce in response to the noise complaints?",
+    options: ["Bookable quiet rooms and noise guidelines", "A return to private offices", "Noise-cancelling headphones for all staff", "A full move to remote working"],
+    answer: "Bookable quiet rooms and noise guidelines",
+    explanation: "The passage states the company 'created a number of bookable quiet rooms and introduced a set of guidelines on acceptable noise'."
+  },
+  {
+    id: "verb-39", section: "verbal", topic: "verbal-inference",
+    stimulus: { passage: "When a technology company moved to a new building, it chose an open-plan layout in the hope of encouraging collaboration between teams. Some employees welcomed the change, saying it made it easier to ask colleagues quick questions. Others complained that noise levels made it harder to concentrate on detailed tasks. In response, the company created a number of bookable quiet rooms and introduced a set of guidelines on acceptable noise. A follow-up survey showed mixed opinions about the new arrangement." },
+    question: "All employees disliked the open-plan layout.",
+    options: ["True on the basis of the passage", "False on the basis of the passage", "Not possible to say on the basis of the passage"],
+    answer: "False on the basis of the passage",
+    explanation: "The passage says 'some employees welcomed the change'. Since not everyone disliked it, the statement is False."
+  },
+  {
+    id: "verb-40", section: "verbal", topic: "verbal-inference",
+    stimulus: { passage: "When a technology company moved to a new building, it chose an open-plan layout in the hope of encouraging collaboration between teams. Some employees welcomed the change, saying it made it easier to ask colleagues quick questions. Others complained that noise levels made it harder to concentrate on detailed tasks. In response, the company created a number of bookable quiet rooms and introduced a set of guidelines on acceptable noise. A follow-up survey showed mixed opinions about the new arrangement." },
+    question: "Opinions in the follow-up survey were mixed.",
+    options: ["True on the basis of the passage", "False on the basis of the passage", "Not possible to say on the basis of the passage"],
+    answer: "True on the basis of the passage",
+    explanation: "The passage states 'A follow-up survey showed mixed opinions about the new arrangement', which directly supports the statement."
+  },
+
+  /* ---- Verbal: Passage I (Supplier review) ------------------------------ */
+  {
+    id: "verb-41", section: "verbal", topic: "verbal-synonym",
+    stimulus: { passage: "A supermarket chain carried out a review of its produce suppliers after several deliveries arrived later than scheduled. The review found that most delays were linked to a single distribution centre that had recently changed its software system. The chain agreed a recovery plan with the supplier, including temporary additional staffing at the affected centre. Within three months, on-time delivery rates had returned to their previous level. The chain stated it would continue to monitor performance closely." },
+    question: "Which one of the following would best replace 'linked' while keeping the meaning of the passage?",
+    options: ["connected", "opposed", "compared", "reduced"],
+    answer: "connected",
+    explanation: "Delays being 'linked to' a centre means they were connected with it. 'Connected' preserves the meaning; the other options change it."
+  },
+  {
+    id: "verb-42", section: "verbal", topic: "verbal-detail",
+    stimulus: { passage: "A supermarket chain carried out a review of its produce suppliers after several deliveries arrived later than scheduled. The review found that most delays were linked to a single distribution centre that had recently changed its software system. The chain agreed a recovery plan with the supplier, including temporary additional staffing at the affected centre. Within three months, on-time delivery rates had returned to their previous level. The chain stated it would continue to monitor performance closely." },
+    question: "According to the review, most delays were linked to what?",
+    options: ["A single distribution centre", "A shortage of drivers", "Poor weather", "A pricing dispute"],
+    answer: "A single distribution centre",
+    explanation: "The review found 'most delays were linked to a single distribution centre that had recently changed its software system'."
+  },
+  {
+    id: "verb-43", section: "verbal", topic: "verbal-inference",
+    stimulus: { passage: "A supermarket chain carried out a review of its produce suppliers after several deliveries arrived later than scheduled. The review found that most delays were linked to a single distribution centre that had recently changed its software system. The chain agreed a recovery plan with the supplier, including temporary additional staffing at the affected centre. Within three months, on-time delivery rates had returned to their previous level. The chain stated it would continue to monitor performance closely." },
+    question: "On-time delivery rates recovered within three months.",
+    options: ["True on the basis of the passage", "False on the basis of the passage", "Not possible to say on the basis of the passage"],
+    answer: "True on the basis of the passage",
+    explanation: "The passage states 'Within three months, on-time delivery rates had returned to their previous level', which supports the statement."
+  },
+  {
+    id: "verb-44", section: "verbal", topic: "verbal-inference",
+    stimulus: { passage: "A supermarket chain carried out a review of its produce suppliers after several deliveries arrived later than scheduled. The review found that most delays were linked to a single distribution centre that had recently changed its software system. The chain agreed a recovery plan with the supplier, including temporary additional staffing at the affected centre. Within three months, on-time delivery rates had returned to their previous level. The chain stated it would continue to monitor performance closely." },
+    question: "The distribution centre has now replaced the software system that caused the problems.",
+    options: ["True on the basis of the passage", "False on the basis of the passage", "Not possible to say on the basis of the passage"],
+    answer: "Not possible to say on the basis of the passage",
+    explanation: "The recovery plan mentions temporary additional staffing, but the passage never says the software was replaced. There is no basis to confirm this, so the answer is Not possible to say."
+  },
+
+  /* ---- Numerical: table (Annual revenue by product) --------------------- */
+  {
+    id: "num-33", section: "numerical", topic: "percentage-change",
+    stimulus: { table: { title: "Annual Revenue by Product (£m)", columns: ["Product", "2022", "2023", "2024"], rows: [["Alpha", "12", "15", "18"], ["Beta", "8", "7", "9"], ["Gamma", "20", "24", "30"], ["Delta", "5", "6", "6"]] } },
+    question: "By what percentage did Gamma's revenue change from 2023 to 2024?",
+    options: ["6%", "20%", "24%", "25%", "30%"],
+    answer: "25%",
+    explanation: "Identify the cells:\n  Gamma 2023 = 24, 2024 = 30\n\nFormula for percentage change:\n  (new - original) ÷ original × 100\n\nCalculation:\n  (30 - 24) ÷ 24 × 100\n  = 6 ÷ 24 × 100\n  = 25%"
+  },
+  {
+    id: "num-34", section: "numerical", topic: "average",
+    stimulus: { table: { title: "Annual Revenue by Product (£m)", columns: ["Product", "2022", "2023", "2024"], rows: [["Alpha", "12", "15", "18"], ["Beta", "8", "7", "9"], ["Gamma", "20", "24", "30"], ["Delta", "5", "6", "6"]] } },
+    question: "What was the average (mean) 2024 revenue across the four products?",
+    options: ["£14m", "£15m", "£15.75m", "£18.9m", "£63m"],
+    answer: "£15.75m",
+    explanation: "Identify the 2024 cells:\n  18, 9, 30, 6\n\nFormula for the mean:\n  total ÷ number of products\n\nCalculation:\n  18 + 9 + 30 + 6 = 63\n  63 ÷ 4 = 15.75\n  = £15.75m"
+  },
+  {
+    id: "num-35", section: "numerical", topic: "ratio",
+    stimulus: { table: { title: "Annual Revenue by Product (£m)", columns: ["Product", "2022", "2023", "2024"], rows: [["Alpha", "12", "15", "18"], ["Beta", "8", "7", "9"], ["Gamma", "20", "24", "30"], ["Delta", "5", "6", "6"]] } },
+    question: "In 2024, what is the ratio of Alpha's revenue to Gamma's revenue, in its simplest form?",
+    options: ["3:5", "5:3", "2:3", "3:4", "9:10"],
+    answer: "3:5",
+    explanation: "Identify the 2024 cells:\n  Alpha 18, Gamma 30\n\nWrite the ratio and simplify:\n  18 : 30\n  divide both sides by 6\n  = 3 : 5"
+  },
+  {
+    id: "num-36", section: "numerical", topic: "numerical-inference",
+    stimulus: { table: { title: "Annual Revenue by Product (£m)", columns: ["Product", "2022", "2023", "2024"], rows: [["Alpha", "12", "15", "18"], ["Beta", "8", "7", "9"], ["Gamma", "20", "24", "30"], ["Delta", "5", "6", "6"]] } },
+    question: "Beta's revenue increased every year from 2022 to 2024.",
+    options: ["True", "False", "Not possible to say"],
+    answer: "False",
+    explanation: "Track Beta year by year:\n  2022 = 8, 2023 = 7, 2024 = 9\nBeta fell from 8 to 7 between 2022 and 2023, so it did not rise every year. The statement is False."
+  },
+
+  /* ---- Numerical: pie chart (Monthly budget) ---------------------------- */
+  {
+    id: "num-37", section: "numerical", topic: "read-off",
+    stimulus: { chart: { type: "pie", title: "Monthly Budget Allocation", total: 50000, unit: "pounds", data: [{ label: "Payroll", percent: 52 }, { label: "Rent", percent: 18 }, { label: "Marketing", percent: 14 }, { label: "Equipment", percent: 10 }, { label: "Misc", percent: 6 }] } },
+    question: "Which category receives the largest share of the budget?",
+    options: ["Payroll", "Rent", "Marketing", "Equipment", "Misc"],
+    answer: "Payroll",
+    explanation: "The largest slice is Payroll at 52%, well above any other category."
+  },
+  {
+    id: "num-38", section: "numerical", topic: "share",
+    stimulus: { chart: { type: "pie", title: "Monthly Budget Allocation", total: 50000, unit: "pounds", data: [{ label: "Payroll", percent: 52 }, { label: "Rent", percent: 18 }, { label: "Marketing", percent: 14 }, { label: "Equipment", percent: 10 }, { label: "Misc", percent: 6 }] } },
+    question: "How much of the £50,000 monthly budget is allocated to Marketing?",
+    options: ["£700", "£1,400", "£5,000", "£7,000", "£9,000"],
+    answer: "£7,000",
+    explanation: "Identify the value:\n  Marketing = 14% of £50,000\n\nFormula for a part of the whole:\n  percent ÷ 100 × total\n\nCalculation:\n  14 ÷ 100 × 50,000\n  = 0.14 × 50,000\n  = £7,000"
+  },
+  {
+    id: "num-39", section: "numerical", topic: "numerical-inference",
+    stimulus: { chart: { type: "pie", title: "Monthly Budget Allocation", total: 50000, unit: "pounds", data: [{ label: "Payroll", percent: 52 }, { label: "Rent", percent: 18 }, { label: "Marketing", percent: 14 }, { label: "Equipment", percent: 10 }, { label: "Misc", percent: 6 }] } },
+    question: "Payroll accounts for more than half of the monthly budget.",
+    options: ["True", "False", "Not possible to say"],
+    answer: "True",
+    explanation: "Payroll is 52%. Since 52% is more than half (50%), the statement is True."
+  },
+
+  /* ---- Numerical: bar chart (Help desk tickets) ------------------------- */
+  {
+    id: "num-40", section: "numerical", topic: "read-off",
+    stimulus: { chart: { type: "bar", title: "Help Desk Tickets by Day", unit: "tickets logged", data: [{ label: "Mon", value: 48 }, { label: "Tue", value: 36 }, { label: "Wed", value: 30 }, { label: "Thu", value: 42 }, { label: "Fri", value: 24 }] } },
+    question: "On which day were the most tickets logged?",
+    options: ["Mon", "Tue", "Wed", "Thu", "Fri"],
+    answer: "Mon",
+    explanation: "The tallest bar is Monday at 48 tickets, more than any other day."
+  },
+  {
+    id: "num-41", section: "numerical", topic: "average",
+    stimulus: { chart: { type: "bar", title: "Help Desk Tickets by Day", unit: "tickets logged", data: [{ label: "Mon", value: 48 }, { label: "Tue", value: 36 }, { label: "Wed", value: 30 }, { label: "Thu", value: 42 }, { label: "Fri", value: 24 }] } },
+    question: "What was the mean number of tickets logged per day?",
+    options: ["30", "36", "40", "42", "180"],
+    answer: "36",
+    explanation: "Add the daily totals and divide by the number of days:\n  48 + 36 + 30 + 42 + 24 = 180\n  180 ÷ 5 = 36 tickets per day\n\nTrap: 180 is the weekly total, not the average."
+  },
+  {
+    id: "num-42", section: "numerical", topic: "share",
+    stimulus: { chart: { type: "bar", title: "Help Desk Tickets by Day", unit: "tickets logged", data: [{ label: "Mon", value: 48 }, { label: "Tue", value: 36 }, { label: "Wed", value: 30 }, { label: "Thu", value: 42 }, { label: "Fri", value: 24 }] } },
+    question: "What percentage of the week's tickets were logged on Friday?",
+    options: ["12%", "13%", "15%", "20%", "24%"],
+    answer: "13%",
+    explanation: "Step 1 - weekly total:\n  48 + 36 + 30 + 42 + 24 = 180\n\nStep 2 - Friday as a share of the whole:\n  24 ÷ 180 × 100\n  = 13.3%, which rounds to 13%"
+  },
+
+  /* ---- Numerical: table (Call centre performance) ----------------------- */
+  {
+    id: "num-43", section: "numerical", topic: "percentage-change",
+    stimulus: { table: { title: "Call Centre Performance", columns: ["Metric", "Target", "Actual"], rows: [["Calls Answered", "5,000", "5,400"], ["Avg Wait (sec)", "30", "36"], ["Satisfaction (%)", "90", "88"], ["Resolved First Call (%)", "75", "81"]] } },
+    question: "By what percentage did the number of calls answered exceed the target?",
+    options: ["4%", "7%", "8%", "9%", "10%"],
+    answer: "8%",
+    explanation: "Identify the cells:\n  Calls Answered target = 5,000, actual = 5,400\n\nFormula for percentage change:\n  (actual - target) ÷ target × 100\n\nCalculation:\n  (5,400 - 5,000) ÷ 5,000 × 100\n  = 400 ÷ 5,000 × 100\n  = 8%"
+  },
+  {
+    id: "num-44", section: "numerical", topic: "percentage-change",
+    stimulus: { table: { title: "Call Centre Performance", columns: ["Metric", "Target", "Actual"], rows: [["Calls Answered", "5,000", "5,400"], ["Avg Wait (sec)", "30", "36"], ["Satisfaction (%)", "90", "88"], ["Resolved First Call (%)", "75", "81"]] } },
+    question: "By what percentage did the average wait time exceed its target?",
+    options: ["6%", "16.7%", "17%", "20%", "25%"],
+    answer: "20%",
+    explanation: "Identify the cells:\n  Avg Wait target = 30 sec, actual = 36 sec\n\nFormula for percentage change:\n  (actual - target) ÷ target × 100\n\nCalculation:\n  (36 - 30) ÷ 30 × 100\n  = 6 ÷ 30 × 100\n  = 20%"
+  },
+  {
+    id: "num-45", section: "numerical", topic: "numerical-inference",
+    stimulus: { table: { title: "Call Centre Performance", columns: ["Metric", "Target", "Actual"], rows: [["Calls Answered", "5,000", "5,400"], ["Avg Wait (sec)", "30", "36"], ["Satisfaction (%)", "90", "88"], ["Resolved First Call (%)", "75", "81"]] } },
+    question: "Both satisfaction and first-call resolution met or exceeded their targets.",
+    options: ["True", "False", "Not possible to say"],
+    answer: "False",
+    explanation: "Compare each with its target:\n  Satisfaction: target 90, actual 88 (below target)\n  Resolved First Call: target 75, actual 81 (above target)\nSatisfaction missed its target, so it is not true that both met or exceeded. The statement is False."
+  },
+
+  /* ---- Numerical: table (Website conversions) --------------------------- */
+  {
+    id: "num-46", section: "numerical", topic: "share",
+    stimulus: { table: { title: "Quarterly Website Conversions", columns: ["Quarter", "Visitors", "Conversions"], rows: [["Q1", "20,000", "600"], ["Q2", "25,000", "1,000"], ["Q3", "22,000", "770"], ["Q4", "30,000", "1,200"]] } },
+    question: "What was the conversion rate (conversions as a percentage of visitors) in Q2?",
+    options: ["2.5%", "3%", "4%", "4.5%", "5%"],
+    answer: "4%",
+    explanation: "Identify the cells:\n  Q2 visitors = 25,000, conversions = 1,000\n\nFormula for conversion rate:\n  conversions ÷ visitors × 100\n\nCalculation:\n  1,000 ÷ 25,000 × 100\n  = 4%"
+  },
+  {
+    id: "num-47", section: "numerical", topic: "percentage-change",
+    stimulus: { table: { title: "Quarterly Website Conversions", columns: ["Quarter", "Visitors", "Conversions"], rows: [["Q1", "20,000", "600"], ["Q2", "25,000", "1,000"], ["Q3", "22,000", "770"], ["Q4", "30,000", "1,200"]] } },
+    question: "By what percentage did the number of conversions change from Q1 to Q4?",
+    options: ["50%", "60%", "100%", "150%", "200%"],
+    answer: "100%",
+    explanation: "Identify the cells:\n  Q1 conversions = 600, Q4 conversions = 1,200\n\nFormula for percentage change:\n  (new - original) ÷ original × 100\n\nCalculation:\n  (1,200 - 600) ÷ 600 × 100\n  = 600 ÷ 600 × 100\n  = 100% (the figure doubled)"
+  },
+  {
+    id: "num-48", section: "numerical", topic: "ratio",
+    stimulus: { table: { title: "Quarterly Website Conversions", columns: ["Quarter", "Visitors", "Conversions"], rows: [["Q1", "20,000", "600"], ["Q2", "25,000", "1,000"], ["Q3", "22,000", "770"], ["Q4", "30,000", "1,200"]] } },
+    question: "What is the ratio of Q1 visitors to Q4 visitors, in its simplest form?",
+    options: ["2:3", "3:2", "1:2", "3:4", "2:5"],
+    answer: "2:3",
+    explanation: "Identify the cells:\n  Q1 visitors = 20,000, Q4 visitors = 30,000\n\nWrite the ratio and simplify:\n  20,000 : 30,000\n  divide both sides by 10,000\n  = 2 : 3"
+  },
+
+  /* ---- Checking: Warehouse Stock Check (multi-select) ------------------- */
+  {
+    id: "chk-13", section: "error", topic: "error-checking", multi: true,
+    stimulus: { check: { title: "Warehouse Stock Check", columns: ["Item", "SKU", "Zone", "Quantity"], rows: [["Bolts M8", "SK-1180", "A", "540"], ["Gaskets", "SK-1181", "M", "120"], ["Sealant", "SK-1182", "C", "75"], ["Washers", "SK-1183", "A", "880"]], codingKey: "A = Aisle    M = Mezzanine    C = Cold Store", entryLabel: "Re-entered record", entry: ["Bolts M8", "SK-1180", "Aisle", "540"] } },
+    question: "Compare the re-entered record with the original stock check. Select every field that contains an error (or that the entire item is correct).",
+    options: ["The entire item is correct", "There is an error in the Item", "There is an error in the SKU", "There is an error in the Zone", "There is an error in the Quantity"],
+    answer: ["The entire item is correct"],
+    explanation: "Matching original row (Bolts M8):\n  Item: Bolts M8  (correct)\n  SKU: SK-1180  (correct)\n  Zone: code A = Aisle, re-entered 'Aisle'  (correct)\n  Quantity: 540  (correct)\nEvery field matches, so the entire item is correct."
+  },
+  {
+    id: "chk-14", section: "error", topic: "error-checking", multi: true,
+    stimulus: { check: { title: "Warehouse Stock Check", columns: ["Item", "SKU", "Zone", "Quantity"], rows: [["Bolts M8", "SK-1180", "A", "540"], ["Gaskets", "SK-1181", "M", "120"], ["Sealant", "SK-1182", "C", "75"], ["Washers", "SK-1183", "A", "880"]], codingKey: "A = Aisle    M = Mezzanine    C = Cold Store", entryLabel: "Re-entered record", entry: ["Gaskets", "SK-1181", "Mezzanine", "210"] } },
+    question: "Compare the re-entered record with the original stock check. Select every field that contains an error (or that the entire item is correct).",
+    options: ["The entire item is correct", "There is an error in the Item", "There is an error in the SKU", "There is an error in the Zone", "There is an error in the Quantity"],
+    answer: ["There is an error in the Quantity"],
+    explanation: "Matching original row (Gaskets):\n  Item: Gaskets  (correct)\n  SKU: SK-1181  (correct)\n  Zone: code M = Mezzanine, re-entered 'Mezzanine'  (correct)\n  Quantity: original 120, re-entered 210  (ERROR - the digits are wrong)\nOnly the Quantity contains an error."
+  },
+  {
+    id: "chk-15", section: "error", topic: "error-checking", multi: true,
+    stimulus: { check: { title: "Warehouse Stock Check", columns: ["Item", "SKU", "Zone", "Quantity"], rows: [["Bolts M8", "SK-1180", "A", "540"], ["Gaskets", "SK-1181", "M", "120"], ["Sealant", "SK-1182", "C", "75"], ["Washers", "SK-1183", "A", "880"]], codingKey: "A = Aisle    M = Mezzanine    C = Cold Store", entryLabel: "Re-entered record", entry: ["Sealant", "SK-1182", "Aisle", "75"] } },
+    question: "Compare the re-entered record with the original stock check. Select every field that contains an error (or that the entire item is correct).",
+    options: ["The entire item is correct", "There is an error in the Item", "There is an error in the SKU", "There is an error in the Zone", "There is an error in the Quantity"],
+    answer: ["There is an error in the Zone"],
+    explanation: "Matching original row (Sealant):\n  Item: Sealant  (correct)\n  SKU: SK-1182  (correct)\n  Zone: code C = Cold Store, but re-entered 'Aisle'  (ERROR - wrong zone after decoding)\n  Quantity: 75  (correct)\nOnly the Zone contains an error."
+  },
+  {
+    id: "chk-16", section: "error", topic: "error-checking", multi: true,
+    stimulus: { check: { title: "Warehouse Stock Check", columns: ["Item", "SKU", "Zone", "Quantity"], rows: [["Bolts M8", "SK-1180", "A", "540"], ["Gaskets", "SK-1181", "M", "120"], ["Sealant", "SK-1182", "C", "75"], ["Washers", "SK-1183", "A", "880"]], codingKey: "A = Aisle    M = Mezzanine    C = Cold Store", entryLabel: "Re-entered record", entry: ["Washers", "SK-1138", "Aisle", "808"] } },
+    question: "Compare the re-entered record with the original stock check. Select every field that contains an error (or that the entire item is correct).",
+    options: ["The entire item is correct", "There is an error in the Item", "There is an error in the SKU", "There is an error in the Zone", "There is an error in the Quantity"],
+    answer: ["There is an error in the SKU", "There is an error in the Quantity"],
+    explanation: "Matching original row (Washers):\n  Item: Washers  (correct)\n  SKU: original SK-1183, re-entered SK-1138  (ERROR - the 8 and 3 are transposed)\n  Zone: code A = Aisle, re-entered 'Aisle'  (correct)\n  Quantity: original 880, re-entered 808  (ERROR - the digits are transposed)\nThere are two errors: the SKU and the Quantity."
+  },
+
+  /* ---- Checking: Flight Booking Log (multi-select) ---------------------- */
+  {
+    id: "chk-17", section: "error", topic: "error-checking", multi: true,
+    stimulus: { check: { title: "Flight Booking Log", columns: ["Passenger", "Booking Ref", "Class", "Departure"], rows: [["Lena Vogt", "BK-7203", "Y", "09:40"], ["Omar Haddad", "BK-7204", "J", "14:15"], ["Sara Lindqvist", "BK-7205", "W", "06:50"], ["Raj Patel", "BK-7206", "Y", "21:05"]], codingKey: "Y = Economy    W = Premium    J = Business", entryLabel: "Re-entered record", entry: ["Lena Vogt", "BK-7203", "Economy", "09:40"] } },
+    question: "Compare the re-entered record with the original booking log. Select every field that contains an error (or that the entire item is correct).",
+    options: ["The entire item is correct", "There is an error in the Passenger", "There is an error in the Booking Ref", "There is an error in the Class", "There is an error in the Departure"],
+    answer: ["The entire item is correct"],
+    explanation: "Matching original row (Lena Vogt):\n  Passenger: Lena Vogt  (correct)\n  Booking Ref: BK-7203  (correct)\n  Class: code Y = Economy, re-entered 'Economy'  (correct)\n  Departure: 09:40  (correct)\nEvery field matches, so the entire item is correct."
+  },
+  {
+    id: "chk-18", section: "error", topic: "error-checking", multi: true,
+    stimulus: { check: { title: "Flight Booking Log", columns: ["Passenger", "Booking Ref", "Class", "Departure"], rows: [["Lena Vogt", "BK-7203", "Y", "09:40"], ["Omar Haddad", "BK-7204", "J", "14:15"], ["Sara Lindqvist", "BK-7205", "W", "06:50"], ["Raj Patel", "BK-7206", "Y", "21:05"]], codingKey: "Y = Economy    W = Premium    J = Business", entryLabel: "Re-entered record", entry: ["Omar Haddad", "BK-7204", "Business", "14:51"] } },
+    question: "Compare the re-entered record with the original booking log. Select every field that contains an error (or that the entire item is correct).",
+    options: ["The entire item is correct", "There is an error in the Passenger", "There is an error in the Booking Ref", "There is an error in the Class", "There is an error in the Departure"],
+    answer: ["There is an error in the Departure"],
+    explanation: "Matching original row (Omar Haddad):\n  Passenger: Omar Haddad  (correct)\n  Booking Ref: BK-7204  (correct)\n  Class: code J = Business, re-entered 'Business'  (correct)\n  Departure: original 14:15, re-entered 14:51  (ERROR - the minutes are transposed)\nOnly the Departure contains an error."
+  },
+  {
+    id: "chk-19", section: "error", topic: "error-checking", multi: true,
+    stimulus: { check: { title: "Flight Booking Log", columns: ["Passenger", "Booking Ref", "Class", "Departure"], rows: [["Lena Vogt", "BK-7203", "Y", "09:40"], ["Omar Haddad", "BK-7204", "J", "14:15"], ["Sara Lindqvist", "BK-7205", "W", "06:50"], ["Raj Patel", "BK-7206", "Y", "21:05"]], codingKey: "Y = Economy    W = Premium    J = Business", entryLabel: "Re-entered record", entry: ["Sara Lindqvist", "BK-7205", "Economy", "06:50"] } },
+    question: "Compare the re-entered record with the original booking log. Select every field that contains an error (or that the entire item is correct).",
+    options: ["The entire item is correct", "There is an error in the Passenger", "There is an error in the Booking Ref", "There is an error in the Class", "There is an error in the Departure"],
+    answer: ["There is an error in the Class"],
+    explanation: "Matching original row (Sara Lindqvist):\n  Passenger: Sara Lindqvist  (correct)\n  Booking Ref: BK-7205  (correct)\n  Class: code W = Premium, but re-entered 'Economy'  (ERROR - wrong class after decoding)\n  Departure: 06:50  (correct)\nOnly the Class contains an error."
+  },
+  {
+    id: "chk-20", section: "error", topic: "error-checking", multi: true,
+    stimulus: { check: { title: "Flight Booking Log", columns: ["Passenger", "Booking Ref", "Class", "Departure"], rows: [["Lena Vogt", "BK-7203", "Y", "09:40"], ["Omar Haddad", "BK-7204", "J", "14:15"], ["Sara Lindqvist", "BK-7205", "W", "06:50"], ["Raj Patel", "BK-7206", "Y", "21:05"]], codingKey: "Y = Economy    W = Premium    J = Business", entryLabel: "Re-entered record", entry: ["Raj Patel", "BK-7260", "Economy", "21:05"] } },
+    question: "Compare the re-entered record with the original booking log. Select every field that contains an error (or that the entire item is correct).",
+    options: ["The entire item is correct", "There is an error in the Passenger", "There is an error in the Booking Ref", "There is an error in the Class", "There is an error in the Departure"],
+    answer: ["There is an error in the Booking Ref"],
+    explanation: "Matching original row (Raj Patel):\n  Passenger: Raj Patel  (correct)\n  Booking Ref: original BK-7206, re-entered BK-7260  (ERROR - the 0 and 6 are transposed)\n  Class: code Y = Economy, re-entered 'Economy'  (correct)\n  Departure: 21:05  (correct)\nOnly the Booking Ref contains an error."
+  },
+
+  /* ---- Checking: Patient Appointment List (multi-select) ---------------- */
+  {
+    id: "chk-21", section: "error", topic: "error-checking", multi: true,
+    stimulus: { check: { title: "Patient Appointment List", columns: ["Patient", "NHS No", "Clinic", "Time"], rows: [["George Mills", "NH-44120", "C", "10:00"], ["Fatima Noor", "NH-44121", "D", "11:30"], ["Liam Walsh", "NH-44122", "O", "13:15"], ["Yuki Tanaka", "NH-44123", "C", "15:45"]], codingKey: "C = Cardiology    D = Dermatology    O = Orthopaedics", entryLabel: "Re-entered record", entry: ["George Mills", "NH-44120", "Cardiology", "10:00"] } },
+    question: "Compare the re-entered record with the original appointment list. Select every field that contains an error (or that the entire item is correct).",
+    options: ["The entire item is correct", "There is an error in the Patient", "There is an error in the NHS No", "There is an error in the Clinic", "There is an error in the Time"],
+    answer: ["The entire item is correct"],
+    explanation: "Matching original row (George Mills):\n  Patient: George Mills  (correct)\n  NHS No: NH-44120  (correct)\n  Clinic: code C = Cardiology, re-entered 'Cardiology'  (correct)\n  Time: 10:00  (correct)\nEvery field matches, so the entire item is correct."
+  },
+  {
+    id: "chk-22", section: "error", topic: "error-checking", multi: true,
+    stimulus: { check: { title: "Patient Appointment List", columns: ["Patient", "NHS No", "Clinic", "Time"], rows: [["George Mills", "NH-44120", "C", "10:00"], ["Fatima Noor", "NH-44121", "D", "11:30"], ["Liam Walsh", "NH-44122", "O", "13:15"], ["Yuki Tanaka", "NH-44123", "C", "15:45"]], codingKey: "C = Cardiology    D = Dermatology    O = Orthopaedics", entryLabel: "Re-entered record", entry: ["Fatima Noor", "NH-44211", "Dermatology", "11:30"] } },
+    question: "Compare the re-entered record with the original appointment list. Select every field that contains an error (or that the entire item is correct).",
+    options: ["The entire item is correct", "There is an error in the Patient", "There is an error in the NHS No", "There is an error in the Clinic", "There is an error in the Time"],
+    answer: ["There is an error in the NHS No"],
+    explanation: "Matching original row (Fatima Noor):\n  Patient: Fatima Noor  (correct)\n  NHS No: original NH-44121, re-entered NH-44211  (ERROR - the digits are transposed)\n  Clinic: code D = Dermatology, re-entered 'Dermatology'  (correct)\n  Time: 11:30  (correct)\nOnly the NHS No contains an error."
+  },
+  {
+    id: "chk-23", section: "error", topic: "error-checking", multi: true,
+    stimulus: { check: { title: "Patient Appointment List", columns: ["Patient", "NHS No", "Clinic", "Time"], rows: [["George Mills", "NH-44120", "C", "10:00"], ["Fatima Noor", "NH-44121", "D", "11:30"], ["Liam Walsh", "NH-44122", "O", "13:15"], ["Yuki Tanaka", "NH-44123", "C", "15:45"]], codingKey: "C = Cardiology    D = Dermatology    O = Orthopaedics", entryLabel: "Re-entered record", entry: ["Liam Walsh", "NH-44122", "Orthopaedics", "13:51"] } },
+    question: "Compare the re-entered record with the original appointment list. Select every field that contains an error (or that the entire item is correct).",
+    options: ["The entire item is correct", "There is an error in the Patient", "There is an error in the NHS No", "There is an error in the Clinic", "There is an error in the Time"],
+    answer: ["There is an error in the Time"],
+    explanation: "Matching original row (Liam Walsh):\n  Patient: Liam Walsh  (correct)\n  NHS No: NH-44122  (correct)\n  Clinic: code O = Orthopaedics, re-entered 'Orthopaedics'  (correct)\n  Time: original 13:15, re-entered 13:51  (ERROR - the minutes are transposed)\nOnly the Time contains an error."
+  },
+  {
+    id: "chk-24", section: "error", topic: "error-checking", multi: true,
+    stimulus: { check: { title: "Patient Appointment List", columns: ["Patient", "NHS No", "Clinic", "Time"], rows: [["George Mills", "NH-44120", "C", "10:00"], ["Fatima Noor", "NH-44121", "D", "11:30"], ["Liam Walsh", "NH-44122", "O", "13:15"], ["Yuki Tanaka", "NH-44123", "C", "15:45"]], codingKey: "C = Cardiology    D = Dermatology    O = Orthopaedics", entryLabel: "Re-entered record", entry: ["Yuki Tanaka", "NH-44123", "Dermatology", "15:45"] } },
+    question: "Compare the re-entered record with the original appointment list. Select every field that contains an error (or that the entire item is correct).",
+    options: ["The entire item is correct", "There is an error in the Patient", "There is an error in the NHS No", "There is an error in the Clinic", "There is an error in the Time"],
+    answer: ["There is an error in the Clinic"],
+    explanation: "Matching original row (Yuki Tanaka):\n  Patient: Yuki Tanaka  (correct)\n  NHS No: NH-44123  (correct)\n  Clinic: code C = Cardiology, but re-entered 'Dermatology'  (ERROR - wrong clinic after decoding)\n  Time: 15:45  (correct)\nOnly the Clinic contains an error."
   }
 
 ];

@@ -71,6 +71,38 @@ const isAnswered = (a) => a != null && (!Array.isArray(a) || a.length > 0);
 // Is this answer correct, for either single- or multi-select questions?
 const isCorrect = (q, a) => (isMulti(q) ? setsEqual(a, q.answer) : a === q.answer);
 
+// Fisher-Yates shuffle (in place).
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// A key identifying the shared stimulus, so questions about the same passage,
+// table, chart or checking record stay together when we randomise order.
+function stimulusKey(q) {
+  const s = q.stimulus || {};
+  if (s.passage) return "p:" + s.passage;
+  if (s.table) return "t:" + JSON.stringify(s.table);
+  if (s.chart) return "c:" + JSON.stringify(s.chart);
+  if (s.check) return "k:" + s.check.title + JSON.stringify(s.check.columns) + JSON.stringify(s.check.rows);
+  return "id:" + q.id; // legacy single records: each its own group
+}
+
+// Randomise question order while keeping stimulus groups intact (and the
+// questions within a group in their authored order).
+function shuffleByStimulus(questions) {
+  const groups = new Map();
+  questions.forEach((q) => {
+    const k = stimulusKey(q);
+    if (!groups.has(k)) groups.set(k, []);
+    groups.get(k).push(q);
+  });
+  return shuffle([...groups.values()]).flat();
+}
+
 // Read the editable per-question times from the home inputs (falling back to CONFIG).
 function readTimerSettings() {
   const get = (id, def) => {
@@ -168,14 +200,16 @@ function buildQuiz(mode) {
   // mode: "verbal" | "numerical" | "error" | "mock"
   let questions;
   if (mode === "mock") {
-    // Mixed mock: keep sections grouped (stimulus stays together), in order.
+    // Mixed mock: sections stay in order, but the stimulus groups within each
+    // section are randomised every session.
     questions = [
-      ...QUESTIONS.filter((q) => q.section === "verbal"),
-      ...QUESTIONS.filter((q) => q.section === "numerical"),
-      ...QUESTIONS.filter((q) => q.section === "error")
+      ...shuffleByStimulus(QUESTIONS.filter((q) => q.section === "verbal")),
+      ...shuffleByStimulus(QUESTIONS.filter((q) => q.section === "numerical")),
+      ...shuffleByStimulus(QUESTIONS.filter((q) => q.section === "error"))
     ];
   } else {
-    questions = QUESTIONS.filter((q) => q.section === mode);
+    // Single section: randomise the stimulus groups each session.
+    questions = shuffleByStimulus(QUESTIONS.filter((q) => q.section === mode));
   }
 
   const times = readTimerSettings();

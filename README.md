@@ -38,6 +38,9 @@ There are no dependencies to install.
 ### Features
 
 - **Modes:** practice a single section, or a full mixed mock.
+- **Randomised order:** each session shuffles the question order. Whole stimulus groups (a
+  passage and its questions, a table/chart and its questions, a checking record) stay together,
+  but the groups appear in a different order every time.
 - **Study mode** (toggle on the home screen): untimed, with explanations shown immediately
   after each answer - for when you're first learning.
 - **Timed mode:** two live countdowns - a **Question** timer (resets each question, and shows
