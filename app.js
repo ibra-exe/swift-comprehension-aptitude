@@ -616,6 +616,87 @@ function optionKeys(q) {
 }
 
 /* ==========================================================================
+   ACCESS GATE (password lock)
+   --------------------------------------------------------------------------
+   A simple front-door password so the practice app isn't open to anyone with
+   the link. The password is stored only as a SHA-256 hash (never in plain
+   text). To change it, run this in the browser console and paste the result
+   into AUTH.hash below:
+     crypto.subtle.digest('SHA-256', new TextEncoder().encode('YOUR-PASSWORD'))
+       .then(b => console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')))
+
+   NOTE: this is a client-side gate. It keeps casual visitors out, but it is
+   not strong security - see the README for the real options.
+   ========================================================================== */
+const AUTH = {
+  // SHA-256 of the access password (default password: "swift-access-2026").
+  hash: "9534e45ee8beae29df8507483dea1c8328ce520cb2ef89e461afb5427d687232",
+  sessionKey: "sc-unlocked"
+};
+
+function isUnlocked() {
+  try { return sessionStorage.getItem(AUTH.sessionKey) === "1"; } catch { return false; }
+}
+async function sha256Hex(text) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+const LOCK_ICON = `
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <rect x="4" y="10" width="16" height="11" rx="2.5"/>
+    <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+    <circle cx="12" cy="15.5" r="1.4" fill="currentColor" stroke="none"/>
+  </svg>`;
+
+function renderLock() {
+  state = null;
+  app.innerHTML = `
+    <div class="lock-wrap">
+      <section class="lock-card" id="lock-card">
+        <div class="lock-badge">${LOCK_ICON}</div>
+        <h1 class="lock-title">Restricted Access</h1>
+        <p class="lock-sub">This Swift Comprehension practice app is private. Enter the access password to continue.</p>
+        <form class="lock-form" id="lock-form" autocomplete="off" novalidate>
+          <input class="lock-input" id="lock-input" type="password" placeholder="Access password"
+                 autocomplete="current-password" aria-label="Access password" />
+          <button class="enter-btn" type="submit" id="lock-btn">Unlock →</button>
+        </form>
+        <p class="lock-error" id="lock-error" role="alert" hidden>Incorrect password. Please try again.</p>
+      </section>
+      <footer class="sig">
+        <span class="sig-text" id="sig-text"></span><span class="sig-alien" id="sig-alien">${ALIEN_SVG}</span><span class="sig-cursor">_</span>
+      </footer>
+    </div>
+  `;
+
+  const form = $("#lock-form");
+  const input = $("#lock-input");
+  const errEl = $("#lock-error");
+  const card = $("#lock-card");
+  if (input) input.focus();
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const val = input.value || "";
+    let ok = false;
+    try { ok = (await sha256Hex(val)) === AUTH.hash; } catch { ok = false; }
+    if (ok) {
+      try { sessionStorage.setItem(AUTH.sessionKey, "1"); } catch {}
+      renderLanding();
+    } else {
+      errEl.hidden = false;
+      card.classList.remove("shake");
+      void card.offsetWidth;       // restart the animation
+      card.classList.add("shake");
+      input.select();
+    }
+  });
+
+  runSignature();
+}
+
+/* ==========================================================================
    RENDERING - LANDING (the homepage; leads to the mode-select screen)
    ========================================================================== */
 
@@ -1106,4 +1187,5 @@ document.addEventListener("keydown", (e) => {
    BOOT
    ========================================================================== */
 initTheme();
-renderLanding();
+if (isUnlocked()) renderLanding();
+else renderLock();

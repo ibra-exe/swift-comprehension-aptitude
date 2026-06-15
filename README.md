@@ -85,6 +85,33 @@ shows an on-screen reminder. Use your device calculator freely while practising 
 
 ---
 
+## Access password (lock screen)
+
+The app opens on a password lock screen; entering the correct password reveals the landing page
+and the rest of the app. The default password is **`swift-access-2026`** — change it.
+
+- The password is stored only as a **SHA-256 hash** in `app.js` (the constant `AUTH.hash`), never
+  in plain text.
+- To set a new password, run this in the browser console and paste the result into `AUTH.hash`:
+
+  ```js
+  crypto.subtle.digest('SHA-256', new TextEncoder().encode('YOUR-PASSWORD'))
+    .then(b => console.log([...new Uint8Array(b)].map(x => x.toString(16).padStart(2,'0')).join('')))
+  ```
+
+- The unlock is remembered for the browser session (`sessionStorage`), so closing the tab
+  re-locks the app.
+
+> **Security note:** this is a *client-side* gate. It keeps casual visitors out, but it is **not**
+> real access control — this repo is public, so anyone can read the source (including the questions)
+> directly on GitHub, and a determined user could bypass the gate. For genuine "authorized people
+> only" access you need either a private repo on a host that supports authenticated pages
+> (e.g. Netlify password protection, Cloudflare Access) or content encrypted with the password so
+> the published files are unreadable without it. Happy to set either of those up.
+
+The lock screen needs `crypto.subtle`, which requires a secure context — it works on the hosted
+HTTPS site and on `http://127.0.0.1`, but not when opening `index.html` directly via `file://`.
+
 ## Changing the timer
 
 All timing lives in **one place**: the `CONFIG` object at the top of `app.js`.
