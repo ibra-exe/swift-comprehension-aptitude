@@ -37,7 +37,15 @@ There are no dependencies to install.
 
 ### Features
 
-- **Modes:** practice a single section, or a full mixed mock.
+- **Modes:** practice a single section (Verbal, Numerical, Error Checking), or take the
+  **Real Mock Test**.
+- **Real Mock Test:** a full exam simulation that mirrors the official structure and timings -
+  Verbal (2 testlets of 4 questions, 2:00 each), Numerical (2 testlets of 4, 2:00 each) and
+  Checking (8 questions, 1:30) = 24 questions in ~9.5 minutes. Each section is separately timed;
+  when its time runs out you move straight to the next one. Always timed (study mode is ignored).
+  Questions are drawn at random from the bank each attempt.
+- **Section indicator:** the header always shows which section you're on (e.g. "Section 2 of 5")
+  during the mock, and the section name during single-section practice.
 - **Randomised order:** each session shuffles the question order. Whole stimulus groups (a
   passage and its questions, a table/chart and its questions, a checking record) stay together,
   but the groups appear in a different order every time.

@@ -200,27 +200,21 @@ function initTheme() {
 /* ==========================================================================
    QUIZ SETUP
    ========================================================================== */
+// Study mode applies to single-section practice only. The real mock is always
+// timed (real rules), so study is suppressed while a mock is running.
+function inStudy() { return studyMode && !(state && state.mock); }
+
 function buildQuiz(mode) {
   // mode: "verbal" | "numerical" | "error" | "mock"
-  let questions;
-  if (mode === "mock") {
-    // Mixed mock: sections stay in order, but the stimulus groups within each
-    // section are randomised every session.
-    questions = [
-      ...shuffleByStimulus(QUESTIONS.filter((q) => q.section === "verbal")),
-      ...shuffleByStimulus(QUESTIONS.filter((q) => q.section === "numerical")),
-      ...shuffleByStimulus(QUESTIONS.filter((q) => q.section === "error"))
-    ];
-  } else {
-    // Single section: randomise the stimulus groups each session.
-    questions = shuffleByStimulus(QUESTIONS.filter((q) => q.section === mode));
-  }
+  if (mode === "mock") return buildMock();
 
+  // Single section: randomise the stimulus groups each session.
+  const questions = shuffleByStimulus(QUESTIONS.filter((q) => q.section === mode));
   const times = readTimerSettings();
   const totalSeconds = questions.reduce((sum, q) => sum + times[q.section], 0);
 
   state = {
-    mode,
+    mode, mock: false,
     questions,
     idx: 0,
     answers: new Array(questions.length).fill(null), // selected option string or null
@@ -232,7 +226,89 @@ function buildQuiz(mode) {
     timerId: null
   };
 
-  if (!studyMode) startTimer();
+  if (!inStudy()) startTimer();
+  renderQuiz();
+}
+
+/* ==========================================================================
+   REAL MOCK TEST  (official structure & timings)
+   --------------------------------------------------------------------------
+   Mirrors the real Saville Swift Comprehension:
+     Verbal    - 2 testlets of 4 questions, 2:00 each
+     Numerical - 2 testlets of 4 questions, 2:00 each
+     Checking  - 1 section of 8 questions, 1:30
+   = 24 questions in ~9.5 minutes. Each block is separately timed; when a
+   block's time runs out you move straight to the next one (no going back).
+   ========================================================================== */
+const MOCK = {
+  verbal:    { testlets: 2, size: 4, time: 120 },
+  numerical: { testlets: 2, size: 4, time: 120 },
+  error:     { groups: 2, size: 4, time: 90 } // two 4-item tables = one 8-question section
+};
+
+// Random stimulus groups for a section, optionally filtered to a minimum size.
+function stimulusGroups(section, minSize) {
+  const map = new Map();
+  QUESTIONS.filter((q) => q.section === section).forEach((q) => {
+    const k = stimulusKey(q);
+    if (!map.has(k)) map.set(k, []);
+    map.get(k).push(q);
+  });
+  let groups = [...map.values()];
+  if (minSize) groups = groups.filter((g) => g.length >= minSize);
+  return shuffle(groups);
+}
+
+function buildMock() {
+  const blocks = [];
+
+  const vg = stimulusGroups("verbal", MOCK.verbal.size);
+  for (let i = 0; i < MOCK.verbal.testlets && i < vg.length; i++) {
+    blocks.push({ section: "verbal", timeLimit: MOCK.verbal.time, questions: vg[i].slice(0, MOCK.verbal.size) });
+  }
+
+  const ng = stimulusGroups("numerical", MOCK.numerical.size);
+  for (let i = 0; i < MOCK.numerical.testlets && i < ng.length; i++) {
+    blocks.push({ section: "numerical", timeLimit: MOCK.numerical.time, questions: ng[i].slice(0, MOCK.numerical.size) });
+  }
+
+  const cg = stimulusGroups("error", MOCK.error.size);
+  let checkQs = [];
+  for (let i = 0; i < MOCK.error.groups && i < cg.length; i++) checkQs = checkQs.concat(cg[i].slice(0, MOCK.error.size));
+  if (checkQs.length) blocks.push({ section: "error", timeLimit: MOCK.error.time, questions: checkQs });
+
+  // Flatten into one question list, recording each question's block.
+  const questions = [], qBlock = [], blockStart = [];
+  blocks.forEach((b, bi) => {
+    blockStart[bi] = questions.length;
+    b.questions.forEach((q) => { questions.push(q); qBlock.push(bi); });
+  });
+
+  state = {
+    mode: "mock", mock: true,
+    blocks, blockIdx: 0, qBlock, blockStart,
+    questions,
+    idx: 0,
+    answers: new Array(questions.length).fill(null),
+    revealed: false,
+    startedAt: Date.now(),
+    blockStartedAt: Date.now(),
+    timeUsed: 0,
+    timerId: null,
+    totalSeconds: blocks.reduce((s, b) => s + b.timeLimit, 0)
+  };
+  startTimer();
+  renderQuiz();
+}
+
+// Move to the next mock block (or finish). Unanswered questions in the block
+// just stay unanswered.
+function advanceBlock() {
+  state.blockIdx++;
+  if (state.blockIdx >= state.blocks.length) { endQuiz(); return; }
+  state.idx = state.blockStart[state.blockIdx];
+  state.blockStartedAt = Date.now();
+  state.revealed = false;
   renderQuiz();
 }
 
@@ -247,12 +323,14 @@ function startTimer() {
 // across the questions however you like.
 function updateTimers() {
   if (!state) return;
-  const remaining = state.totalSeconds - (Date.now() - state.startedAt) / 1000;
+  const remaining = state.mock
+    ? state.blocks[state.blockIdx].timeLimit - (Date.now() - state.blockStartedAt) / 1000
+    : state.totalSeconds - (Date.now() - state.startedAt) / 1000;
   const sEl = document.getElementById("timer");
   const sPill = document.getElementById("s-pill");
   if (sEl) sEl.textContent = fmtTime(remaining);
   if (sPill) sPill.classList.toggle("warn", remaining <= 15);
-  if (remaining <= 0) endQuiz();
+  if (remaining <= 0) { if (state.mock) advanceBlock(); else endQuiz(); }
 }
 function stopTimer() {
   if (state && state.timerId) { clearInterval(state.timerId); state.timerId = null; }
@@ -267,7 +345,7 @@ function selectOption(value) {
   if (isMulti(q)) {
     // Toggle a field in the selection. The first option ("entire item is
     // correct") is mutually exclusive with the error options.
-    if (studyMode && state.revealed) return; // locked once checked
+    if (inStudy() && state.revealed) return; // locked once checked
     const allCorrect = q.options[0];
     let sel = Array.isArray(state.answers[state.idx]) ? state.answers[state.idx].slice() : [];
     if (value === allCorrect) {
@@ -282,7 +360,7 @@ function selectOption(value) {
   }
 
   // Single-select.
-  if (studyMode) {
+  if (inStudy()) {
     if (state.revealed) return;       // lock once answered
     state.answers[state.idx] = value;
     state.revealed = true;
@@ -301,6 +379,15 @@ function revealMulti() {
 
 function next() {
   state.revealed = false;
+  if (state.mock) {
+    // In a mock, finishing the last question of a block jumps to the next block
+    // (which resets that block's own timer).
+    const lastInBlock = state.idx >= state.questions.length - 1 ||
+      state.qBlock[state.idx] !== state.qBlock[state.idx + 1];
+    if (lastInBlock) advanceBlock();
+    else { state.idx++; renderQuiz(); }
+    return;
+  }
   if (state.idx >= state.questions.length - 1) {
     endQuiz();
   } else {
@@ -316,7 +403,7 @@ function prev() {
 function endQuiz() {
   stopTimer();
   const elapsed = (Date.now() - state.startedAt) / 1000;
-  state.timeUsed = studyMode ? elapsed : Math.min(elapsed, state.totalSeconds);
+  state.timeUsed = inStudy() ? elapsed : Math.min(elapsed, state.totalSeconds);
   renderResults();
 }
 
@@ -629,11 +716,11 @@ function renderHome() {
           <span class="t">Error Checking</span>
           <span class="d">${counts.error} questions · spot the copy errors</span>
         </button>
-        <button class="mode-btn" data-mode="mock">
-          <span class="t">Full Mixed Mock</span>
-          <span class="d">${counts.verbal + counts.numerical + counts.error} questions · all sections, timed</span>
-        </button>
       </div>
+      <button class="mode-btn mock-btn" data-mode="mock">
+        <span class="t">▶ Real Mock Test</span>
+        <span class="d">Full exam simulation: 24 questions in ~9.5 min, with real rules and section timings (Verbal 2×4 in 2:00, Numerical 2×4 in 2:00, Checking 8 in 1:30). Always timed.</span>
+      </button>
     </div>
 
     <div class="card">
@@ -699,7 +786,8 @@ function renderQuiz() {
   const n = state.questions.length;
   const selected = state.answers[state.idx];
   const keys = optionKeys(q);
-  const showExplain = studyMode && state.revealed;
+  const study = inStudy();
+  const showExplain = study && state.revealed;
 
   const multi = isMulti(q);
   const selArr = multi ? (Array.isArray(selected) ? selected : []) : [];
@@ -721,7 +809,7 @@ function renderQuiz() {
     </button>`;
   }).join("");
 
-  const timerHtml = studyMode
+  const timerHtml = study
     ? `<span class="timer study">Study mode · untimed</span>`
     : `<div class="timers">
          <div class="timer-pill" id="s-pill" title="Time left for the whole section">
@@ -750,12 +838,27 @@ function renderQuiz() {
       </div>`;
   }
 
+  // Section indicator: in a mock, show which section/testlet you're on; in
+  // single-section practice, name the section.
+  let progressHtml, barPct;
+  if (state.mock) {
+    const b = state.blocks[state.blockIdx];
+    const posInBlock = state.idx - state.blockStart[state.blockIdx] + 1;
+    progressHtml = `<span class="seclabel">Section ${state.blockIdx + 1} of ${state.blocks.length}</span>` +
+      `<span class="progress">${SECTION_LABEL[b.section]} · Q${posInBlock} of ${b.questions.length}</span>`;
+    barPct = ((state.idx - state.blockStart[state.blockIdx]) / b.questions.length) * 100;
+  } else {
+    progressHtml = `<span class="seclabel">${SECTION_LABEL[q.section]}</span>` +
+      `<span class="progress">Q${state.idx + 1} of ${n}</span>`;
+    barPct = (state.idx / n) * 100;
+  }
+
   app.innerHTML = `
     <div class="quiz-head">
-      <span class="progress">${SECTION_LABEL[q.section]} · Q${state.idx + 1} of ${n}</span>
+      <div class="head-left">${progressHtml}</div>
       ${timerHtml}
     </div>
-    <div class="progress-bar"><i style="width:${((state.idx) / n) * 100}%"></i></div>
+    <div class="progress-bar"><i style="width:${barPct}%"></i></div>
 
     <div class="card">
       ${renderStimulus(q)}
@@ -770,8 +873,8 @@ function renderQuiz() {
     </div>
   `;
 
-  // Re-prime both timers immediately (the interval also keeps them fresh).
-  if (!studyMode) updateTimers();
+  // Re-prime the timer immediately (the interval also keeps it fresh).
+  if (!study) updateTimers();
 
   app.querySelectorAll(".opt").forEach((b) =>
     b.addEventListener("click", () => selectOption(b.dataset.opt))
@@ -785,8 +888,15 @@ function renderQuiz() {
 
 // The nav buttons differ for single- vs multi-select and study vs timed.
 function navHtml(q, multi, n) {
-  const lastLabel = state.idx >= n - 1 ? "Finish" : "Next →";
-  if (studyMode) {
+  // Work out the right "advance" label, including mock section boundaries.
+  let nextLabel = state.idx >= n - 1 ? "Finish" : "Next →";
+  if (state.mock) {
+    const lastInBlock = state.idx >= n - 1 || state.qBlock[state.idx] !== state.qBlock[state.idx + 1];
+    const lastBlock = state.blockIdx >= state.blocks.length - 1;
+    nextLabel = lastInBlock ? (lastBlock ? "Finish" : "Next section →") : "Next →";
+  }
+
+  if (inStudy()) {
     const back = state.idx > 0 ? `<button class="ghost" id="prev-btn">Back</button>` : "";
     if (multi && !state.revealed) {
       // Must check the multi-select answer before moving on.
@@ -795,13 +905,14 @@ function navHtml(q, multi, n) {
         <button class="primary" id="check-btn" ${ready ? "" : "disabled"}>Check answer</button></div>`;
     }
     return `<div style="display:flex;gap:10px">${back}
-      <button class="primary" id="next-btn" ${state.revealed ? "" : "disabled"}>${lastLabel}</button></div>`;
+      <button class="primary" id="next-btn" ${state.revealed ? "" : "disabled"}>${nextLabel}</button></div>`;
   }
   // Timed: single-select auto-advances on pick, so only a Skip button is needed.
-  // Multi-select needs an explicit Next to submit the selection.
+  // Multi-select needs an explicit Next/Finish to submit the selection.
+  const skipLabel = (state.mock && nextLabel.includes("section")) ? "Skip section →" : "Skip →";
   return multi
-    ? `<button class="primary" id="next-btn">${lastLabel}</button>`
-    : `<button class="ghost" id="skip-btn">Skip →</button>`;
+    ? `<button class="primary" id="next-btn">${nextLabel}</button>`
+    : `<button class="ghost" id="skip-btn">${skipLabel}</button>`;
 }
 
 /* ==========================================================================
@@ -856,7 +967,7 @@ function renderResults() {
       <p class="small muted" style="margin-top:0">
         Attempted ${r.attempted} of ${r.total} ·
         ${r.attempted ? r.secPerQ.toFixed(1) + "s per question" : "-"} ·
-        time used ${fmtTime(r.timeUsed)}${studyMode ? " (study mode, untimed)" : ""}
+        time used ${fmtTime(r.timeUsed)}${inStudy() ? " (study mode, untimed)" : ""}
       </p>
       <h3>Per-section breakdown</h3>
       ${sectionRows}
@@ -930,17 +1041,18 @@ document.addEventListener("keydown", (e) => {
   if (!q) return;
   const multi = isMulti(q);
 
+  const study = inStudy();
   // Enter: advance after a revealed explanation; otherwise submit/check.
   if (e.key === "Enter") {
-    if (studyMode && state.revealed) { e.preventDefault(); next(); return; }
+    if (study && state.revealed) { e.preventDefault(); next(); return; }
     if (multi) {
       e.preventDefault();
-      if (studyMode) { if (isAnswered(state.answers[state.idx])) revealMulti(); }
+      if (study) { if (isAnswered(state.answers[state.idx])) revealMulti(); }
       else next();
       return;
     }
   }
-  if (studyMode && state.revealed) return;  // answer already locked this screen
+  if (study && state.revealed) return;  // answer already locked this screen
 
   const k = e.key.toLowerCase();
   let chosen = null;

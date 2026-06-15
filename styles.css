@@ -176,6 +176,16 @@ button:disabled { opacity: .5; cursor: default; }
 .mode-btn .t { font-weight: 600; font-size: 17px; display: block; }
 .mode-btn .d { color: var(--ink-soft); font-size: 13px; }
 
+/* Real Mock Test: full-width, accented call-to-action below the practice grid */
+.mock-btn {
+  width: 100%;
+  margin-top: 12px;
+  border: 1.5px solid color-mix(in srgb, var(--brand) 45%, transparent);
+  background: color-mix(in srgb, var(--brand) 10%, var(--surface));
+}
+.mock-btn:hover { border-color: var(--brand); background: color-mix(in srgb, var(--brand) 16%, var(--surface)); }
+.mock-btn .t { color: var(--brand); font-size: 18px; }
+
 .settings-row {
   display: flex;
   align-items: center;
@@ -224,7 +234,15 @@ button:disabled { opacity: .5; cursor: default; }
   margin-bottom: 14px;
   padding-right: 52px; /* clear the fixed theme-toggle in the corner */
 }
+.quiz-head .head-left { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .quiz-head .progress { font-size: 14px; color: var(--ink-soft); }
+.quiz-head .seclabel {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
 .timer {
   font-variant-numeric: tabular-nums;
   font-weight: 700;
