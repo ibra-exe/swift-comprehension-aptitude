@@ -691,6 +691,15 @@ function runSignature() {
   })();
 }
 
+// Inline SVG icons for the mode cards (theme via currentColor).
+const ICONS = {
+  verbal: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2.5"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg>`,
+  numerical: `<svg viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="11" width="3.6" height="9" rx="1"/><rect x="10.2" y="5" width="3.6" height="15" rx="1"/><rect x="16.4" y="14" width="3.6" height="6" rx="1"/></svg>`,
+  error: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6"/><line x1="15" y1="15" x2="20" y2="20"/><polyline points="8,10.5 10,12.5 13.5,8.5"/></svg>`,
+  all: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 16l9 5 9-5"/></svg>`,
+  mock: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l11-6.5a1 1 0 0 0 0-1.72l-11-6.5A1 1 0 0 0 8 5.5z"/></svg>`
+};
+
 /* ==========================================================================
    RENDERING - HOME
    ========================================================================== */
@@ -716,25 +725,30 @@ function renderHome() {
       <h3 style="margin-top:0">Choose a mode</h3>
       <div class="mode-grid">
         <button class="mode-btn" data-mode="verbal">
-          <span class="t">Verbal Reasoning</span>
-          <span class="d">${counts.verbal} questions · True / False / Cannot Say</span>
+          <span class="mode-ic ic-verbal">${ICONS.verbal}</span>
+          <span class="mode-tx"><span class="t">Verbal Reasoning</span>
+          <span class="d">${counts.verbal} questions · True / False / Cannot Say</span></span>
         </button>
         <button class="mode-btn" data-mode="numerical">
-          <span class="t">Numerical Reasoning</span>
-          <span class="d">${counts.numerical} questions · tables & charts (calculator allowed)</span>
+          <span class="mode-ic ic-numerical">${ICONS.numerical}</span>
+          <span class="mode-tx"><span class="t">Numerical Reasoning</span>
+          <span class="d">${counts.numerical} questions · tables & charts (calculator allowed)</span></span>
         </button>
         <button class="mode-btn" data-mode="error">
-          <span class="t">Error Checking</span>
-          <span class="d">${counts.error} questions · spot the copy errors</span>
+          <span class="mode-ic ic-error">${ICONS.error}</span>
+          <span class="mode-tx"><span class="t">Error Checking</span>
+          <span class="d">${counts.error} questions · spot the copy errors</span></span>
         </button>
         <button class="mode-btn" data-mode="all">
-          <span class="t">Full Deck Test</span>
-          <span class="d">All ${counts.verbal + counts.numerical + counts.error} questions · every section, one run</span>
+          <span class="mode-ic ic-all">${ICONS.all}</span>
+          <span class="mode-tx"><span class="t">Full Deck Test</span>
+          <span class="d">All ${counts.verbal + counts.numerical + counts.error} questions · every section, one run</span></span>
         </button>
       </div>
       <button class="mode-btn mock-btn" data-mode="mock">
-        <span class="t">▶ Real Mock Test</span>
-        <span class="d">Full exam simulation: 24 questions in ~9.5 min, with real rules and section timings (Verbal 2×4 in 2:00, Numerical 2×4 in 2:00, Checking 8 in 1:30). Always timed.</span>
+        <span class="mode-ic ic-mock">${ICONS.mock}</span>
+        <span class="mode-tx"><span class="t">Real Mock Test</span>
+        <span class="d">Full exam simulation: 24 questions in ~9.5 min, with real rules and section timings (Verbal 2×4 in 2:00, Numerical 2×4 in 2:00, Checking 8 in 1:30). Always timed.</span></span>
       </button>
     </div>
 
