@@ -399,9 +399,12 @@ function renderStimulus(q, { reviewDiff = false } = {}) {
   return "";
 }
 
-// Renders a pie chart as inline SVG (no libraries, fully offline).
+// Renders a chart as inline SVG (no libraries, fully offline).
 const CHART_COLORS = ["#5b82ff", "#43c47e", "#e0a23a", "#c879e6", "#ef6f6c", "#3fc1c9"];
 function renderChart(chart) {
+  return chart.type === "bar" ? renderBar(chart) : renderPie(chart);
+}
+function renderPie(chart) {
   const r = 92, cx = 110, cy = 110;
   let acc = 0;
   const slices = chart.data.map((d, i) => {
@@ -426,6 +429,32 @@ function renderChart(chart) {
       ${chart.total != null ? `<div class="chart-sub">Total: ${esc(String(chart.total))}${chart.unit ? " " + esc(chart.unit) : ""}</div>` : ""}
       <svg viewBox="0 0 220 220" class="pie" role="img">${slices}</svg>
       <div class="legend">${legend}</div>
+    </div>`;
+}
+
+// Renders a simple vertical bar chart as inline SVG.
+function renderBar(chart) {
+  const data = chart.data;
+  const max = Math.max(...data.map((d) => d.value));
+  const W = 340, H = 210, pad = 30, gap = 16, n = data.length;
+  const bw = (W - pad * 2 - gap * (n - 1)) / n;
+  const bars = data.map((d, i) => {
+    const h = max > 0 ? (d.value / max) * (H - pad * 2) : 0;
+    const x = pad + i * (bw + gap);
+    const y = H - pad - h;
+    return `
+      <rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="3" fill="${CHART_COLORS[i % CHART_COLORS.length]}"/>
+      <text x="${(x + bw / 2).toFixed(1)}" y="${(y - 6).toFixed(1)}" text-anchor="middle" class="bar-val">${esc(String(d.value))}</text>
+      <text x="${(x + bw / 2).toFixed(1)}" y="${(H - pad + 16).toFixed(1)}" text-anchor="middle" class="bar-lbl">${esc(d.label)}</text>`;
+  }).join("");
+  return `
+    <div class="chart-wrap">
+      ${chart.title ? `<div class="chart-title">${esc(chart.title)}</div>` : ""}
+      ${chart.unit ? `<div class="chart-sub">${esc(chart.unit)}</div>` : ""}
+      <svg viewBox="0 0 ${W} ${H + 12}" class="bar-chart" role="img">
+        <line x1="${pad}" y1="${H - pad}" x2="${W - pad}" y2="${H - pad}" stroke="var(--line)"/>
+        ${bars}
+      </svg>
     </div>`;
 }
 

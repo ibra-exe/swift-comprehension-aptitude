@@ -1135,6 +1135,808 @@ const QUESTIONS = [
     ],
     explanation:
       "Matching original row (Dana Olsen):\n  Driver: Dana Olsen  (correct)\n  Vehicle Reg: original 'GT18 KLM', re-entered 'GT18 KLN'  (ERROR - last letter changed)\n  Type: code S = Saloon, but re-entered 'Van'  (ERROR - wrong vehicle type after decoding)\n  Service Date: 30/01  (correct)\nThere are two errors: the Vehicle Reg and the Type."
+  },
+
+  /* ======================================================================
+   * EXPANDED BANK (original content, modelled on the real test's formats)
+   * ==================================================================== */
+
+  /* ---- Verbal: Passage C (Flexible hours) ------------------------------- */
+  {
+    id: "verb-17",
+    section: "verbal",
+    topic: "verbal-synonym",
+    stimulus: {
+      passage:
+        "A growing number of employers now offer flexible working hours, allowing staff to choose their own start and finish times within agreed limits. Supporters of the arrangement point to improved morale and a reduction in commuting during peak periods. The company in this case introduced flexible hours for its head-office staff only, leaving shift-based roles in its warehouses unchanged. A review after twelve months found that unplanned absences had fallen, though the report stressed that this finding could not be attributed to the new policy alone."
+    },
+    question: "Which one of the following would best replace 'stressed' while keeping the meaning of the passage?",
+    options: ["emphasised", "doubted", "ignored", "repeated"],
+    answer: "emphasised",
+    explanation:
+      "Here 'stressed' means the report made a point of highlighting something. 'Emphasised' carries that meaning. 'Doubted' and 'ignored' reverse it, and 'repeated' adds an idea the passage does not state."
+  },
+  {
+    id: "verb-18",
+    section: "verbal",
+    topic: "verbal-detail",
+    stimulus: {
+      passage:
+        "A growing number of employers now offer flexible working hours, allowing staff to choose their own start and finish times within agreed limits. Supporters of the arrangement point to improved morale and a reduction in commuting during peak periods. The company in this case introduced flexible hours for its head-office staff only, leaving shift-based roles in its warehouses unchanged. A review after twelve months found that unplanned absences had fallen, though the report stressed that this finding could not be attributed to the new policy alone."
+    },
+    question: "For which group did this company introduce flexible hours?",
+    options: ["Head-office staff only", "Warehouse shift workers", "All employees", "Temporary staff"],
+    answer: "Head-office staff only",
+    explanation:
+      "The passage states flexible hours were introduced 'for its head-office staff only, leaving shift-based roles in its warehouses unchanged'. Only the head-office option is supported."
+  },
+  {
+    id: "verb-19",
+    section: "verbal",
+    topic: "verbal-inference",
+    stimulus: {
+      passage:
+        "A growing number of employers now offer flexible working hours, allowing staff to choose their own start and finish times within agreed limits. Supporters of the arrangement point to improved morale and a reduction in commuting during peak periods. The company in this case introduced flexible hours for its head-office staff only, leaving shift-based roles in its warehouses unchanged. A review after twelve months found that unplanned absences had fallen, though the report stressed that this finding could not be attributed to the new policy alone."
+    },
+    question: "Unplanned absences fell during the twelve-month review period.",
+    options: [
+      "True on the basis of the passage",
+      "False on the basis of the passage",
+      "Not possible to say on the basis of the passage"
+    ],
+    answer: "True on the basis of the passage",
+    explanation:
+      "The review 'found that unplanned absences had fallen', which directly supports the statement, so it is True."
+  },
+  {
+    id: "verb-20",
+    section: "verbal",
+    topic: "verbal-inference",
+    stimulus: {
+      passage:
+        "A growing number of employers now offer flexible working hours, allowing staff to choose their own start and finish times within agreed limits. Supporters of the arrangement point to improved morale and a reduction in commuting during peak periods. The company in this case introduced flexible hours for its head-office staff only, leaving shift-based roles in its warehouses unchanged. A review after twelve months found that unplanned absences had fallen, though the report stressed that this finding could not be attributed to the new policy alone."
+    },
+    question: "The flexible-hours policy was the main cause of the fall in absences.",
+    options: [
+      "True on the basis of the passage",
+      "False on the basis of the passage",
+      "Not possible to say on the basis of the passage"
+    ],
+    answer: "Not possible to say on the basis of the passage",
+    explanation:
+      "The report stressed the fall 'could not be attributed to the new policy alone'. That means the cause is uncertain, so we cannot say the policy was the main cause. The answer is Not possible to say."
+  },
+
+  /* ---- Verbal: Passage D (Customer feedback) ---------------------------- */
+  {
+    id: "verb-21",
+    section: "verbal",
+    topic: "verbal-synonym",
+    stimulus: {
+      passage:
+        "After receiving complaints about slow responses, a retailer replaced its email-only support with a combined system offering live chat, telephone and email. Customers using live chat reported the highest satisfaction, largely because queries were resolved in a single conversation. Telephone support remained popular with older customers. The retailer noted that the new system increased staffing costs, but argued that the improvement in customer retention more than offset this expense."
+    },
+    question: "Which one of the following would best replace 'offset' while keeping the meaning of the passage?",
+    options: ["counterbalanced", "increased", "delayed", "recorded"],
+    answer: "counterbalanced",
+    explanation:
+      "To 'offset' an expense means to balance it out with a gain. 'Counterbalanced' preserves that meaning. The other options change the sense entirely."
+  },
+  {
+    id: "verb-22",
+    section: "verbal",
+    topic: "verbal-detail",
+    stimulus: {
+      passage:
+        "After receiving complaints about slow responses, a retailer replaced its email-only support with a combined system offering live chat, telephone and email. Customers using live chat reported the highest satisfaction, largely because queries were resolved in a single conversation. Telephone support remained popular with older customers. The retailer noted that the new system increased staffing costs, but argued that the improvement in customer retention more than offset this expense."
+    },
+    question: "Which support channel did the retailer use before the change?",
+    options: ["Email only", "Live chat only", "Telephone only", "Social media only"],
+    answer: "Email only",
+    explanation:
+      "The passage says the retailer 'replaced its email-only support' with the new combined system, so before the change it used email only."
+  },
+  {
+    id: "verb-23",
+    section: "verbal",
+    topic: "verbal-inference",
+    stimulus: {
+      passage:
+        "After receiving complaints about slow responses, a retailer replaced its email-only support with a combined system offering live chat, telephone and email. Customers using live chat reported the highest satisfaction, largely because queries were resolved in a single conversation. Telephone support remained popular with older customers. The retailer noted that the new system increased staffing costs, but argued that the improvement in customer retention more than offset this expense."
+    },
+    question: "The new support system increased the retailer's staffing costs.",
+    options: [
+      "True on the basis of the passage",
+      "False on the basis of the passage",
+      "Not possible to say on the basis of the passage"
+    ],
+    answer: "True on the basis of the passage",
+    explanation:
+      "The retailer 'noted that the new system increased staffing costs', which directly supports the statement, so it is True."
+  },
+  {
+    id: "verb-24",
+    section: "verbal",
+    topic: "verbal-inference",
+    stimulus: {
+      passage:
+        "After receiving complaints about slow responses, a retailer replaced its email-only support with a combined system offering live chat, telephone and email. Customers using live chat reported the highest satisfaction, largely because queries were resolved in a single conversation. Telephone support remained popular with older customers. The retailer noted that the new system increased staffing costs, but argued that the improvement in customer retention more than offset this expense."
+    },
+    question: "Live chat is the cheapest of the three channels to operate.",
+    options: [
+      "True on the basis of the passage",
+      "False on the basis of the passage",
+      "Not possible to say on the basis of the passage"
+    ],
+    answer: "Not possible to say on the basis of the passage",
+    explanation:
+      "The passage discusses satisfaction and overall staffing costs but gives no per-channel running cost. There is no basis to compare the channels' costs, so the answer is Not possible to say."
+  },
+
+  /* ---- Verbal: Passage E (Apprenticeship scheme) ------------------------ */
+  {
+    id: "verb-25",
+    section: "verbal",
+    topic: "verbal-synonym",
+    stimulus: {
+      passage:
+        "A manufacturing firm launched an apprenticeship scheme to address a shortage of skilled technicians. Apprentices spend four days a week on the factory floor and one day at a local college. The firm covers all college fees and pays a training wage that rises each year of the programme. Of the first group of apprentices, the large majority completed the scheme and were offered permanent roles. Managers credit the scheme with reducing the firm's reliance on agency staff."
+    },
+    question: "Which one of the following would best replace 'reliance' while keeping the meaning of the passage?",
+    options: ["dependence", "distrust", "payment", "demand"],
+    answer: "dependence",
+    explanation:
+      "'Reliance' on agency staff means depending on them. 'Dependence' keeps this meaning exactly; the other options do not."
+  },
+  {
+    id: "verb-26",
+    section: "verbal",
+    topic: "verbal-detail",
+    stimulus: {
+      passage:
+        "A manufacturing firm launched an apprenticeship scheme to address a shortage of skilled technicians. Apprentices spend four days a week on the factory floor and one day at a local college. The firm covers all college fees and pays a training wage that rises each year of the programme. Of the first group of apprentices, the large majority completed the scheme and were offered permanent roles. Managers credit the scheme with reducing the firm's reliance on agency staff."
+    },
+    question: "How is the apprentices' week split?",
+    options: [
+      "Four days on the factory floor and one day at college",
+      "Three days on the factory floor and two days at college",
+      "Five days on the factory floor",
+      "Two days on the factory floor and three days at college"
+    ],
+    answer: "Four days on the factory floor and one day at college",
+    explanation:
+      "The passage states apprentices 'spend four days a week on the factory floor and one day at a local college'."
+  },
+  {
+    id: "verb-27",
+    section: "verbal",
+    topic: "verbal-inference",
+    stimulus: {
+      passage:
+        "A manufacturing firm launched an apprenticeship scheme to address a shortage of skilled technicians. Apprentices spend four days a week on the factory floor and one day at a local college. The firm covers all college fees and pays a training wage that rises each year of the programme. Of the first group of apprentices, the large majority completed the scheme and were offered permanent roles. Managers credit the scheme with reducing the firm's reliance on agency staff."
+    },
+    question: "The firm pays the apprentices' college fees.",
+    options: [
+      "True on the basis of the passage",
+      "False on the basis of the passage",
+      "Not possible to say on the basis of the passage"
+    ],
+    answer: "True on the basis of the passage",
+    explanation:
+      "The passage states 'The firm covers all college fees', which directly supports the statement, so it is True."
+  },
+  {
+    id: "verb-28",
+    section: "verbal",
+    topic: "verbal-inference",
+    stimulus: {
+      passage:
+        "A manufacturing firm launched an apprenticeship scheme to address a shortage of skilled technicians. Apprentices spend four days a week on the factory floor and one day at a local college. The firm covers all college fees and pays a training wage that rises each year of the programme. Of the first group of apprentices, the large majority completed the scheme and were offered permanent roles. Managers credit the scheme with reducing the firm's reliance on agency staff."
+    },
+    question: "Most of the first group of apprentices completed the scheme.",
+    options: [
+      "True on the basis of the passage",
+      "False on the basis of the passage",
+      "Not possible to say on the basis of the passage"
+    ],
+    answer: "True on the basis of the passage",
+    explanation:
+      "The passage states 'the large majority completed the scheme'. A large majority is most of them, so the statement is True."
+  },
+
+  /* ---- Numerical: bar chart (Units sold by region) ---------------------- */
+  {
+    id: "num-19",
+    section: "numerical",
+    topic: "read-off",
+    stimulus: {
+      chart: {
+        type: "bar",
+        title: "Units Sold by Region",
+        unit: "units (this quarter)",
+        data: [
+          { label: "North", value: 320 },
+          { label: "South", value: 240 },
+          { label: "East", value: 180 },
+          { label: "West", value: 260 }
+        ]
+      }
+    },
+    question: "Which region sold the fewest units this quarter?",
+    options: ["North", "South", "East", "West"],
+    answer: "East",
+    explanation:
+      "Compare the bar heights / values:\n  North 320, South 240, East 180, West 260\nThe shortest bar is East at 180 units."
+  },
+  {
+    id: "num-20",
+    section: "numerical",
+    topic: "share",
+    stimulus: {
+      chart: {
+        type: "bar",
+        title: "Units Sold by Region",
+        unit: "units (this quarter)",
+        data: [
+          { label: "North", value: 320 },
+          { label: "South", value: 240 },
+          { label: "East", value: 180 },
+          { label: "West", value: 260 }
+        ]
+      }
+    },
+    question: "What percentage of total units were sold in the North?",
+    options: ["24%", "26%", "30%", "32%", "36%"],
+    answer: "32%",
+    explanation:
+      "Step 1 - total units:\n  320 + 240 + 180 + 260 = 1000\n\nStep 2 - North as a share of the whole (part / total x 100):\n  320 / 1000 x 100\n  = 32%"
+  },
+  {
+    id: "num-21",
+    section: "numerical",
+    topic: "ratio",
+    stimulus: {
+      chart: {
+        type: "bar",
+        title: "Units Sold by Region",
+        unit: "units (this quarter)",
+        data: [
+          { label: "North", value: 320 },
+          { label: "South", value: 240 },
+          { label: "East", value: 180 },
+          { label: "West", value: 260 }
+        ]
+      }
+    },
+    question: "What is the ratio of South units to West units, in its simplest form?",
+    options: ["12:13", "13:12", "6:5", "4:5", "5:6"],
+    answer: "12:13",
+    explanation:
+      "Identify the values:\n  South 240, West 260\n\nWrite the ratio and simplify:\n  240 : 260\n  divide both sides by 20\n  = 12 : 13\n\nOrder matters: South is named first, so the answer is 12 : 13."
+  },
+  {
+    id: "num-22",
+    section: "numerical",
+    topic: "forward-percentage",
+    stimulus: {
+      chart: {
+        type: "bar",
+        title: "Units Sold by Region",
+        unit: "units (this quarter)",
+        data: [
+          { label: "North", value: 320 },
+          { label: "South", value: 240 },
+          { label: "East", value: 180 },
+          { label: "West", value: 260 }
+        ]
+      }
+    },
+    question: "If North sales rise by 15% next quarter, how many units would that be?",
+    options: ["272", "335", "352", "368", "384"],
+    answer: "368",
+    explanation:
+      "Identify the value:\n  North = 320 units\n\nFormula for a forward percentage increase:\n  original x (1 + rate)\n\nCalculation:\n  320 x 1.15\n  = 368 units\n\nTrap: 272 is a 15% decrease (320 x 0.85), the wrong direction."
+  },
+
+  /* ---- Numerical: table (Monthly operating expenses) -------------------- */
+  {
+    id: "num-23",
+    section: "numerical",
+    topic: "average",
+    stimulus: {
+      table: {
+        title: "Monthly Operating Expenses (£)",
+        columns: ["Category", "Amount"],
+        rows: [
+          ["Rent", "4,200"],
+          ["Salaries", "18,600"],
+          ["Utilities", "1,450"],
+          ["Supplies", "980"],
+          ["Marketing", "2,770"]
+        ]
+      }
+    },
+    question: "What is the average (mean) spend across the five expense categories?",
+    options: ["£5,200", "£5,600", "£6,000", "£14,000", "£28,000"],
+    answer: "£5,600",
+    explanation:
+      "Identify the values:\n  4,200 + 18,600 + 1,450 + 980 + 2,770 = £28,000\n\nFormula for the mean:\n  total ÷ number of categories\n\nCalculation:\n  28,000 ÷ 5 = £5,600\n\nTrap: £28,000 is the total, not the average."
+  },
+  {
+    id: "num-24",
+    section: "numerical",
+    topic: "share",
+    stimulus: {
+      table: {
+        title: "Monthly Operating Expenses (£)",
+        columns: ["Category", "Amount"],
+        rows: [
+          ["Rent", "4,200"],
+          ["Salaries", "18,600"],
+          ["Utilities", "1,450"],
+          ["Supplies", "980"],
+          ["Marketing", "2,770"]
+        ]
+      }
+    },
+    question: "What percentage of total expenses is spent on Rent?",
+    options: ["10%", "12%", "15%", "18%", "21%"],
+    answer: "15%",
+    explanation:
+      "Step 1 - total expenses:\n  4,200 + 18,600 + 1,450 + 980 + 2,770 = £28,000\n\nStep 2 - Rent as a share of the whole (part / total x 100):\n  4,200 / 28,000 x 100\n  = 15%"
+  },
+  {
+    id: "num-25",
+    section: "numerical",
+    topic: "share",
+    stimulus: {
+      table: {
+        title: "Monthly Operating Expenses (£)",
+        columns: ["Category", "Amount"],
+        rows: [
+          ["Rent", "4,200"],
+          ["Salaries", "18,600"],
+          ["Utilities", "1,450"],
+          ["Supplies", "980"],
+          ["Marketing", "2,770"]
+        ]
+      }
+    },
+    question: "Approximately what fraction of total expenses goes on Salaries?",
+    options: ["One-third", "One-half", "Two-thirds", "Three-quarters", "Four-fifths"],
+    answer: "Two-thirds",
+    explanation:
+      "Salaries are £18,600 of the £28,000 total.\n  18,600 ÷ 28,000 = 0.664, or about 66%\n\n66% is approximately two-thirds (which is 66.7%), so two-thirds is the closest fraction."
+  },
+
+  /* ---- Numerical: pie chart (Survey reasons) ---------------------------- */
+  {
+    id: "num-26",
+    section: "numerical",
+    topic: "read-off",
+    stimulus: {
+      chart: {
+        type: "pie",
+        title: "Primary Reason for Purchase",
+        total: 800,
+        unit: "respondents",
+        data: [
+          { label: "Price", percent: 40 },
+          { label: "Quality", percent: 28 },
+          { label: "Brand", percent: 16 },
+          { label: "Recommendation", percent: 10 },
+          { label: "Other", percent: 6 }
+        ]
+      }
+    },
+    question: "Which reason was the second most commonly cited?",
+    options: ["Price", "Quality", "Brand", "Recommendation", "Other"],
+    answer: "Quality",
+    explanation:
+      "Rank the slices:\n  Price 40% (most common)\n  Quality 28% (second)\n  Brand 16%, Recommendation 10%, Other 6%\nThe second most common reason is Quality."
+  },
+  {
+    id: "num-27",
+    section: "numerical",
+    topic: "share",
+    stimulus: {
+      chart: {
+        type: "pie",
+        title: "Primary Reason for Purchase",
+        total: 800,
+        unit: "respondents",
+        data: [
+          { label: "Price", percent: 40 },
+          { label: "Quality", percent: 28 },
+          { label: "Brand", percent: 16 },
+          { label: "Recommendation", percent: 10 },
+          { label: "Other", percent: 6 }
+        ]
+      }
+    },
+    question: "How many respondents cited Quality as their primary reason?",
+    options: ["28", "112", "208", "224", "280"],
+    answer: "224",
+    explanation:
+      "Identify the value:\n  Quality = 28% of the 800 respondents\n\nFormula for a part of the whole:\n  percent ÷ 100 × total\n\nCalculation:\n  28 ÷ 100 × 800\n  = 0.28 × 800\n  = 224 respondents\n\nTrap: '28' is just the percentage, not the count."
+  },
+  {
+    id: "num-28",
+    section: "numerical",
+    topic: "numerical-inference",
+    stimulus: {
+      chart: {
+        type: "pie",
+        title: "Primary Reason for Purchase",
+        total: 800,
+        unit: "respondents",
+        data: [
+          { label: "Price", percent: 40 },
+          { label: "Quality", percent: 28 },
+          { label: "Brand", percent: 16 },
+          { label: "Recommendation", percent: 10 },
+          { label: "Other", percent: 6 }
+        ]
+      }
+    },
+    question: "More respondents cited Price than cited Quality and Brand combined.",
+    options: ["True", "False", "Not possible to say"],
+    answer: "False",
+    explanation:
+      "Compare Price with Quality + Brand:\n  Price = 40%\n  Quality + Brand = 28% + 16% = 44%\n40% is less than 44%, so the statement is False."
+  },
+
+  /* ---- Numerical: table (Training hours) -------------------------------- */
+  {
+    id: "num-29",
+    section: "numerical",
+    topic: "percentage-change",
+    stimulus: {
+      table: {
+        title: "Staff Training Hours by Department",
+        columns: ["Department", "2023", "2024"],
+        rows: [
+          ["Sales", "120", "150"],
+          ["Support", "90", "81"],
+          ["Tech", "200", "260"],
+          ["Admin", "60", "75"]
+        ]
+      }
+    },
+    question: "By what percentage did the Tech department's training hours change from 2023 to 2024?",
+    options: ["23%", "25%", "30%", "33%", "60%"],
+    answer: "30%",
+    explanation:
+      "Identify the cells:\n  Tech 2023 = 200, 2024 = 260\n\nFormula for percentage change:\n  (new - original) ÷ original × 100\n\nCalculation:\n  (260 - 200) ÷ 200 × 100\n  = 60 ÷ 200 × 100\n  = 30%\n\nTrap: dividing by 260 (the new value) gives 23%."
+  },
+  {
+    id: "num-30",
+    section: "numerical",
+    topic: "percentage-change",
+    stimulus: {
+      table: {
+        title: "Staff Training Hours by Department",
+        columns: ["Department", "2023", "2024"],
+        rows: [
+          ["Sales", "120", "150"],
+          ["Support", "90", "81"],
+          ["Tech", "200", "260"],
+          ["Admin", "60", "75"]
+        ]
+      }
+    },
+    question: "What was the change in the Support department's training hours from 2023 to 2024?",
+    options: ["9% decrease", "10% decrease", "11% decrease", "10% increase", "90% decrease"],
+    answer: "10% decrease",
+    explanation:
+      "Identify the cells:\n  Support 2023 = 90, 2024 = 81\n\nFormula for percentage change:\n  (new - original) ÷ original × 100\n\nCalculation:\n  (81 - 90) ÷ 90 × 100\n  = -9 ÷ 90 × 100\n  = -10%\n\nThe negative sign means a 10% decrease."
+  },
+  {
+    id: "num-31",
+    section: "numerical",
+    topic: "ratio",
+    stimulus: {
+      table: {
+        title: "Staff Training Hours by Department",
+        columns: ["Department", "2023", "2024"],
+        rows: [
+          ["Sales", "120", "150"],
+          ["Support", "90", "81"],
+          ["Tech", "200", "260"],
+          ["Admin", "60", "75"]
+        ]
+      }
+    },
+    question: "In 2024, what is the ratio of Sales training hours to Admin training hours, in its simplest form?",
+    options: ["2:1", "1:2", "3:1", "5:2", "2:3"],
+    answer: "2:1",
+    explanation:
+      "Identify the cells (2024):\n  Sales 150, Admin 75\n\nWrite the ratio and simplify:\n  150 : 75\n  divide both sides by 75\n  = 2 : 1"
+  },
+  {
+    id: "num-32",
+    section: "numerical",
+    topic: "numerical-inference",
+    stimulus: {
+      table: {
+        title: "Staff Training Hours by Department",
+        columns: ["Department", "2023", "2024"],
+        rows: [
+          ["Sales", "120", "150"],
+          ["Support", "90", "81"],
+          ["Tech", "200", "260"],
+          ["Admin", "60", "75"]
+        ]
+      }
+    },
+    question: "Every department's training hours increased from 2023 to 2024.",
+    options: ["True", "False", "Not possible to say"],
+    answer: "False",
+    explanation:
+      "Check each department:\n  Sales 120 -> 150 (up)\n  Support 90 -> 81 (DOWN)\n  Tech 200 -> 260 (up)\n  Admin 60 -> 75 (up)\nSupport fell, so it is not true that every department increased. The statement is False."
+  },
+
+  /* ---- Checking: Order Dispatch Log (multi-select) ---------------------- */
+  {
+    id: "chk-05",
+    section: "error",
+    topic: "error-checking",
+    multi: true,
+    stimulus: {
+      check: {
+        title: "Order Dispatch Log",
+        columns: ["Customer", "Order Ref", "Status", "Dispatch Date"],
+        rows: [
+          ["Hannah Reed", "OD-4471", "D", "12/04"],
+          ["Marco Bianchi", "OD-4472", "P", "15/04"],
+          ["Priya Shah", "OD-4473", "D", "18/04"],
+          ["Tomas Klein", "OD-4474", "R", "02/05"]
+        ],
+        codingKey: "P = Pending    D = Dispatched    R = Returned",
+        entryLabel: "Re-entered record",
+        entry: ["Hannah Reed", "OD-4471", "Dispatched", "12/04"]
+      }
+    },
+    question: "Compare the re-entered record with the original log. Select every field that contains an error (or that the entire item is correct).",
+    options: [
+      "The entire item is correct",
+      "There is an error in the Customer",
+      "There is an error in the Order Ref",
+      "There is an error in the Status",
+      "There is an error in the Dispatch Date"
+    ],
+    answer: ["The entire item is correct"],
+    explanation:
+      "Matching original row (Hannah Reed):\n  Customer: Hannah Reed  (correct)\n  Order Ref: OD-4471  (correct)\n  Status: code D = Dispatched, re-entered 'Dispatched'  (correct)\n  Dispatch Date: 12/04  (correct)\nEvery field matches, so the entire item is correct."
+  },
+  {
+    id: "chk-06",
+    section: "error",
+    topic: "error-checking",
+    multi: true,
+    stimulus: {
+      check: {
+        title: "Order Dispatch Log",
+        columns: ["Customer", "Order Ref", "Status", "Dispatch Date"],
+        rows: [
+          ["Hannah Reed", "OD-4471", "D", "12/04"],
+          ["Marco Bianchi", "OD-4472", "P", "15/04"],
+          ["Priya Shah", "OD-4473", "D", "18/04"],
+          ["Tomas Klein", "OD-4474", "R", "02/05"]
+        ],
+        codingKey: "P = Pending    D = Dispatched    R = Returned",
+        entryLabel: "Re-entered record",
+        entry: ["Marco Bianchi", "OD-4742", "Pending", "15/04"]
+      }
+    },
+    question: "Compare the re-entered record with the original log. Select every field that contains an error (or that the entire item is correct).",
+    options: [
+      "The entire item is correct",
+      "There is an error in the Customer",
+      "There is an error in the Order Ref",
+      "There is an error in the Status",
+      "There is an error in the Dispatch Date"
+    ],
+    answer: ["There is an error in the Order Ref"],
+    explanation:
+      "Matching original row (Marco Bianchi):\n  Customer: Marco Bianchi  (correct)\n  Order Ref: original OD-4472, re-entered OD-4742  (ERROR - the 4 and 7 are transposed)\n  Status: code P = Pending, re-entered 'Pending'  (correct)\n  Dispatch Date: 15/04  (correct)\nOnly the Order Ref contains an error."
+  },
+  {
+    id: "chk-07",
+    section: "error",
+    topic: "error-checking",
+    multi: true,
+    stimulus: {
+      check: {
+        title: "Order Dispatch Log",
+        columns: ["Customer", "Order Ref", "Status", "Dispatch Date"],
+        rows: [
+          ["Hannah Reed", "OD-4471", "D", "12/04"],
+          ["Marco Bianchi", "OD-4472", "P", "15/04"],
+          ["Priya Shah", "OD-4473", "D", "18/04"],
+          ["Tomas Klein", "OD-4474", "R", "02/05"]
+        ],
+        codingKey: "P = Pending    D = Dispatched    R = Returned",
+        entryLabel: "Re-entered record",
+        entry: ["Priya Shah", "OD-4473", "Returned", "18/04"]
+      }
+    },
+    question: "Compare the re-entered record with the original log. Select every field that contains an error (or that the entire item is correct).",
+    options: [
+      "The entire item is correct",
+      "There is an error in the Customer",
+      "There is an error in the Order Ref",
+      "There is an error in the Status",
+      "There is an error in the Dispatch Date"
+    ],
+    answer: ["There is an error in the Status"],
+    explanation:
+      "Matching original row (Priya Shah):\n  Customer: Priya Shah  (correct)\n  Order Ref: OD-4473  (correct)\n  Status: code D = Dispatched, but re-entered 'Returned'  (ERROR - wrong status after decoding)\n  Dispatch Date: 18/04  (correct)\nOnly the Status contains an error."
+  },
+  {
+    id: "chk-08",
+    section: "error",
+    topic: "error-checking",
+    multi: true,
+    stimulus: {
+      check: {
+        title: "Order Dispatch Log",
+        columns: ["Customer", "Order Ref", "Status", "Dispatch Date"],
+        rows: [
+          ["Hannah Reed", "OD-4471", "D", "12/04"],
+          ["Marco Bianchi", "OD-4472", "P", "15/04"],
+          ["Priya Shah", "OD-4473", "D", "18/04"],
+          ["Tomas Klein", "OD-4474", "R", "02/05"]
+        ],
+        codingKey: "P = Pending    D = Dispatched    R = Returned",
+        entryLabel: "Re-entered record",
+        entry: ["Tomas Klien", "OD-4474", "Returned", "20/05"]
+      }
+    },
+    question: "Compare the re-entered record with the original log. Select every field that contains an error (or that the entire item is correct).",
+    options: [
+      "The entire item is correct",
+      "There is an error in the Customer",
+      "There is an error in the Order Ref",
+      "There is an error in the Status",
+      "There is an error in the Dispatch Date"
+    ],
+    answer: [
+      "There is an error in the Customer",
+      "There is an error in the Dispatch Date"
+    ],
+    explanation:
+      "Matching original row (Tomas Klein):\n  Customer: original 'Tomas Klein', re-entered 'Tomas Klien'  (ERROR - the e and i are transposed)\n  Order Ref: OD-4474  (correct)\n  Status: code R = Returned, re-entered 'Returned'  (correct)\n  Dispatch Date: original 02/05, re-entered 20/05  (ERROR - the day is wrong)\nThere are two errors: the Customer and the Dispatch Date."
+  },
+
+  /* ---- Checking: Membership Records (multi-select) ---------------------- */
+  {
+    id: "chk-09",
+    section: "error",
+    topic: "error-checking",
+    multi: true,
+    stimulus: {
+      check: {
+        title: "Membership Records",
+        columns: ["Member", "ID", "Tier", "Renewal"],
+        rows: [
+          ["Aisha Khan", "MB-90213", "G", "31/12"],
+          ["Ben Carter", "MB-90214", "S", "30/06"],
+          ["Clara Mendes", "MB-90215", "B", "15/09"],
+          ["Derek Lowe", "MB-90216", "G", "01/03"]
+        ],
+        codingKey: "B = Bronze    S = Silver    G = Gold",
+        entryLabel: "Re-entered record",
+        entry: ["Aisha Khan", "MB-90213", "Gold", "31/12"]
+      }
+    },
+    question: "Compare the re-entered record with the original list. Select every field that contains an error (or that the entire item is correct).",
+    options: [
+      "The entire item is correct",
+      "There is an error in the Member",
+      "There is an error in the ID",
+      "There is an error in the Tier",
+      "There is an error in the Renewal"
+    ],
+    answer: ["The entire item is correct"],
+    explanation:
+      "Matching original row (Aisha Khan):\n  Member: Aisha Khan  (correct)\n  ID: MB-90213  (correct)\n  Tier: code G = Gold, re-entered 'Gold'  (correct)\n  Renewal: 31/12  (correct)\nEvery field matches, so the entire item is correct."
+  },
+  {
+    id: "chk-10",
+    section: "error",
+    topic: "error-checking",
+    multi: true,
+    stimulus: {
+      check: {
+        title: "Membership Records",
+        columns: ["Member", "ID", "Tier", "Renewal"],
+        rows: [
+          ["Aisha Khan", "MB-90213", "G", "31/12"],
+          ["Ben Carter", "MB-90214", "S", "30/06"],
+          ["Clara Mendes", "MB-90215", "B", "15/09"],
+          ["Derek Lowe", "MB-90216", "G", "01/03"]
+        ],
+        codingKey: "B = Bronze    S = Silver    G = Gold",
+        entryLabel: "Re-entered record",
+        entry: ["Ben Carter", "MB-90241", "Silver", "30/06"]
+      }
+    },
+    question: "Compare the re-entered record with the original list. Select every field that contains an error (or that the entire item is correct).",
+    options: [
+      "The entire item is correct",
+      "There is an error in the Member",
+      "There is an error in the ID",
+      "There is an error in the Tier",
+      "There is an error in the Renewal"
+    ],
+    answer: ["There is an error in the ID"],
+    explanation:
+      "Matching original row (Ben Carter):\n  Member: Ben Carter  (correct)\n  ID: original MB-90214, re-entered MB-90241  (ERROR - the 1 and 4 are transposed)\n  Tier: code S = Silver, re-entered 'Silver'  (correct)\n  Renewal: 30/06  (correct)\nOnly the ID contains an error."
+  },
+  {
+    id: "chk-11",
+    section: "error",
+    topic: "error-checking",
+    multi: true,
+    stimulus: {
+      check: {
+        title: "Membership Records",
+        columns: ["Member", "ID", "Tier", "Renewal"],
+        rows: [
+          ["Aisha Khan", "MB-90213", "G", "31/12"],
+          ["Ben Carter", "MB-90214", "S", "30/06"],
+          ["Clara Mendes", "MB-90215", "B", "15/09"],
+          ["Derek Lowe", "MB-90216", "G", "01/03"]
+        ],
+        codingKey: "B = Bronze    S = Silver    G = Gold",
+        entryLabel: "Re-entered record",
+        entry: ["Clara Mendes", "MB-90215", "Bronze", "15/03"]
+      }
+    },
+    question: "Compare the re-entered record with the original list. Select every field that contains an error (or that the entire item is correct).",
+    options: [
+      "The entire item is correct",
+      "There is an error in the Member",
+      "There is an error in the ID",
+      "There is an error in the Tier",
+      "There is an error in the Renewal"
+    ],
+    answer: ["There is an error in the Renewal"],
+    explanation:
+      "Matching original row (Clara Mendes):\n  Member: Clara Mendes  (correct)\n  ID: MB-90215  (correct)\n  Tier: code B = Bronze, re-entered 'Bronze'  (correct)\n  Renewal: original 15/09, re-entered 15/03  (ERROR - the month is wrong)\nOnly the Renewal contains an error."
+  },
+  {
+    id: "chk-12",
+    section: "error",
+    topic: "error-checking",
+    multi: true,
+    stimulus: {
+      check: {
+        title: "Membership Records",
+        columns: ["Member", "ID", "Tier", "Renewal"],
+        rows: [
+          ["Aisha Khan", "MB-90213", "G", "31/12"],
+          ["Ben Carter", "MB-90214", "S", "30/06"],
+          ["Clara Mendes", "MB-90215", "B", "15/09"],
+          ["Derek Lowe", "MB-90216", "G", "01/03"]
+        ],
+        codingKey: "B = Bronze    S = Silver    G = Gold",
+        entryLabel: "Re-entered record",
+        entry: ["Derek Lowe", "MB-90216", "Silver", "01/03"]
+      }
+    },
+    question: "Compare the re-entered record with the original list. Select every field that contains an error (or that the entire item is correct).",
+    options: [
+      "The entire item is correct",
+      "There is an error in the Member",
+      "There is an error in the ID",
+      "There is an error in the Tier",
+      "There is an error in the Renewal"
+    ],
+    answer: ["There is an error in the Tier"],
+    explanation:
+      "Matching original row (Derek Lowe):\n  Member: Derek Lowe  (correct)\n  ID: MB-90216  (correct)\n  Tier: code G = Gold, but re-entered 'Silver'  (ERROR - wrong tier after decoding)\n  Renewal: 01/03  (correct)\nOnly the Tier contains an error."
   }
 
 ];
