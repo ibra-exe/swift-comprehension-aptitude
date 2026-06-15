@@ -205,11 +205,22 @@ function initTheme() {
 function inStudy() { return studyMode && !(state && state.mock); }
 
 function buildQuiz(mode) {
-  // mode: "verbal" | "numerical" | "error" | "mock"
+  // mode: "verbal" | "numerical" | "error" | "all" | "mock"
   if (mode === "mock") return buildMock();
 
-  // Single section: randomise the stimulus groups each session.
-  const questions = shuffleByStimulus(QUESTIONS.filter((q) => q.section === mode));
+  let questions;
+  if (mode === "all") {
+    // Full deck: every question in the bank, sections in order, stimulus groups
+    // randomised within each section. One pooled timer (or untimed in study).
+    questions = [
+      ...shuffleByStimulus(QUESTIONS.filter((q) => q.section === "verbal")),
+      ...shuffleByStimulus(QUESTIONS.filter((q) => q.section === "numerical")),
+      ...shuffleByStimulus(QUESTIONS.filter((q) => q.section === "error"))
+    ];
+  } else {
+    // Single section: randomise the stimulus groups each session.
+    questions = shuffleByStimulus(QUESTIONS.filter((q) => q.section === mode));
+  }
   const times = readTimerSettings();
   const totalSeconds = questions.reduce((sum, q) => sum + times[q.section], 0);
 
@@ -715,6 +726,10 @@ function renderHome() {
         <button class="mode-btn" data-mode="error">
           <span class="t">Error Checking</span>
           <span class="d">${counts.error} questions · spot the copy errors</span>
+        </button>
+        <button class="mode-btn" data-mode="all">
+          <span class="t">Full Deck Test</span>
+          <span class="d">All ${counts.verbal + counts.numerical + counts.error} questions · every section, one run</span>
         </button>
       </div>
       <button class="mode-btn mock-btn" data-mode="mock">

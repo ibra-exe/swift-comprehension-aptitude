@@ -37,7 +37,8 @@ There are no dependencies to install.
 
 ### Features
 
-- **Modes:** practice a single section (Verbal, Numerical, Error Checking), or take the
+- **Modes:** practice a single section (Verbal, Numerical, Error Checking), run the
+  **Full Deck Test** (every question in the bank in one pooled-timer run), or take the
   **Real Mock Test**.
 - **Real Mock Test:** a full exam simulation that mirrors the official structure and timings -
   Verbal (2 testlets of 4 questions, 2:00 each), Numerical (2 testlets of 4, 2:00 each) and
