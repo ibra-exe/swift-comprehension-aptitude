@@ -43,9 +43,11 @@ There are no dependencies to install.
   but the groups appear in a different order every time.
 - **Study mode** (toggle on the home screen): untimed, with explanations shown immediately
   after each answer - for when you're first learning.
-- **Timed mode:** two live countdowns - a **Question** timer (resets each question, and shows
-  red "+overtime" if you exceed the per-question budget, as a pacing aid) and the **Section**
-  total (the hard limit that ends the section). Explanations are withheld until the review screen.
+- **Timed mode:** a single section countdown, exactly like the real Saville test - the whole
+  section shares one pool of time (no per-question timer), and you spend it across the questions
+  however you like. The pool is `rate × number of questions`; the official rates are 30s for
+  verbal and numerical and ~11s for checking (so a 4-question verbal set is 2:00 and an
+  8-question checking set is ~1:30). Explanations are withheld until the review screen.
 - **Keyboard shortcuts** for speed:
   - Verbal: `T` / `F` / `C` (or `1` / `2` / `3`)
   - Error checking: `C` (Correct) / `E` (Error) (or `1` / `2`)

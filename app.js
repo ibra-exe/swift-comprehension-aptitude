@@ -242,34 +242,16 @@ function startTimer() {
   updateTimers();
 }
 
-// Updates BOTH the section (total) timer and the per-question timer.
+// Updates the single section countdown. Like the real Saville test, the whole
+// section shares one pool of time (there is no per-question timer); you spend it
+// across the questions however you like.
 function updateTimers() {
   if (!state) return;
-  const now = Date.now();
-
-  // Section total - the hard limit; ending the section when it runs out.
-  const remaining = state.totalSeconds - (now - state.startedAt) / 1000;
+  const remaining = state.totalSeconds - (Date.now() - state.startedAt) / 1000;
   const sEl = document.getElementById("timer");
   const sPill = document.getElementById("s-pill");
   if (sEl) sEl.textContent = fmtTime(remaining);
-  if (sPill) sPill.classList.toggle("warn", remaining <= 10);
-
-  // Per-question - resets each question; shows overtime (red, counting up) if
-  // you exceed the per-question budget, but does NOT force you on.
-  const q = state.questions[state.idx];
-  const qEl = document.getElementById("q-timer");
-  const qPill = document.getElementById("q-pill");
-  if (qEl && q && state.questionStartedAt) {
-    const qLeft = state.times[q.section] - (now - state.questionStartedAt) / 1000;
-    if (qLeft >= 0) {
-      qEl.textContent = fmtTime(qLeft);
-      if (qPill) qPill.classList.remove("over");
-    } else {
-      qEl.textContent = "+" + fmtTime(-qLeft); // overtime
-      if (qPill) qPill.classList.add("over");
-    }
-  }
-
+  if (sPill) sPill.classList.toggle("warn", remaining <= 15);
   if (remaining <= 0) endQuiz();
 }
 function stopTimer() {
@@ -673,7 +655,7 @@ function renderHome() {
       <div class="settings-row"><span>Verbal</span><input type="number" id="t-verbal" min="3" value="${d.verbal}"></div>
       <div class="settings-row"><span>Numerical</span><input type="number" id="t-numerical" min="3" value="${d.numerical}"></div>
       <div class="settings-row"><span>Error checking</span><input type="number" id="t-error" min="3" value="${d.error}"></div>
-      <p class="small muted" style="margin:10px 0 0">Defaults match the official test pace: 30s verbal &amp; numerical, ~11s checking.</p>
+      <p class="small muted" style="margin:10px 0 0">Like the real test, there is no per-question timer: each rate below is pooled into one section countdown (rate × number of questions). Defaults match the official pace: 30s verbal &amp; numerical, ~11s checking (e.g. a 4-question verbal set = 2:00, an 8-question checking set = ~1:30).</p>
     </div>
 
     ${history.length ? `
@@ -719,10 +701,6 @@ function renderQuiz() {
   const keys = optionKeys(q);
   const showExplain = studyMode && state.revealed;
 
-  // Start the per-question clock fresh when arriving at a new question.
-  // (In study mode the same question can re-render after revealing - don't reset then.)
-  if (!studyMode || !state.revealed) state.questionStartedAt = Date.now();
-
   const multi = isMulti(q);
   const selArr = multi ? (Array.isArray(selected) ? selected : []) : [];
   const optsHtml = q.options.map((opt, i) => {
@@ -743,15 +721,11 @@ function renderQuiz() {
     </button>`;
   }).join("");
 
-  const qBudget = state.times ? state.times[q.section] : 0;
   const timerHtml = studyMode
     ? `<span class="timer study">Study mode · untimed</span>`
     : `<div class="timers">
-         <div class="timer-pill" id="q-pill" title="Time on this question">
-           <span class="tlabel">Question</span><span class="tval" id="q-timer">${fmtTime(qBudget)}</span>
-         </div>
-         <div class="timer-pill" id="s-pill" title="Time left in this section">
-           <span class="tlabel">Section</span><span class="tval" id="timer">${fmtTime(state.totalSeconds)}</span>
+         <div class="timer-pill" id="s-pill" title="Time left for the whole section">
+           <span class="tlabel">Time left</span><span class="tval" id="timer">${fmtTime(state.totalSeconds)}</span>
          </div>
        </div>`;
 
