@@ -10,10 +10,14 @@
    time. These also pre-fill the editable inputs on the home screen.
    -------------------------------------------------------------------------- */
 const CONFIG = {
+  // Defaults match the official Saville Swift Comprehension pacing:
+  //   Verbal    4 min for 8 questions  -> 30s/question
+  //   Numerical 4 min for 8 questions  -> 30s/question
+  //   Checking  90s for 8 questions    -> ~11s/question
   perQuestionSeconds: {
-    verbal: 50,   // ~50s per verbal statement
-    numerical: 45, // ~45s per numerical question (calculator allowed)
-    error: 25     // faster - error checking is meant to be quick
+    verbal: 30,
+    numerical: 30,
+    error: 11
   },
   storageKey: "saville-history-v1", // localStorage key for cross-session history
   themeKey: "saville-theme"         // localStorage key for the light/dark choice
@@ -401,11 +405,11 @@ function renderStimulus(q, { reviewDiff = false } = {}) {
       .join("");
     return `
       ${calcNote}
-      <table class="data">
+      <div class="tscroll"><table class="data">
         ${t.title ? `<caption>${esc(t.title)}</caption>` : ""}
         <thead><tr>${head}</tr></thead>
         <tbody>${body}</tbody>
-      </table>
+      </table></div>
       ${t.note ? `<p class="small muted">${esc(t.note)}</p>` : ""}`;
   }
 
@@ -425,10 +429,10 @@ function renderStimulus(q, { reviewDiff = false } = {}) {
       </tr>`;
     }).join("");
     return `
-      <table class="record">
+      <div class="tscroll"><table class="record">
         <thead><tr><th>${esc(rec.recordTitle || "Field")}</th><th>Original</th><th>Copied</th></tr></thead>
         <tbody>${rows}</tbody>
-      </table>`;
+      </table></div>`;
   }
   return "";
 }
@@ -508,17 +512,17 @@ function renderCheck(c, q, reviewDiff) {
     return `<td class="${cls}">${esc(cell)}</td>`;
   }).join("");
   return `
-    <table class="data check-original">
+    <div class="tscroll"><table class="data check-original">
       ${c.title ? `<caption>Original: ${esc(c.title)}</caption>` : ""}
       <thead><tr>${head}</tr></thead>
       <tbody>${body}</tbody>
-    </table>
+    </table></div>
     ${c.codingKey ? `<p class="small muted coding-key">Coding key: ${esc(c.codingKey)}</p>` : ""}
-    <table class="data check-entry">
+    <div class="tscroll"><table class="data check-entry">
       <caption>${esc(c.entryLabel || "Re-entered record")}</caption>
       <thead><tr>${head}</tr></thead>
       <tbody><tr>${entry}</tr></tbody>
-    </table>`;
+    </table></div>`;
 }
 
 // Keyboard hint labels per option. Classic option sets keep their letter
@@ -662,11 +666,14 @@ function renderHome() {
     </div>
 
     <div class="card">
-      <h3 style="margin-top:0">Timing <span class="small muted">(seconds per question)</span></h3>
-      <div class="settings-row"><span>Verbal</span><input type="number" id="t-verbal" min="5" value="${d.verbal}"></div>
-      <div class="settings-row"><span>Numerical</span><input type="number" id="t-numerical" min="5" value="${d.numerical}"></div>
-      <div class="settings-row"><span>Error checking</span><input type="number" id="t-error" min="5" value="${d.error}"></div>
-      <p class="small muted" style="margin:10px 0 0">Defaults live in <code>CONFIG</code> at the top of <code>app.js</code>.</p>
+      <div class="timing-head">
+        <h3 style="margin:0">Timing <span class="small muted">(seconds per question)</span></h3>
+        <button class="ghost small" id="reset-timing">Reset to default</button>
+      </div>
+      <div class="settings-row"><span>Verbal</span><input type="number" id="t-verbal" min="3" value="${d.verbal}"></div>
+      <div class="settings-row"><span>Numerical</span><input type="number" id="t-numerical" min="3" value="${d.numerical}"></div>
+      <div class="settings-row"><span>Error checking</span><input type="number" id="t-error" min="3" value="${d.error}"></div>
+      <p class="small muted" style="margin:10px 0 0">Defaults match the official test pace: 30s verbal &amp; numerical, ~11s checking.</p>
     </div>
 
     ${history.length ? `
@@ -693,6 +700,13 @@ function renderHome() {
   );
   const clr = $("#clear-hist");
   if (clr) clr.addEventListener("click", clearHistory);
+
+  $("#reset-timing").addEventListener("click", () => {
+    const d = CONFIG.perQuestionSeconds;
+    $("#t-verbal").value = d.verbal;
+    $("#t-numerical").value = d.numerical;
+    $("#t-error").value = d.error;
+  });
 }
 
 /* ==========================================================================

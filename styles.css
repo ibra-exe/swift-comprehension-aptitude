@@ -185,6 +185,10 @@ button:disabled { opacity: .5; cursor: default; }
   border-top: 1px solid var(--line);
 }
 .settings-row:first-child { border-top: none; }
+.timing-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 4px; }
+
+/* Let wide tables scroll horizontally instead of overflowing on small screens */
+.tscroll { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
 .settings-row input[type="number"] {
   width: 76px;
   padding: 8px 10px;
@@ -575,11 +579,40 @@ table.record th, table.record td, .timer, .explain, .metric, .flag {
 /* ---- Responsive ----------------------------------------------------------- */
 @media (max-width: 520px) {
   body { font-size: 17px; }
-  .hero-title { font-size: 34px; }
-  .hero { padding: 38px 18px 34px; }
-  .mode-grid { grid-template-columns: 1fr; }
+  .app { padding: 14px 12px 56px; }
+  .card { padding: 16px; }
+
+  .hero-title { font-size: 32px; }
+  .hero { padding: 36px 16px 32px; }
+  .hero-sub { font-size: 16px; }
+  .hero-feats { gap: 8px; }
+  .hero-feat { padding: 12px 6px; }
+  .hero-feat .n { font-size: 20px; }
+  .enter-btn { width: 100%; }
+
+  /* Quiz header: let the timers wrap below the progress label if space is tight */
+  .quiz-head { flex-wrap: wrap; padding-right: 48px; }
+  .quiz-head .progress { font-size: 13px; }
+  .timer-pill { min-width: 66px; padding: 3px 10px; }
+  .timer-pill .tval { font-size: 18px; }
+
+  .q-text { font-size: 18px; }
+  .opt { padding: 13px 13px; font-size: 16px; }
+
+  table.data, table.record { font-size: 14px; }
+  table.data th, table.data td,
+  table.record th, table.record td { padding: 7px 9px; white-space: nowrap; }
+
+  .metric .big { font-size: 26px; }
+  .nav-row { gap: 8px; }
+  .nav-row button { padding: 12px 14px; }
+
+  /* Keep results metrics readable: 3 across is too tight, stack them */
   .metrics { grid-template-columns: 1fr; }
-  .q-text { font-size: 19px; }
-  table.data { font-size: 14.5px; }
-  table.data th, table.data td { padding: 7px 8px; }
+}
+
+/* Very narrow phones */
+@media (max-width: 360px) {
+  .hero-feats { grid-template-columns: 1fr 1fr; }
+  .hero-title { font-size: 28px; }
 }
