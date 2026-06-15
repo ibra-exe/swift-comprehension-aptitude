@@ -88,7 +88,7 @@ shows an on-screen reminder. Use your device calculator freely while practising 
 ## Access password (lock screen)
 
 The app opens on a password lock screen; entering the correct password reveals the landing page
-and the rest of the app. The default password is **`swift-access-2026`** — change it.
+and the rest of the app.
 
 - The password is stored only as a **SHA-256 hash** in `app.js` (the constant `AUTH.hash`), never
   in plain text.

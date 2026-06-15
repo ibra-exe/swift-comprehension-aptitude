@@ -629,8 +629,8 @@ function optionKeys(q) {
    not strong security - see the README for the real options.
    ========================================================================== */
 const AUTH = {
-  // SHA-256 of the access password (default password: "swift-access-2026").
-  hash: "9534e45ee8beae29df8507483dea1c8328ce520cb2ef89e461afb5427d687232",
+  // SHA-256 of the access password.
+  hash: "289f5d2095a64493ed78244853fa4db7236dc354382eeb8fa69d98b154da7cc9",
   sessionKey: "sc-unlocked"
 };
 
