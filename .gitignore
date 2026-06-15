@@ -1,0 +1,5 @@
+# Editor / harness config
+.claude/
+
+# macOS
+.DS_Store
