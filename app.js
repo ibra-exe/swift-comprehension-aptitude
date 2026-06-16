@@ -366,7 +366,14 @@ function selectOption(value) {
       sel = sel.includes(value) ? sel.filter((v) => v !== value) : sel.concat(value);
     }
     state.answers[state.idx] = sel.length ? sel : null;
-    renderQuiz();
+    // Update the option buttons in place rather than re-rendering the whole
+    // screen — a full re-render replays the card entrance animation and rebuilds
+    // the (large) tables, which looks like a flicker on every tick.
+    app.querySelectorAll(".opt").forEach((btn) => {
+      btn.classList.toggle("selected", sel.includes(btn.dataset.opt));
+    });
+    const ck = document.getElementById("check-btn"); // study-mode "Check answer"
+    if (ck) ck.disabled = !isAnswered(state.answers[state.idx]);
     return;
   }
 
