@@ -131,6 +131,7 @@ body::before {
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 18px;
+  padding-right: 56px; /* keep content clear of the fixed theme toggle (top-right) */
 }
 .topbar h1 {
   font-size: 20px;
@@ -277,7 +278,7 @@ button:disabled { opacity: .5; cursor: default; }
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 14px;
-  padding-right: 52px; /* clear the fixed theme-toggle in the corner */
+  padding-right: 56px; /* clear the fixed theme-toggle in the corner */
 }
 .quiz-head .head-left { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .quiz-head .progress { font-size: 14px; color: var(--ink-soft); }
@@ -848,7 +849,8 @@ button.ghost:hover { border-color: color-mix(in srgb, var(--brand) 45%, var(--li
   .enter-btn { width: 100%; }
 
   /* Quiz header: let the timers wrap below the progress label if space is tight */
-  .quiz-head { flex-wrap: wrap; padding-right: 48px; }
+  .quiz-head { flex-wrap: wrap; padding-right: 52px; }
+  .topbar { padding-right: 52px; }
   .quiz-head .progress { font-size: 13px; }
   .timer-pill { min-width: 66px; padding: 3px 10px; }
   .timer-pill .tval { font-size: 18px; }
