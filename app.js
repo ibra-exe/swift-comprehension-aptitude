@@ -23,26 +23,147 @@ const CONFIG = {
   themeKey: "saville-theme"         // localStorage key for the light/dark choice
 };
 
-const SECTION_LABEL = {
-  verbal: "Verbal Reasoning",
-  numerical: "Numerical Reasoning",
-  error: "Error Checking"
+/* ==========================================================================
+   INTERNATIONALISATION (English / Arabic)
+   --------------------------------------------------------------------------
+   `lang` is "en" or "ar"; t(key, vars) looks up the string and fills {vars}.
+   Question content is translated separately (see questions.ar.js + loc()).
+   ========================================================================== */
+let lang = (function () { try { return localStorage.getItem("sc-lang") === "ar" ? "ar" : "en"; } catch { return "en"; } })();
+
+const STRINGS = {
+  en: {
+    // sections & topics
+    sec_verbal: "Verbal Reasoning", sec_numerical: "Numerical Reasoning", sec_error: "Error Checking",
+    "topic_percentage-change": "Percentage change", topic_average: "Averages", topic_share: "Part-of-whole / share",
+    "topic_forward-percentage": "Forward % increase/decrease", topic_ratio: "Ratios", "topic_read-off": "Reading off a chart",
+    "topic_numerical-inference": "Numerical: True/False/Not possible", topic_verbal: "Verbal reasoning",
+    "topic_verbal-synonym": "Verbal: word meaning", "topic_verbal-detail": "Verbal: detail",
+    "topic_verbal-inference": "Verbal: True/False/Not possible", "topic_error-checking": "Error checking",
+    // lock
+    lock_title: "Restricted Access",
+    lock_sub: "This Swift Comprehension practice app is private. Enter the access password to continue.",
+    lock_placeholder: "Access password", unlock: "Unlock →",
+    lock_error: "Incorrect password. Please try again.",
+    // landing
+    badge: "Aptitude Trainer", hero_title: "Swift Comprehension",
+    hero_sub: "Train your accuracy under real time pressure across Verbal, Numerical and Error-Checking sections, with full worked explanations on every question.",
+    feat_verbal: "Verbal", feat_numerical: "Numerical", feat_error: "Error checking",
+    start: "Start Practising →",
+    // home
+    app_title: "Swift Comprehension Practice",
+    app_sub: "Accuracy under time pressure · Verbal · Numerical · Error checking",
+    choose_mode: "Choose a mode", settings: "Settings",
+    mode_verbal_t: "Verbal Reasoning", mode_verbal_d: "{n} questions · True / False / Cannot Say",
+    mode_numerical_t: "Numerical Reasoning", mode_numerical_d: "{n} questions · tables & charts (calculator allowed)",
+    mode_error_t: "Error Checking", mode_error_d: "{n} questions · spot the copy errors",
+    mode_all_t: "Full Deck Test", mode_all_d: "All {n} questions · every section, one run",
+    mock_t: "Real Mock Test",
+    mock_d: "Full exam simulation: 24 questions in ~9.5 min, with real rules and section timings (Verbal 2×4 in 2:00, Numerical 2×4 in 2:00, Checking 8 in 1:30). Always timed.",
+    study_label: "<b>Study mode</b> · untimed, explanations shown immediately",
+    study_note: "In timed mode the countdown runs and explanations are withheld until the review screen.",
+    past_results: "Past results", clear_history: "Clear history", acc_short: "acc",
+    storage_note: "Stored locally in your browser (localStorage) · no server involved.",
+    // settings
+    settings_title: "Settings", back: "← Back", language: "Language",
+    timing: "Timing", timing_unit: "(seconds per question)", reset_default: "Reset to default",
+    timing_note: "Like the real test, there is no per-question timer: each rate below is pooled into one section countdown (rate × number of questions). Defaults match the official pace: 30s verbal & numerical, ~11s checking.",
+    // quiz
+    section_of: "Section {a} of {b}", q_of: "Q{a} of {b}", q_label: "Q{a} of {b}",
+    time_left: "Time left", study_untimed: "Study mode · untimed",
+    calc_note: "🖩 Calculator permitted (as in the real test)",
+    quit: "Quit to menu", skip: "Skip →", skip_section: "Skip section →",
+    next: "Next →", next_section: "Next section →", finish: "Finish",
+    check_answer: "Check answer", back_btn: "Back",
+    verdict_correct: "✓ Correct · the answer is {a}",
+    verdict_wrong: "✗ Not quite. You chose {you} · the correct answer is {a}",
+    heading_why: "Why this is correct", heading_how: "How to get there", explanation: "Explanation",
+    coding_key: "Coding key:", original_prefix: "Original: {title}", reentered: "Re-entered record",
+    // results
+    results: "Results", total_score: "Total score", accuracy: "Accuracy", accuracy_sub: "(of attempted)",
+    speed: "Speed", speed_sub: "(q / min)",
+    attempted_n: "Attempted {a} of {b}", per_question: "{s}s per question", time_used: "time used {time}",
+    study_untimed_paren: " (study mode, untimed)",
+    breakdown: "Per-section breakdown",
+    focus_areas: "<b>Focus areas</b> · weakest by accuracy:",
+    no_weak: "<b>Nice.</b> No weak spots flagged this session.",
+    home: "Home", review_btn: "Review answers & explanations →", full_mock: "Full Mock",
+    // review
+    review: "Review", your_answer: "Your answer:", correct_answer: "Correct answer:",
+    not_answered: "· (not answered)", nothing: "nothing",
+    back_results: "← Results", done_home: "Done · Home"
+  },
+  ar: {
+    sec_verbal: "الاستدلال اللفظي", sec_numerical: "الاستدلال العددي", sec_error: "تدقيق الأخطاء",
+    "topic_percentage-change": "نسبة التغيّر", topic_average: "المتوسطات", topic_share: "النسبة من الكل",
+    "topic_forward-percentage": "زيادة/نقصان نسبي", topic_ratio: "النِّسَب", "topic_read-off": "قراءة الرسم البياني",
+    "topic_numerical-inference": "عددي: صح/خطأ/لا يمكن الجزم", topic_verbal: "الاستدلال اللفظي",
+    "topic_verbal-synonym": "لفظي: معنى الكلمة", "topic_verbal-detail": "لفظي: تفصيل",
+    "topic_verbal-inference": "لفظي: صح/خطأ/لا يمكن الجزم", "topic_error-checking": "تدقيق الأخطاء",
+    lock_title: "وصول مقيّد",
+    lock_sub: "تطبيق التدريب على اختبار الاستيعاب السريع خاص. أدخل كلمة مرور الوصول للمتابعة.",
+    lock_placeholder: "كلمة مرور الوصول", unlock: "فتح القفل",
+    lock_error: "كلمة المرور غير صحيحة. حاول مرة أخرى.",
+    badge: "مدرّب اختبارات القدرات", hero_title: "الاستيعاب السريع",
+    hero_sub: "درّب دقّتك تحت ضغط الوقت في أقسام اللفظي والعددي وتدقيق الأخطاء، مع شرح كامل لكل سؤال.",
+    feat_verbal: "لفظي", feat_numerical: "عددي", feat_error: "تدقيق الأخطاء",
+    start: "ابدأ التدريب ←",
+    app_title: "تدريب الاستيعاب السريع",
+    app_sub: "الدقة تحت ضغط الوقت · لفظي · عددي · تدقيق الأخطاء",
+    choose_mode: "اختر النمط", settings: "الإعدادات",
+    mode_verbal_t: "الاستدلال اللفظي", mode_verbal_d: "{n} سؤالاً · صح / خطأ / لا يمكن الجزم",
+    mode_numerical_t: "الاستدلال العددي", mode_numerical_d: "{n} سؤالاً · جداول ورسوم (يُسمح بالآلة الحاسبة)",
+    mode_error_t: "تدقيق الأخطاء", mode_error_d: "{n} سؤالاً · اكتشف أخطاء النسخ",
+    mode_all_t: "اختبار الحزمة الكاملة", mode_all_d: "كل الأسئلة {n} · جميع الأقسام في جلسة واحدة",
+    mock_t: "اختبار محاكاة حقيقي",
+    mock_d: "محاكاة كاملة للاختبار: 24 سؤالاً في ~9.5 دقيقة بقواعد وتوقيتات حقيقية (لفظي 2×4 في 2:00، عددي 2×4 في 2:00، تدقيق 8 في 1:30). موقوت دائماً.",
+    study_label: "<b>وضع الدراسة</b> · بلا توقيت، تظهر الشروح فوراً",
+    study_note: "في الوضع الموقوت يعمل العدّاد وتُؤجَّل الشروح حتى شاشة المراجعة.",
+    past_results: "نتائج سابقة", clear_history: "مسح السجل", acc_short: "دقة",
+    storage_note: "محفوظة محلياً في متصفحك (localStorage) · بدون خادم.",
+    settings_title: "الإعدادات", back: "→ رجوع", language: "اللغة",
+    timing: "التوقيت", timing_unit: "(ثوانٍ لكل سؤال)", reset_default: "إعادة الضبط الافتراضي",
+    timing_note: "كما في الاختبار الحقيقي لا يوجد عدّاد لكل سؤال: يُجمَع المعدل أدناه في عدّاد واحد للقسم (المعدل × عدد الأسئلة). الإعدادات الافتراضية تطابق الوتيرة الرسمية: 30 ث للفظي والعددي، ~11 ث للتدقيق.",
+    section_of: "القسم {a} من {b}", q_of: "السؤال {a} من {b}", q_label: "السؤال {a} من {b}",
+    time_left: "الوقت المتبقي", study_untimed: "وضع الدراسة · بلا توقيت",
+    calc_note: "🖩 يُسمح بالآلة الحاسبة (كما في الاختبار الحقيقي)",
+    quit: "خروج إلى القائمة", skip: "تخطٍّ ←", skip_section: "تخطّي القسم ←",
+    next: "التالي ←", next_section: "القسم التالي ←", finish: "إنهاء",
+    check_answer: "تحقّق من الإجابة", back_btn: "السابق",
+    verdict_correct: "✓ صحيح · الإجابة هي {a}",
+    verdict_wrong: "✗ ليس تماماً. اخترت {you} · الإجابة الصحيحة هي {a}",
+    heading_why: "لماذا هذا صحيح", heading_how: "كيف نصل إلى الحل", explanation: "الشرح",
+    coding_key: "مفتاح الترميز:", original_prefix: "الأصل: {title}", reentered: "السجل المُعاد إدخاله",
+    results: "النتائج", total_score: "النتيجة الكلية", accuracy: "الدقة", accuracy_sub: "(من المُحاوَل)",
+    speed: "السرعة", speed_sub: "(سؤال/دقيقة)",
+    attempted_n: "حاولت {a} من {b}", per_question: "{s} ث لكل سؤال", time_used: "الوقت المستخدم {time}",
+    study_untimed_paren: " (وضع الدراسة، بلا توقيت)",
+    breakdown: "تفصيل حسب القسم",
+    focus_areas: "<b>مجالات التركيز</b> · الأضعف دقّةً:",
+    no_weak: "<b>ممتاز.</b> لا توجد نقاط ضعف في هذه الجلسة.",
+    home: "الرئيسية", review_btn: "مراجعة الإجابات والشروح ←", full_mock: "محاكاة كاملة",
+    review: "المراجعة", your_answer: "إجابتك:", correct_answer: "الإجابة الصحيحة:",
+    not_answered: "· (لم تُجب)", nothing: "لا شيء",
+    back_results: "→ النتائج", done_home: "تم · الرئيسية"
+  }
 };
 
-const TOPIC_LABEL = {
-  "percentage-change": "Percentage change",
-  "average": "Averages",
-  "share": "Part-of-whole / share",
-  "forward-percentage": "Forward % increase/decrease",
-  "ratio": "Ratios",
-  "read-off": "Reading off a chart",
-  "numerical-inference": "Numerical: True/False/Not possible",
-  "verbal": "Verbal reasoning",
-  "verbal-synonym": "Verbal: word meaning",
-  "verbal-detail": "Verbal: detail",
-  "verbal-inference": "Verbal: True/False/Not possible",
-  "error-checking": "Error checking"
-};
+function t(key, vars) {
+  let s = (STRINGS[lang] && STRINGS[lang][key] != null) ? STRINGS[lang][key] : (STRINGS.en[key] != null ? STRINGS.en[key] : key);
+  if (vars) for (const k in vars) s = s.replace(new RegExp("\\{" + k + "\\}", "g"), vars[k]);
+  return s;
+}
+const secLabel = (section) => t("sec_" + section);
+const topicLabel = (topic) => t("topic_" + topic);
+function applyLang() {
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+}
+function setLang(l) {
+  lang = (l === "ar") ? "ar" : "en";
+  try { localStorage.setItem("sc-lang", lang); } catch {}
+  applyLang();
+}
 
 /* --------------------------------------------------------------------------
    STATE - current session lives in memory; history is persisted (see below).
@@ -108,18 +229,20 @@ function shuffleByStimulus(questions) {
 }
 
 // Read the editable per-question times from the home inputs (falling back to CONFIG).
-function readTimerSettings() {
-  const get = (id, def) => {
-    const el = document.getElementById(id);
-    const v = el ? parseInt(el.value, 10) : NaN;
-    return Number.isFinite(v) && v > 0 ? v : def;
-  };
-  return {
-    verbal: get("t-verbal", CONFIG.perQuestionSeconds.verbal),
-    numerical: get("t-numerical", CONFIG.perQuestionSeconds.numerical),
-    error: get("t-error", CONFIG.perQuestionSeconds.error)
-  };
-}
+// Per-question timing lives here (not in the DOM), so changes made on the
+// Settings screen persist after you leave it. Loaded from localStorage if set.
+let timerSettings = (function () {
+  const def = { ...CONFIG.perQuestionSeconds };
+  try {
+    const saved = JSON.parse(localStorage.getItem("sc-timing"));
+    if (saved) ["verbal", "numerical", "error"].forEach((k) => {
+      if (Number.isFinite(saved[k]) && saved[k] > 0) def[k] = saved[k];
+    });
+  } catch {}
+  return def;
+})();
+function saveTimerSettings() { try { localStorage.setItem("sc-timing", JSON.stringify(timerSettings)); } catch {} }
+function readTimerSettings() { return { ...timerSettings }; }
 
 /* ==========================================================================
    PERSISTENCE
@@ -204,6 +327,60 @@ function initTheme() {
 // timed (real rules), so study is suppressed while a mock is running.
 function inStudy() { return studyMode && !(state && state.mock); }
 
+/* --------------------------------------------------------------------------
+   LOCALISING A QUESTION
+   Returns the question in the active language. In Arabic it merges the English
+   question with its translation (from QUESTIONS_AR, keyed by id); any missing
+   field falls back to English. The correct answer is derived BY POSITION from
+   the English answer, so the Arabic options must keep the same order — this
+   guarantees the answer always matches a localised option.
+   -------------------------------------------------------------------------- */
+function localizeStimulus(en, ar) {
+  if (!en) return en;
+  if (!ar) return en;
+  if (en.passage) return { passage: ar.passage || en.passage };
+  if (en.table) {
+    const a = ar.table || {};
+    return { table: { title: a.title || en.table.title, note: a.note || en.table.note,
+      columns: a.columns || en.table.columns, rows: a.rows || en.table.rows } };
+  }
+  if (en.chart) {
+    const a = ar.chart || {};
+    const labels = a.labels || null;
+    return { chart: Object.assign({}, en.chart, {
+      title: a.title || en.chart.title, unit: a.unit || en.chart.unit,
+      data: en.chart.data.map((d, i) => Object.assign({}, d, { label: labels ? labels[i] : d.label })) }) };
+  }
+  if (en.check) {
+    const a = ar.check || {};
+    const c = en.check;
+    return { check: { title: a.title || c.title, columns: a.columns || c.columns,
+      rows: c.rows, codingKey: a.codingKey || c.codingKey,
+      entryLabel: a.entryLabel || c.entryLabel, entry: a.entry || c.entry } };
+  }
+  if (en.fields) { // legacy single-record checking: translate labels, keep values
+    const labels = ar.labels || null;
+    return { recordTitle: ar.recordTitle || en.recordTitle,
+      fields: en.fields.map((f, i) => ({ label: labels ? labels[i] : f.label, original: f.original, copied: f.copied })) };
+  }
+  return en;
+}
+function loc(q) {
+  if (lang !== "ar") return q;
+  const a = (typeof QUESTIONS_AR !== "undefined") ? QUESTIONS_AR[q.id] : null;
+  if (!a) return q; // untranslated -> English fallback
+  const opts = a.options || q.options;
+  const idx = (v) => { const i = q.options.indexOf(v); return i >= 0 ? opts[i] : v; };
+  const answer = Array.isArray(q.answer) ? q.answer.map(idx) : idx(q.answer);
+  return Object.assign({}, q, {
+    question: a.question || q.question,
+    options: opts,
+    answer,
+    explanation: a.explanation || q.explanation,
+    stimulus: localizeStimulus(q.stimulus, a.stimulus || {})
+  });
+}
+
 function buildQuiz(mode) {
   // mode: "verbal" | "numerical" | "error" | "all" | "mock"
   if (mode === "mock") return buildMock();
@@ -221,6 +398,7 @@ function buildQuiz(mode) {
     // Single section: randomise the stimulus groups each session.
     questions = shuffleByStimulus(QUESTIONS.filter((q) => q.section === mode));
   }
+  questions = questions.map(loc); // localise to the active language
   const times = readTimerSettings();
   const totalSeconds = questions.reduce((sum, q) => sum + times[q.section], 0);
 
@@ -292,7 +470,7 @@ function buildMock() {
   const questions = [], qBlock = [], blockStart = [];
   blocks.forEach((b, bi) => {
     blockStart[bi] = questions.length;
-    b.questions.forEach((q) => { questions.push(q); qBlock.push(bi); });
+    b.questions.forEach((q) => { questions.push(loc(q)); qBlock.push(bi); });
   });
 
   state = {
@@ -479,25 +657,25 @@ function renderStimulus(q, { reviewDiff = false } = {}) {
   }
 
   if (q.section === "numerical") {
-    const calcNote = `<p class="calc-note">🖩 Calculator permitted (as in the real test)</p>`;
+    const calcNote = `<p class="calc-note">${t("calc_note")}</p>`;
 
     // Chart stimulus (e.g. pie chart).
     if (q.stimulus.chart) return calcNote + renderChart(q.stimulus.chart);
 
     // Table stimulus.
-    const t = q.stimulus.table;
-    const head = t.columns.map((c) => `<th>${esc(c)}</th>`).join("");
-    const body = t.rows
+    const tbl = q.stimulus.table;
+    const head = tbl.columns.map((c) => `<th>${esc(c)}</th>`).join("");
+    const body = tbl.rows
       .map((r) => `<tr>${r.map((c) => `<td>${esc(c)}</td>`).join("")}</tr>`)
       .join("");
     return `
       ${calcNote}
       <div class="tscroll"><table class="data">
-        ${t.title ? `<caption>${esc(t.title)}</caption>` : ""}
+        ${tbl.title ? `<caption>${esc(tbl.title)}</caption>` : ""}
         <thead><tr>${head}</tr></thead>
         <tbody>${body}</tbody>
       </table></div>
-      ${t.note ? `<p class="small muted">${esc(t.note)}</p>` : ""}`;
+      ${tbl.note ? `<p class="small muted">${esc(tbl.note)}</p>` : ""}`;
   }
 
   if (q.section === "error") {
@@ -600,13 +778,13 @@ function renderCheck(c, q, reviewDiff) {
   }).join("");
   return `
     <div class="tscroll"><table class="data check-original">
-      ${c.title ? `<caption>Original: ${esc(c.title)}</caption>` : ""}
+      ${c.title ? `<caption>${esc(t("original_prefix", { title: c.title }))}</caption>` : ""}
       <thead><tr>${head}</tr></thead>
       <tbody>${body}</tbody>
     </table></div>
-    ${c.codingKey ? `<p class="small muted coding-key">Coding key: ${esc(c.codingKey)}</p>` : ""}
+    ${c.codingKey ? `<p class="small muted coding-key">${t("coding_key")} ${esc(c.codingKey)}</p>` : ""}
     <div class="tscroll"><table class="data check-entry">
-      <caption>${esc(c.entryLabel || "Re-entered record")}</caption>
+      <caption>${esc(c.entryLabel || t("reentered"))}</caption>
       <thead><tr>${head}</tr></thead>
       <tbody><tr>${entry}</tr></tbody>
     </table></div>`;
@@ -662,14 +840,14 @@ function renderLock() {
     <div class="lock-wrap">
       <section class="lock-card" id="lock-card">
         <div class="lock-badge">${LOCK_ICON}</div>
-        <h1 class="lock-title">Restricted Access</h1>
-        <p class="lock-sub">This Swift Comprehension practice app is private. Enter the access password to continue.</p>
+        <h1 class="lock-title">${t("lock_title")}</h1>
+        <p class="lock-sub">${t("lock_sub")}</p>
         <form class="lock-form" id="lock-form" autocomplete="off" novalidate>
-          <input class="lock-input" id="lock-input" type="password" placeholder="Access password"
-                 autocomplete="current-password" aria-label="Access password" />
-          <button class="enter-btn" type="submit" id="lock-btn">Unlock →</button>
+          <input class="lock-input" id="lock-input" type="password" placeholder="${t("lock_placeholder")}"
+                 autocomplete="current-password" aria-label="${t("lock_placeholder")}" />
+          <button class="enter-btn" type="submit" id="lock-btn">${t("unlock")}</button>
         </form>
-        <p class="lock-error" id="lock-error" role="alert" hidden>Incorrect password. Please try again.</p>
+        <p class="lock-error" id="lock-error" role="alert" hidden>${t("lock_error")}</p>
       </section>
       <footer class="sig">
         <span class="sig-text" id="sig-text"></span><span class="sig-alien" id="sig-alien">${ALIEN_SVG}</span><span class="sig-cursor">_</span>
@@ -726,18 +904,15 @@ function renderLanding() {
   app.innerHTML = `
     <div class="landing">
       <section class="hero">
-        <span class="hero-badge">Aptitude Trainer</span>
-        <h1 class="hero-title">Swift Comprehension</h1>
-        <p class="hero-sub">
-          Train your accuracy under real time pressure across Verbal, Numerical and
-          Error-Checking sections - with full worked explanations on every question.
-        </p>
+        <span class="hero-badge">${t("badge")}</span>
+        <h1 class="hero-title">${t("hero_title")}</h1>
+        <p class="hero-sub">${t("hero_sub")}</p>
         <div class="hero-feats">
-          <div class="hero-feat"><span class="n">${counts.verbal}</span><span class="l">Verbal</span></div>
-          <div class="hero-feat"><span class="n">${counts.numerical}</span><span class="l">Numerical</span></div>
-          <div class="hero-feat"><span class="n">${counts.error}</span><span class="l">Error checking</span></div>
+          <div class="hero-feat"><span class="n">${counts.verbal}</span><span class="l">${t("feat_verbal")}</span></div>
+          <div class="hero-feat"><span class="n">${counts.numerical}</span><span class="l">${t("feat_numerical")}</span></div>
+          <div class="hero-feat"><span class="n">${counts.error}</span><span class="l">${t("feat_error")}</span></div>
         </div>
-        <button class="enter-btn" id="enter-btn">Start Practising →</button>
+        <button class="enter-btn" id="enter-btn">${t("start")}</button>
       </section>
 
       <footer class="sig">
@@ -799,44 +974,45 @@ function renderHome() {
     error: QUESTIONS.filter((q) => q.section === "error").length
   };
   const history = loadHistory();
-  const d = CONFIG.perQuestionSeconds;
+  const total = counts.verbal + counts.numerical + counts.error;
 
   app.innerHTML = `
     <div class="topbar">
       <div>
-        <h1>Swift Comprehension Practice</h1>
-        <div class="sub">Accuracy under time pressure - Verbal · Numerical · Error checking</div>
+        <h1>${t("app_title")}</h1>
+        <div class="sub">${t("app_sub")}</div>
       </div>
+      <button class="ghost small" id="settings-btn">⚙ ${t("settings")}</button>
     </div>
 
     <div class="card">
-      <h3 style="margin-top:0">Choose a mode</h3>
+      <h3 style="margin-top:0">${t("choose_mode")}</h3>
       <div class="mode-grid">
         <button class="mode-btn" data-mode="verbal">
           <span class="mode-ic ic-verbal">${ICONS.verbal}</span>
-          <span class="mode-tx"><span class="t">Verbal Reasoning</span>
-          <span class="d">${counts.verbal} questions · True / False / Cannot Say</span></span>
+          <span class="mode-tx"><span class="t">${t("mode_verbal_t")}</span>
+          <span class="d">${t("mode_verbal_d", { n: counts.verbal })}</span></span>
         </button>
         <button class="mode-btn" data-mode="numerical">
           <span class="mode-ic ic-numerical">${ICONS.numerical}</span>
-          <span class="mode-tx"><span class="t">Numerical Reasoning</span>
-          <span class="d">${counts.numerical} questions · tables & charts (calculator allowed)</span></span>
+          <span class="mode-tx"><span class="t">${t("mode_numerical_t")}</span>
+          <span class="d">${t("mode_numerical_d", { n: counts.numerical })}</span></span>
         </button>
         <button class="mode-btn" data-mode="error">
           <span class="mode-ic ic-error">${ICONS.error}</span>
-          <span class="mode-tx"><span class="t">Error Checking</span>
-          <span class="d">${counts.error} questions · spot the copy errors</span></span>
+          <span class="mode-tx"><span class="t">${t("mode_error_t")}</span>
+          <span class="d">${t("mode_error_d", { n: counts.error })}</span></span>
         </button>
         <button class="mode-btn" data-mode="all">
           <span class="mode-ic ic-all">${ICONS.all}</span>
-          <span class="mode-tx"><span class="t">Full Deck Test</span>
-          <span class="d">All ${counts.verbal + counts.numerical + counts.error} questions · every section, one run</span></span>
+          <span class="mode-tx"><span class="t">${t("mode_all_t")}</span>
+          <span class="d">${t("mode_all_d", { n: total })}</span></span>
         </button>
       </div>
       <button class="mode-btn mock-btn" data-mode="mock">
         <span class="mode-ic ic-mock">${ICONS.mock}</span>
-        <span class="mode-tx"><span class="t">Real Mock Test</span>
-        <span class="d">Full exam simulation: 24 questions in ~9.5 min, with real rules and section timings (Verbal 2×4 in 2:00, Numerical 2×4 in 2:00, Checking 8 in 1:30). Always timed.</span></span>
+        <span class="mode-tx"><span class="t">${t("mock_t")}</span>
+        <span class="d">${t("mock_d")}</span></span>
       </button>
     </div>
 
@@ -844,39 +1020,26 @@ function renderHome() {
       <label class="toggle">
         <input type="checkbox" id="study-toggle" ${studyMode ? "checked" : ""}>
         <span class="track"></span>
-        <span><b>Study mode</b> - untimed, explanations shown immediately</span>
+        <span>${t("study_label")}</span>
       </label>
-      <p class="small muted" style="margin:10px 0 0">
-        In timed mode the countdown runs and explanations are withheld until the review screen.
-      </p>
-    </div>
-
-    <div class="card">
-      <div class="timing-head">
-        <h3 style="margin:0">Timing <span class="small muted">(seconds per question)</span></h3>
-        <button class="ghost small" id="reset-timing">Reset to default</button>
-      </div>
-      <div class="settings-row"><span>Verbal</span><input type="number" id="t-verbal" min="3" value="${d.verbal}"></div>
-      <div class="settings-row"><span>Numerical</span><input type="number" id="t-numerical" min="3" value="${d.numerical}"></div>
-      <div class="settings-row"><span>Error checking</span><input type="number" id="t-error" min="3" value="${d.error}"></div>
-      <p class="small muted" style="margin:10px 0 0">Like the real test, there is no per-question timer: each rate below is pooled into one section countdown (rate × number of questions). Defaults match the official pace: 30s verbal &amp; numerical, ~11s checking (e.g. a 4-question verbal set = 2:00, an 8-question checking set = ~1:30).</p>
+      <p class="small muted" style="margin:10px 0 0">${t("study_note")}</p>
     </div>
 
     ${history.length ? `
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center">
-        <h3 style="margin:0">Past results</h3>
-        <button class="ghost small" id="clear-hist">Clear history</button>
+        <h3 style="margin:0">${t("past_results")}</h3>
+        <button class="ghost small" id="clear-hist">${t("clear_history")}</button>
       </div>
       <div class="hist" style="margin-top:8px">
         ${history.slice(0, 6).map((h) => `
           <div class="row">
             <span>${esc(h.label)}</span>
             <span class="muted">${esc(h.date)}</span>
-            <span><b>${h.correct}/${h.total}</b> · ${Math.round(h.accuracy * 100)}% acc</span>
+            <span><b>${h.correct}/${h.total}</b> · ${Math.round(h.accuracy * 100)}% ${t("acc_short")}</span>
           </div>`).join("")}
       </div>
-      <p class="small muted" style="margin:10px 0 0">Stored locally in your browser (localStorage) - no server involved.</p>
+      <p class="small muted" style="margin:10px 0 0">${t("storage_note")}</p>
     </div>` : ""}
   `;
 
@@ -884,14 +1047,62 @@ function renderHome() {
   app.querySelectorAll(".mode-btn").forEach((b) =>
     b.addEventListener("click", () => buildQuiz(b.dataset.mode))
   );
+  $("#settings-btn").addEventListener("click", renderSettings);
   const clr = $("#clear-hist");
   if (clr) clr.addEventListener("click", clearHistory);
+}
+
+/* ==========================================================================
+   RENDERING - SETTINGS (language + timing)
+   ========================================================================== */
+function renderSettings() {
+  state = null;
+  const d = CONFIG.perQuestionSeconds;
+  const cur = readTimerSettings();
+
+  app.innerHTML = `
+    <div class="topbar">
+      <div><h1>${t("settings_title")}</h1></div>
+      <button class="ghost small" id="settings-back">${t("back")}</button>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top:0">${t("language")}</h3>
+      <div class="lang-seg">
+        <button class="lang-opt ${lang === "en" ? "active" : ""}" data-lang="en">English</button>
+        <button class="lang-opt ${lang === "ar" ? "active" : ""}" data-lang="ar">العربية</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="timing-head">
+        <h3 style="margin:0">${t("timing")} <span class="small muted">${t("timing_unit")}</span></h3>
+        <button class="ghost small" id="reset-timing">${t("reset_default")}</button>
+      </div>
+      <div class="settings-row"><span>${t("sec_verbal")}</span><input type="number" id="t-verbal" min="3" value="${cur.verbal}"></div>
+      <div class="settings-row"><span>${t("sec_numerical")}</span><input type="number" id="t-numerical" min="3" value="${cur.numerical}"></div>
+      <div class="settings-row"><span>${t("sec_error")}</span><input type="number" id="t-error" min="3" value="${cur.error}"></div>
+      <p class="small muted" style="margin:10px 0 0">${t("timing_note")}</p>
+    </div>
+  `;
+
+  $("#settings-back").addEventListener("click", renderHome);
+  app.querySelectorAll(".lang-opt").forEach((b) =>
+    b.addEventListener("click", () => { setLang(b.dataset.lang); renderSettings(); })
+  );
+
+  const bind = (id, key) => $("#" + id).addEventListener("input", (e) => {
+    const v = parseInt(e.target.value, 10);
+    if (Number.isFinite(v) && v > 0) { timerSettings[key] = v; saveTimerSettings(); }
+  });
+  bind("t-verbal", "verbal"); bind("t-numerical", "numerical"); bind("t-error", "error");
 
   $("#reset-timing").addEventListener("click", () => {
-    const d = CONFIG.perQuestionSeconds;
-    $("#t-verbal").value = d.verbal;
-    $("#t-numerical").value = d.numerical;
-    $("#t-error").value = d.error;
+    timerSettings = { ...CONFIG.perQuestionSeconds };
+    saveTimerSettings();
+    $("#t-verbal").value = timerSettings.verbal;
+    $("#t-numerical").value = timerSettings.numerical;
+    $("#t-error").value = timerSettings.error;
   });
 }
 
@@ -927,10 +1138,10 @@ function renderQuiz() {
   }).join("");
 
   const timerHtml = study
-    ? `<span class="timer study">Study mode · untimed</span>`
+    ? `<span class="timer study">${t("study_untimed")}</span>`
     : `<div class="timers">
-         <div class="timer-pill" id="s-pill" title="Time left for the whole section">
-           <span class="tlabel">Time left</span><span class="tval" id="timer">${fmtTime(state.totalSeconds)}</span>
+         <div class="timer-pill" id="s-pill" title="${t("time_left")}">
+           <span class="tlabel">${t("time_left")}</span><span class="tval" id="timer">${fmtTime(state.totalSeconds)}</span>
          </div>
        </div>`;
 
@@ -938,15 +1149,13 @@ function renderQuiz() {
   if (showExplain) {
     const correct = isCorrect(q, selected);
     const yourTxt = multi
-      ? (selArr.length ? selArr.join("; ") : "nothing")
-      : (selected != null ? selected : "nothing");
+      ? (selArr.length ? selArr.join("; ") : t("nothing"))
+      : (selected != null ? selected : t("nothing"));
     const correctTxt = multi ? q.answer.join("; ") : q.answer;
-    // Make the wrong-answer feedback explicit: name the correct answer and show
-    // the working under a "how to get there" heading.
     const verdict = correct
-      ? `✓ Correct - the answer is ${esc(correctTxt)}`
-      : `✗ Not quite. You chose ${esc(yourTxt)} - the correct answer is ${esc(correctTxt)}`;
-    const heading = correct ? "Why this is correct" : "How to get there";
+      ? t("verdict_correct", { a: esc(correctTxt) })
+      : t("verdict_wrong", { you: esc(yourTxt), a: esc(correctTxt) });
+    const heading = correct ? t("heading_why") : t("heading_how");
     explainHtml = `
       <div class="explain">
         <div class="verdict ${correct ? "ok" : "no"}">${verdict}</div>
@@ -961,12 +1170,12 @@ function renderQuiz() {
   if (state.mock) {
     const b = state.blocks[state.blockIdx];
     const posInBlock = state.idx - state.blockStart[state.blockIdx] + 1;
-    progressHtml = `<span class="seclabel">Section ${state.blockIdx + 1} of ${state.blocks.length}</span>` +
-      `<span class="progress">${SECTION_LABEL[b.section]} · Q${posInBlock} of ${b.questions.length}</span>`;
+    progressHtml = `<span class="seclabel">${t("section_of", { a: state.blockIdx + 1, b: state.blocks.length })}</span>` +
+      `<span class="progress">${secLabel(b.section)} · ${t("q_of", { a: posInBlock, b: b.questions.length })}</span>`;
     barPct = ((state.idx - state.blockStart[state.blockIdx]) / b.questions.length) * 100;
   } else {
-    progressHtml = `<span class="seclabel">${SECTION_LABEL[q.section]}</span>` +
-      `<span class="progress">Q${state.idx + 1} of ${n}</span>`;
+    progressHtml = `<span class="seclabel">${secLabel(q.section)}</span>` +
+      `<span class="progress">${t("q_label", { a: state.idx + 1, b: n })}</span>`;
     barPct = (state.idx / n) * 100;
   }
 
@@ -985,7 +1194,7 @@ function renderQuiz() {
     </div>
 
     <div class="nav-row">
-      <button class="ghost" id="quit-btn">Quit to menu</button>
+      <button class="ghost" id="quit-btn">${t("quit")}</button>
       ${navHtml(q, multi, n)}
     </div>
   `;
@@ -1006,27 +1215,28 @@ function renderQuiz() {
 // The nav buttons differ for single- vs multi-select and study vs timed.
 function navHtml(q, multi, n) {
   // Work out the right "advance" label, including mock section boundaries.
-  let nextLabel = state.idx >= n - 1 ? "Finish" : "Next →";
+  let lastInBlock = state.idx >= n - 1;
+  let nextLabel = lastInBlock ? t("finish") : t("next");
   if (state.mock) {
-    const lastInBlock = state.idx >= n - 1 || state.qBlock[state.idx] !== state.qBlock[state.idx + 1];
+    lastInBlock = state.idx >= n - 1 || state.qBlock[state.idx] !== state.qBlock[state.idx + 1];
     const lastBlock = state.blockIdx >= state.blocks.length - 1;
-    nextLabel = lastInBlock ? (lastBlock ? "Finish" : "Next section →") : "Next →";
+    nextLabel = lastInBlock ? (lastBlock ? t("finish") : t("next_section")) : t("next");
   }
 
   if (inStudy()) {
-    const back = state.idx > 0 ? `<button class="ghost" id="prev-btn">Back</button>` : "";
+    const back = state.idx > 0 ? `<button class="ghost" id="prev-btn">${t("back_btn")}</button>` : "";
     if (multi && !state.revealed) {
       // Must check the multi-select answer before moving on.
       const ready = isAnswered(state.answers[state.idx]);
       return `<div style="display:flex;gap:10px">${back}
-        <button class="primary" id="check-btn" ${ready ? "" : "disabled"}>Check answer</button></div>`;
+        <button class="primary" id="check-btn" ${ready ? "" : "disabled"}>${t("check_answer")}</button></div>`;
     }
     return `<div style="display:flex;gap:10px">${back}
       <button class="primary" id="next-btn" ${state.revealed ? "" : "disabled"}>${nextLabel}</button></div>`;
   }
   // Timed: single-select auto-advances on pick, so only a Skip button is needed.
   // Multi-select needs an explicit Next/Finish to submit the selection.
-  const skipLabel = (state.mock && nextLabel.includes("section")) ? "Skip section →" : "Skip →";
+  const skipLabel = (state.mock && lastInBlock && state.blockIdx < state.blocks.length - 1) ? t("skip_section") : t("skip");
   return multi
     ? `<button class="primary" id="next-btn">${nextLabel}</button>`
     : `<button class="ghost" id="skip-btn">${skipLabel}</button>`;
@@ -1040,7 +1250,7 @@ function renderResults() {
 
   // Persist a compact summary for the home-screen history.
   saveHistoryEntry({
-    label: state.mode === "mock" ? "Full Mock" : SECTION_LABEL[state.mode],
+    label: state.mode === "mock" ? t("full_mock") : secLabel(state.mode),
     date: new Date().toLocaleString(),
     total: r.total, correct: r.correct,
     accuracy: r.accuracy, speed: r.speed
@@ -1049,7 +1259,7 @@ function renderResults() {
   const sectionRows = Object.entries(r.bySection).map(([sec, v]) => {
     const acc = v.attempted ? v.correct / v.attempted : 0;
     return `<div class="bd-row">
-      <span class="bd-name">${SECTION_LABEL[sec]}</span>
+      <span class="bd-name">${secLabel(sec)}</span>
       <span class="bar"><i style="width:${Math.round(acc * 100)}%"></i></span>
       <span class="small">${v.correct}/${v.total} · ${Math.round(acc * 100)}%</span>
     </div>`;
@@ -1057,43 +1267,43 @@ function renderResults() {
 
   const weakHtml = r.weak.length
     ? `<div class="flag">
-         <b>Focus areas</b> - weakest by accuracy:<br>
-         ${r.weak.map((w) => `${TOPIC_LABEL[w.topic] || w.topic} (${Math.round(w.acc * 100)}%)`).join(" · ")}
+         ${t("focus_areas")}<br>
+         ${r.weak.map((w) => `${topicLabel(w.topic)} (${Math.round(w.acc * 100)}%)`).join(" · ")}
        </div>`
-    : `<div class="flag"><b>Nice.</b> No weak spots flagged this session.</div>`;
+    : `<div class="flag">${t("no_weak")}</div>`;
+
+  const meta = `${t("attempted_n", { a: r.attempted, b: r.total })} · ` +
+    `${r.attempted ? t("per_question", { s: r.secPerQ.toFixed(1) }) : "-"} · ` +
+    `${t("time_used", { time: fmtTime(r.timeUsed) })}${inStudy() ? t("study_untimed_paren") : ""}`;
 
   app.innerHTML = `
-    <div class="topbar"><h1>Results</h1></div>
+    <div class="topbar"><h1>${t("results")}</h1></div>
 
     <div class="metrics">
       <div class="metric">
         <div class="big">${r.correct}/${r.total}</div>
-        <div class="lbl">Total score</div>
+        <div class="lbl">${t("total_score")}</div>
       </div>
       <div class="metric">
         <div class="big">${Math.round(r.accuracy * 100)}%</div>
-        <div class="lbl">Accuracy<br>(of attempted)</div>
+        <div class="lbl">${t("accuracy")}<br>${t("accuracy_sub")}</div>
       </div>
       <div class="metric">
         <div class="big">${r.speed.toFixed(1)}</div>
-        <div class="lbl">Speed<br>(q / min)</div>
+        <div class="lbl">${t("speed")}<br>${t("speed_sub")}</div>
       </div>
     </div>
 
     <div class="card">
-      <p class="small muted" style="margin-top:0">
-        Attempted ${r.attempted} of ${r.total} ·
-        ${r.attempted ? r.secPerQ.toFixed(1) + "s per question" : "-"} ·
-        time used ${fmtTime(r.timeUsed)}${inStudy() ? " (study mode, untimed)" : ""}
-      </p>
-      <h3>Per-section breakdown</h3>
+      <p class="small muted" style="margin-top:0">${meta}</p>
+      <h3>${t("breakdown")}</h3>
       ${sectionRows}
       ${weakHtml}
     </div>
 
     <div class="nav-row">
-      <button class="ghost" id="home-btn">Home</button>
-      <button class="primary" id="review-btn">Review answers & explanations →</button>
+      <button class="ghost" id="home-btn">${t("home")}</button>
+      <button class="primary" id="review-btn">${t("review_btn")}</button>
     </div>
   `;
 
@@ -1111,34 +1321,34 @@ function renderReview() {
     const correct = answered && isCorrect(q, a);
     const yourCls = !answered ? "" : (correct ? "ok" : "no");
     const yourTxt = !answered
-      ? "- (not answered)"
+      ? t("not_answered")
       : esc(Array.isArray(a) ? a.join("; ") : a);
     const correctTxt = esc(Array.isArray(q.answer) ? q.answer.join("; ") : q.answer);
 
-    const topicLabel = TOPIC_LABEL[q.topic] || q.topic;
-    const showTopicTag = topicLabel.toLowerCase() !== SECTION_LABEL[q.section].toLowerCase();
+    const tLabel = topicLabel(q.topic);
+    const showTopicTag = tLabel.toLowerCase() !== secLabel(q.section).toLowerCase();
     return `<div class="review-item">
       <div>
-        <span class="tag">${SECTION_LABEL[q.section]}</span>
-        ${showTopicTag ? `<span class="tag">${topicLabel}</span>` : ""}
+        <span class="tag">${secLabel(q.section)}</span>
+        ${showTopicTag ? `<span class="tag">${tLabel}</span>` : ""}
       </div>
       <div style="margin:10px 0">${renderStimulus(q, { reviewDiff: q.section === "error" })}</div>
       <div class="q-text" style="font-size:18px">${esc(q.question)}</div>
-      <div class="ans-line">Your answer: <span class="you ${yourCls}">${yourTxt}</span></div>
-      <div class="ans-line">Correct answer: <span class="corr">${correctTxt}</span></div>
+      <div class="ans-line">${t("your_answer")} <span class="you ${yourCls}">${yourTxt}</span></div>
+      <div class="ans-line">${t("correct_answer")} <span class="corr">${correctTxt}</span></div>
       <div class="explain">
-        <h4>Explanation</h4>
+        <h4>${t("explanation")}</h4>
         <pre>${esc(q.explanation)}</pre>
       </div>
     </div>`;
   }).join("");
 
   app.innerHTML = `
-    <div class="topbar"><h1>Review</h1></div>
+    <div class="topbar"><h1>${t("review")}</h1></div>
     <div class="card">${items}</div>
     <div class="nav-row">
-      <button class="ghost" id="back-results">← Results</button>
-      <button class="primary" id="home-btn2">Done - Home</button>
+      <button class="ghost" id="back-results">${t("back_results")}</button>
+      <button class="primary" id="home-btn2">${t("done_home")}</button>
     </div>
   `;
   $("#back-results").addEventListener("click", renderResults);
@@ -1194,5 +1404,6 @@ document.addEventListener("keydown", (e) => {
    BOOT
    ========================================================================== */
 initTheme();
+applyLang();
 if (isUnlocked()) renderLanding();
 else renderLock();
