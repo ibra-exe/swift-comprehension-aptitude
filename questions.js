@@ -2404,6 +2404,162 @@ const QUESTIONS = [
     options: [{ shape: "circle", fill: false, dots: 3 }, { shape: "circle", fill: true, dots: 3 }, { shape: "circle", fill: false, dots: 2 }, { shape: "circle", fill: true, dots: 0 }],
     answerIndex: 0,
     explanation: "The fill alternates solid → outline each step, and the dots increase by one (0 → 1 → 2). Next is an outline circle with 3 dots."
+  },
+
+  /* ======================================================================
+   * BANK GROWTH 3 (original content, graded by difficulty)
+   * ==================================================================== */
+
+  // ---- Verbal: Passage J (Customer feedback programme) ------------------
+  {
+    id: "verb-45", section: "verbal", topic: "verbal-synonym", difficulty: "easy",
+    stimulus: { passage: "A retailer launched a customer feedback programme, inviting shoppers to rate their visit through a short survey at the checkout. In the first quarter, response rates were low, so the company added a small prize draw as an incentive. Participation then rose sharply, and the feedback highlighted long queue times as the main concern. In response, the retailer trialled additional staff at peak hours in two of its busiest stores." },
+    question: "Which one of the following would best replace 'incentive' while keeping the meaning of the passage?",
+    options: ["reward", "penalty", "warning", "refund"],
+    answer: "reward",
+    explanation: "An 'incentive' here is something offered to encourage participation. 'Reward' keeps that meaning; the others change it."
+  },
+  {
+    id: "verb-46", section: "verbal", topic: "verbal-detail", difficulty: "easy",
+    stimulus: { passage: "A retailer launched a customer feedback programme, inviting shoppers to rate their visit through a short survey at the checkout. In the first quarter, response rates were low, so the company added a small prize draw as an incentive. Participation then rose sharply, and the feedback highlighted long queue times as the main concern. In response, the retailer trialled additional staff at peak hours in two of its busiest stores." },
+    question: "What did the feedback highlight as the main concern?",
+    options: ["Long queue times", "Product quality", "Pricing", "Staff rudeness"],
+    answer: "Long queue times",
+    explanation: "The passage states the feedback 'highlighted long queue times as the main concern'."
+  },
+  {
+    id: "verb-47", section: "verbal", topic: "verbal-inference", difficulty: "medium",
+    stimulus: { passage: "A retailer launched a customer feedback programme, inviting shoppers to rate their visit through a short survey at the checkout. In the first quarter, response rates were low, so the company added a small prize draw as an incentive. Participation then rose sharply, and the feedback highlighted long queue times as the main concern. In response, the retailer trialled additional staff at peak hours in two of its busiest stores." },
+    question: "Adding the prize draw increased survey participation.",
+    options: ["True on the basis of the passage", "False on the basis of the passage", "Not possible to say on the basis of the passage"],
+    answer: "True on the basis of the passage",
+    explanation: "After the prize draw was added 'participation then rose sharply', which supports the statement."
+  },
+  {
+    id: "verb-48", section: "verbal", topic: "verbal-inference", difficulty: "hard",
+    stimulus: { passage: "A retailer launched a customer feedback programme, inviting shoppers to rate their visit through a short survey at the checkout. In the first quarter, response rates were low, so the company added a small prize draw as an incentive. Participation then rose sharply, and the feedback highlighted long queue times as the main concern. In response, the retailer trialled additional staff at peak hours in two of its busiest stores." },
+    question: "The extra staffing reduced queue times in the trial stores.",
+    options: ["True on the basis of the passage", "False on the basis of the passage", "Not possible to say on the basis of the passage"],
+    answer: "Not possible to say on the basis of the passage",
+    explanation: "The passage says extra staff were trialled, but reports no result of that trial. There is no basis to judge the effect, so the answer is Not possible to say."
+  },
+
+  // ---- Numerical: table (Regional Sales) -------------------------------
+  {
+    id: "num-49", section: "numerical", topic: "percentage-change", difficulty: "medium",
+    stimulus: { table: { title: "Regional Sales (£000s)", columns: ["Region", "Q1", "Q2"], rows: [["North", "240", "300"], ["South", "180", "162"], ["East", "150", "195"], ["West", "200", "220"]] } },
+    question: "By what percentage did North's sales change from Q1 to Q2?",
+    options: ["20%", "24%", "25%", "30%", "60%"],
+    answer: "25%",
+    explanation: "Identify the cells:\n  North Q1 = 240, Q2 = 300\n\nFormula:\n  (new - original) ÷ original × 100\n\nCalculation:\n  (300 - 240) ÷ 240 × 100 = 60 ÷ 240 × 100 = 25%"
+  },
+  {
+    id: "num-50", section: "numerical", topic: "percentage-change", difficulty: "medium",
+    stimulus: { table: { title: "Regional Sales (£000s)", columns: ["Region", "Q1", "Q2"], rows: [["North", "240", "300"], ["South", "180", "162"], ["East", "150", "195"], ["West", "200", "220"]] } },
+    question: "How did South's sales change from Q1 to Q2?",
+    options: ["10% decrease", "9% decrease", "11% decrease", "18% decrease", "10% increase"],
+    answer: "10% decrease",
+    explanation: "Identify the cells:\n  South Q1 = 180, Q2 = 162\n\nCalculation:\n  (162 - 180) ÷ 180 × 100 = -18 ÷ 180 × 100 = -10%\n\nThe negative sign means a 10% decrease."
+  },
+  {
+    id: "num-51", section: "numerical", topic: "share", difficulty: "medium",
+    stimulus: { table: { title: "Regional Sales (£000s)", columns: ["Region", "Q1", "Q2"], rows: [["North", "240", "300"], ["South", "180", "162"], ["East", "150", "195"], ["West", "200", "220"]] } },
+    question: "What share of total Q2 sales did the East region account for?",
+    options: ["17.1%", "19.5%", "20.0%", "22.2%", "25.0%"],
+    answer: "22.2%",
+    explanation: "Step 1 - total Q2:\n  300 + 162 + 195 + 220 = 877\n\nStep 2 - East as a share:\n  195 ÷ 877 × 100 = 22.2% (to 1 d.p.)"
+  },
+  {
+    id: "num-52", section: "numerical", topic: "ratio", difficulty: "easy",
+    stimulus: { table: { title: "Regional Sales (£000s)", columns: ["Region", "Q1", "Q2"], rows: [["North", "240", "300"], ["South", "180", "162"], ["East", "150", "195"], ["West", "200", "220"]] } },
+    question: "What is the ratio of North's Q1 sales to West's Q1 sales, in its simplest form?",
+    options: ["6:5", "5:6", "5:4", "4:3", "3:2"],
+    answer: "6:5",
+    explanation: "Identify the cells:\n  North Q1 = 240, West Q1 = 200\n\nSimplify 240 : 200 by dividing both by 40:\n  = 6 : 5"
+  },
+
+  // ---- Checking: Shipment Manifest (multi-select) ----------------------
+  {
+    id: "chk-25", section: "error", topic: "error-checking", multi: true, difficulty: "easy",
+    stimulus: { check: { title: "Shipment Manifest", columns: ["Item", "Code", "Status", "Weight"], rows: [["Pallet A", "SH-5012", "S", "120kg"], ["Pallet B", "SH-5013", "P", "85kg"], ["Pallet C", "SH-5014", "H", "64kg"], ["Pallet D", "SH-5015", "S", "210kg"]], codingKey: "P = Pending    S = Shipped    H = On Hold", entryLabel: "Re-entered record", entry: ["Pallet A", "SH-5012", "Shipped", "120kg"] } },
+    question: "Compare the re-entered record with the original manifest. Select every field that contains an error (or that the entire item is correct).",
+    options: ["The entire item is correct", "There is an error in the Item", "There is an error in the Code", "There is an error in the Status", "There is an error in the Weight"],
+    answer: ["The entire item is correct"],
+    explanation: "Matching row (Pallet A):\n  Item, Code and Weight match; Status code S = Shipped, re-entered 'Shipped'. Every field is correct."
+  },
+  {
+    id: "chk-26", section: "error", topic: "error-checking", multi: true, difficulty: "medium",
+    stimulus: { check: { title: "Shipment Manifest", columns: ["Item", "Code", "Status", "Weight"], rows: [["Pallet A", "SH-5012", "S", "120kg"], ["Pallet B", "SH-5013", "P", "85kg"], ["Pallet C", "SH-5014", "H", "64kg"], ["Pallet D", "SH-5015", "S", "210kg"]], codingKey: "P = Pending    S = Shipped    H = On Hold", entryLabel: "Re-entered record", entry: ["Pallet B", "SH-5013", "Pending", "58kg"] } },
+    question: "Compare the re-entered record with the original manifest. Select every field that contains an error (or that the entire item is correct).",
+    options: ["The entire item is correct", "There is an error in the Item", "There is an error in the Code", "There is an error in the Status", "There is an error in the Weight"],
+    answer: ["There is an error in the Weight"],
+    explanation: "Matching row (Pallet B): Code and Status (P = Pending) are correct. Weight: original 85kg, re-entered 58kg (ERROR - digits transposed). Only the Weight is wrong."
+  },
+  {
+    id: "chk-27", section: "error", topic: "error-checking", multi: true, difficulty: "medium",
+    stimulus: { check: { title: "Shipment Manifest", columns: ["Item", "Code", "Status", "Weight"], rows: [["Pallet A", "SH-5012", "S", "120kg"], ["Pallet B", "SH-5013", "P", "85kg"], ["Pallet C", "SH-5014", "H", "64kg"], ["Pallet D", "SH-5015", "S", "210kg"]], codingKey: "P = Pending    S = Shipped    H = On Hold", entryLabel: "Re-entered record", entry: ["Pallet C", "SH-5041", "On Hold", "64kg"] } },
+    question: "Compare the re-entered record with the original manifest. Select every field that contains an error (or that the entire item is correct).",
+    options: ["The entire item is correct", "There is an error in the Item", "There is an error in the Code", "There is an error in the Status", "There is an error in the Weight"],
+    answer: ["There is an error in the Code"],
+    explanation: "Matching row (Pallet C): Status code H = On Hold and Weight are correct. Code: original SH-5014, re-entered SH-5041 (ERROR - the 1 and 4 are transposed). Only the Code is wrong."
+  },
+  {
+    id: "chk-28", section: "error", topic: "error-checking", multi: true, difficulty: "hard",
+    stimulus: { check: { title: "Shipment Manifest", columns: ["Item", "Code", "Status", "Weight"], rows: [["Pallet A", "SH-5012", "S", "120kg"], ["Pallet B", "SH-5013", "P", "85kg"], ["Pallet C", "SH-5014", "H", "64kg"], ["Pallet D", "SH-5015", "S", "210kg"]], codingKey: "P = Pending    S = Shipped    H = On Hold", entryLabel: "Re-entered record", entry: ["Pallet D", "SH-5015", "Pending", "120kg"] } },
+    question: "Compare the re-entered record with the original manifest. Select every field that contains an error (or that the entire item is correct).",
+    options: ["The entire item is correct", "There is an error in the Item", "There is an error in the Code", "There is an error in the Status", "There is an error in the Weight"],
+    answer: ["There is an error in the Status", "There is an error in the Weight"],
+    explanation: "Matching row (Pallet D): Item and Code are correct. Status: code S = Shipped, but re-entered 'Pending' (ERROR after decoding). Weight: original 210kg, re-entered 120kg (ERROR - digits transposed). Two errors: Status and Weight."
+  },
+
+  // ---- Abstract reasoning ----------------------------------------------
+  {
+    id: "abs-10", section: "abstract", topic: "abstract-series", difficulty: "easy",
+    stimulus: { series: [{ shape: "square" }, { shape: "circle" }, { shape: "triangle" }] },
+    question: "Which figure comes next in the sequence?",
+    options: [{ shape: "square" }, { shape: "circle" }, { shape: "triangle" }, { shape: "diamond" }],
+    answerIndex: 0,
+    explanation: "The shapes cycle square → circle → triangle and then repeat, so the next figure is a square."
+  },
+  {
+    id: "abs-11", section: "abstract", topic: "abstract-odd", difficulty: "easy",
+    stimulus: {},
+    question: "Which figure is the odd one out?",
+    options: [{ shape: "square", dots: 2 }, { shape: "square", dots: 2 }, { shape: "square", dots: 3 }, { shape: "square", dots: 2 }, { shape: "square", dots: 2 }],
+    answerIndex: 2,
+    explanation: "Every square has two dots except the third, which has three. It is the odd one out."
+  },
+  {
+    id: "abs-12", section: "abstract", topic: "abstract-series", difficulty: "medium",
+    stimulus: { series: [{ shape: "triangle", rot: 0 }, { shape: "triangle", rot: 90 }, { shape: "triangle", rot: 180 }] },
+    question: "Which figure comes next in the sequence?",
+    options: [{ shape: "triangle", rot: 270 }, { shape: "triangle", rot: 180 }, { shape: "triangle", rot: 0 }, { shape: "triangle", rot: 90 }],
+    answerIndex: 0,
+    explanation: "The triangle rotates 90° clockwise each step (0° → 90° → 180°). The next position is 270°."
+  },
+  {
+    id: "abs-13", section: "abstract", topic: "abstract-odd", difficulty: "medium",
+    stimulus: {},
+    question: "Which figure is the odd one out?",
+    options: [{ shape: "circle", fill: false }, { shape: "square", fill: false }, { shape: "triangle", fill: true }, { shape: "diamond", fill: false }, { shape: "arrow", fill: false }],
+    answerIndex: 2,
+    explanation: "Every figure is an outline except the triangle, which is solid (filled). It is the odd one out."
+  },
+  {
+    id: "abs-14", section: "abstract", topic: "abstract-series", difficulty: "hard",
+    stimulus: { series: [{ shape: "diamond", rot: 0, fill: true, dots: 1 }, { shape: "diamond", rot: 45, fill: false, dots: 2 }, { shape: "diamond", rot: 90, fill: true, dots: 3 }] },
+    question: "Which figure comes next in the sequence?",
+    options: [{ shape: "diamond", rot: 135, fill: false, dots: 4 }, { shape: "diamond", rot: 135, fill: true, dots: 4 }, { shape: "diamond", rot: 90, fill: false, dots: 4 }, { shape: "diamond", rot: 135, fill: false, dots: 3 }],
+    answerIndex: 0,
+    explanation: "Three things change together: the diamond rotates 45° (0° → 45° → 90°), the fill alternates solid → outline, and the dots increase by one (1 → 2 → 3). Next is 135°, outline, 4 dots."
+  },
+  {
+    id: "abs-15", section: "abstract", topic: "abstract-odd", difficulty: "hard",
+    stimulus: {},
+    question: "Which figure is the odd one out?",
+    options: [{ shape: "arrow", rot: 0 }, { shape: "arrow", rot: 90 }, { shape: "arrow", rot: 180 }, { shape: "arrow", rot: 270 }, { shape: "arrow", rot: 135 }],
+    answerIndex: 4,
+    explanation: "Four arrows point straight (up, right, down, left). The fifth points diagonally (135°), so it is the odd one out."
   }
 
 ];
