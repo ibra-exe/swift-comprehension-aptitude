@@ -828,6 +828,7 @@ function renderLanding() {
   const counts = {
     verbal: QUESTIONS.filter((q) => q.section === "verbal").length,
     numerical: QUESTIONS.filter((q) => q.section === "numerical").length,
+    abstract: QUESTIONS.filter((q) => q.section === "abstract").length,
     error: QUESTIONS.filter((q) => q.section === "error").length
   };
 
@@ -840,6 +841,7 @@ function renderLanding() {
         <div class="hero-feats">
           <div class="hero-feat"><span class="n">${counts.verbal}</span><span class="l">${t("feat_verbal")}</span></div>
           <div class="hero-feat"><span class="n">${counts.numerical}</span><span class="l">${t("feat_numerical")}</span></div>
+          <div class="hero-feat"><span class="n">${counts.abstract}</span><span class="l">${t("feat_abstract")}</span></div>
           <div class="hero-feat"><span class="n">${counts.error}</span><span class="l">${t("feat_error")}</span></div>
         </div>
         <button class="enter-btn" id="enter-btn">${t("start")}</button>
