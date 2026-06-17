@@ -2317,6 +2317,93 @@ const QUESTIONS = [
     options: ["The entire item is correct", "There is an error in the Patient", "There is an error in the NHS No", "There is an error in the Clinic", "There is an error in the Time"],
     answer: ["There is an error in the Clinic"],
     explanation: "Matching original row (Yuki Tanaka):\n  Patient: Yuki Tanaka  (correct)\n  NHS No: NH-44123  (correct)\n  Clinic: code C = Cardiology, but re-entered 'Dermatology'  (ERROR - wrong clinic after decoding)\n  Time: 15:45  (correct)\nOnly the Clinic contains an error."
+  },
+
+  /* ======================================================================
+   * ABSTRACT REASONING
+   * ----------------------------------------------------------------------
+   * Figures are described by compact specs (the app draws them as SVG):
+   *   { shape: "square|circle|triangle|diamond|arrow", rot, fill, dots }
+   * "series" questions show stimulus.series + a "?"; "odd" questions present
+   * the candidates as the options. The correct option is given by answerIndex.
+   * ==================================================================== */
+
+  // ---- Easy ----
+  {
+    id: "abs-01", section: "abstract", topic: "abstract-series", difficulty: "easy",
+    stimulus: { series: [{ shape: "arrow", rot: 0 }, { shape: "arrow", rot: 90 }, { shape: "arrow", rot: 180 }] },
+    question: "Which figure comes next in the sequence?",
+    options: [{ shape: "arrow", rot: 270 }, { shape: "arrow", rot: 0 }, { shape: "arrow", rot: 90 }, { shape: "arrow", rot: 180 }],
+    answerIndex: 0,
+    explanation: "The arrow rotates 90° clockwise at each step: 0° → 90° → 180°. The next position is 270°."
+  },
+  {
+    id: "abs-02", section: "abstract", topic: "abstract-odd", difficulty: "easy",
+    stimulus: {},
+    question: "Which figure is the odd one out?",
+    options: [{ shape: "arrow", rot: 0 }, { shape: "arrow", rot: 0 }, { shape: "arrow", rot: 180 }, { shape: "arrow", rot: 0 }, { shape: "arrow", rot: 0 }],
+    answerIndex: 2,
+    explanation: "Every arrow points upwards except the third, which points downwards. It is the odd one out."
+  },
+  {
+    id: "abs-03", section: "abstract", topic: "abstract-series", difficulty: "easy",
+    stimulus: { series: [{ shape: "square", dots: 1 }, { shape: "square", dots: 2 }, { shape: "square", dots: 3 }] },
+    question: "Which figure comes next in the sequence?",
+    options: [{ shape: "square", dots: 4 }, { shape: "square", dots: 2 }, { shape: "square", dots: 5 }, { shape: "square", dots: 1 }],
+    answerIndex: 0,
+    explanation: "The number of dots increases by one each step: 1 → 2 → 3. The next figure has 4 dots."
+  },
+
+  // ---- Medium ----
+  {
+    id: "abs-04", section: "abstract", topic: "abstract-series", difficulty: "medium",
+    stimulus: { series: [{ shape: "arrow", rot: 0 }, { shape: "arrow", rot: 45 }, { shape: "arrow", rot: 90 }] },
+    question: "Which figure comes next in the sequence?",
+    options: [{ shape: "arrow", rot: 135 }, { shape: "arrow", rot: 90 }, { shape: "arrow", rot: 180 }, { shape: "arrow", rot: 45 }],
+    answerIndex: 0,
+    explanation: "The arrow rotates 45° clockwise each step: 0° → 45° → 90°. The next position is 135°."
+  },
+  {
+    id: "abs-05", section: "abstract", topic: "abstract-odd", difficulty: "medium",
+    stimulus: {},
+    question: "Which figure is the odd one out?",
+    options: [{ shape: "circle", fill: true }, { shape: "square", fill: true }, { shape: "triangle", fill: true }, { shape: "diamond", fill: false }, { shape: "arrow", fill: true }],
+    answerIndex: 3,
+    explanation: "Every figure is solid (filled) except the diamond, which is only an outline. It is the odd one out."
+  },
+  {
+    id: "abs-06", section: "abstract", topic: "abstract-series", difficulty: "medium",
+    stimulus: { series: [{ shape: "triangle", rot: 0, fill: true }, { shape: "triangle", rot: 60, fill: false }, { shape: "triangle", rot: 120, fill: true }] },
+    question: "Which figure comes next in the sequence?",
+    options: [{ shape: "triangle", rot: 180, fill: false }, { shape: "triangle", rot: 180, fill: true }, { shape: "triangle", rot: 240, fill: false }, { shape: "triangle", rot: 120, fill: false }],
+    answerIndex: 0,
+    explanation: "Two things change each step: the triangle rotates 60° (0° → 60° → 120°), and the fill alternates solid → outline. Next is 180° and outline."
+  },
+
+  // ---- Hard ----
+  {
+    id: "abs-07", section: "abstract", topic: "abstract-series", difficulty: "hard",
+    stimulus: { series: [{ shape: "diamond", rot: 0, dots: 1 }, { shape: "diamond", rot: 45, dots: 2 }, { shape: "diamond", rot: 90, dots: 3 }] },
+    question: "Which figure comes next in the sequence?",
+    options: [{ shape: "diamond", rot: 135, dots: 4 }, { shape: "diamond", rot: 90, dots: 4 }, { shape: "diamond", rot: 135, dots: 3 }, { shape: "diamond", rot: 180, dots: 4 }],
+    answerIndex: 0,
+    explanation: "Two things change together: the diamond rotates 45° each step (0° → 45° → 90°) and the dots increase by one (1 → 2 → 3). Next is 135° with 4 dots."
+  },
+  {
+    id: "abs-08", section: "abstract", topic: "abstract-odd", difficulty: "hard",
+    stimulus: {},
+    question: "Which figure is the odd one out?",
+    options: [{ shape: "arrow", rot: 45 }, { shape: "arrow", rot: 135 }, { shape: "arrow", rot: 225 }, { shape: "arrow", rot: 315 }, { shape: "arrow", rot: 90 }],
+    answerIndex: 4,
+    explanation: "Four arrows point diagonally (45°, 135°, 225°, 315°). The fifth points straight (90°), so it is the odd one out."
+  },
+  {
+    id: "abs-09", section: "abstract", topic: "abstract-series", difficulty: "hard",
+    stimulus: { series: [{ shape: "circle", fill: true, dots: 0 }, { shape: "circle", fill: false, dots: 1 }, { shape: "circle", fill: true, dots: 2 }] },
+    question: "Which figure comes next in the sequence?",
+    options: [{ shape: "circle", fill: false, dots: 3 }, { shape: "circle", fill: true, dots: 3 }, { shape: "circle", fill: false, dots: 2 }, { shape: "circle", fill: true, dots: 0 }],
+    answerIndex: 0,
+    explanation: "The fill alternates solid → outline each step, and the dots increase by one (0 → 1 → 2). Next is an outline circle with 3 dots."
   }
 
 ];

@@ -37,9 +37,14 @@ There are no dependencies to install.
 
 ### Features
 
-- **Modes:** practice a single section (Verbal, Numerical, Error Checking), run the
-  **Full Deck Test** (every question in the bank in one pooled-timer run), or take the
-  **Real Mock Test**.
+- **Sections:** Verbal, Numerical, **Abstract Reasoning** (shape sequences & odd-one-out, drawn
+  as inline SVG), and Error Checking.
+- **Modes:** practice a single section, run the **Full Deck Test** (every question in one
+  pooled-timer run), or take the **Real Mock Test** (now spans all four sections).
+- **Difficulty:** every question is graded easy / medium / hard. Pick a difficulty before you
+  start (Mixed / Easy / Medium / Hard), or choose **Incremental** to have a single section run
+  from easy to hard. The current question's difficulty is shown as a tag in the quiz header.
+  The mock honours the chosen difficulty (Incremental falls back to Mixed).
 - **Real Mock Test:** a full exam simulation that mirrors the official structure and timings -
   Verbal (2 testlets of 4 questions, 2:00 each), Numerical (2 testlets of 4, 2:00 each) and
   Checking (8 questions, 1:30) = 24 questions in ~9.5 minutes. Each section is separately timed;

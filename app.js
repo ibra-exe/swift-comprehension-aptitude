@@ -13,10 +13,12 @@ const CONFIG = {
   // Defaults match the official Saville Swift Comprehension pacing:
   //   Verbal    4 min for 8 questions  -> 30s/question
   //   Numerical 4 min for 8 questions  -> 30s/question
+  //   Abstract  ~2 min for 6 questions -> ~20s/question
   //   Checking  90s for 8 questions    -> ~11s/question
   perQuestionSeconds: {
     verbal: 30,
     numerical: 30,
+    abstract: 20,
     error: 11
   },
   storageKey: "saville-history-v1", // localStorage key for cross-session history
@@ -40,6 +42,14 @@ const STRINGS = {
     "topic_numerical-inference": "Numerical: True/False/Not possible", topic_verbal: "Verbal reasoning",
     "topic_verbal-synonym": "Verbal: word meaning", "topic_verbal-detail": "Verbal: detail",
     "topic_verbal-inference": "Verbal: True/False/Not possible", "topic_error-checking": "Error checking",
+    sec_abstract: "Abstract Reasoning",
+    "topic_abstract-series": "Abstract: next in sequence", "topic_abstract-odd": "Abstract: odd one out",
+    mode_abstract_t: "Abstract Reasoning", mode_abstract_d: "{n} questions · shapes, sequences & odd-one-out",
+    feat_abstract: "Abstract",
+    difficulty: "Difficulty", diff_mixed: "Mixed", diff_easy: "Easy", diff_medium: "Medium", diff_hard: "Hard", diff_incremental: "Incremental",
+    diff_note: "Difficulty applies to whatever you start next. Incremental orders a single section from easy to hard (the mock always uses a mix).",
+    abs_series_q: "Which figure comes next in the sequence?", abs_odd_q: "Which figure is the odd one out?",
+    opt_n: "option {n}",
     // lock
     lock_title: "Restricted Access",
     lock_sub: "This Swift Comprehension practice app is private. Enter the access password to continue.",
@@ -47,19 +57,19 @@ const STRINGS = {
     lock_error: "Incorrect password. Please try again.",
     // landing
     badge: "Aptitude Trainer", hero_title: "Swift Comprehension",
-    hero_sub: "Train your accuracy under real time pressure across Verbal, Numerical and Error-Checking sections, with full worked explanations on every question.",
+    hero_sub: "Train your accuracy under real time pressure across Verbal, Numerical, Abstract and Error-Checking sections, with full worked explanations on every question.",
     feat_verbal: "Verbal", feat_numerical: "Numerical", feat_error: "Error checking",
     start: "Start Practising →",
     // home
     app_title: "Swift Comprehension Practice",
-    app_sub: "Accuracy under time pressure · Verbal · Numerical · Error checking",
+    app_sub: "Accuracy under time pressure · Verbal · Numerical · Abstract · Error checking",
     choose_mode: "Choose a mode", settings: "Settings",
     mode_verbal_t: "Verbal Reasoning", mode_verbal_d: "{n} questions · True / False / Cannot Say",
     mode_numerical_t: "Numerical Reasoning", mode_numerical_d: "{n} questions · tables & charts (calculator allowed)",
     mode_error_t: "Error Checking", mode_error_d: "{n} questions · spot the copy errors",
     mode_all_t: "Full Deck Test", mode_all_d: "All {n} questions · every section, one run",
     mock_t: "Real Mock Test",
-    mock_d: "Full exam simulation: 24 questions in ~9.5 min, with real rules and section timings (Verbal 2×4 in 2:00, Numerical 2×4 in 2:00, Checking 8 in 1:30). Always timed.",
+    mock_d: "Full exam simulation across all sections (Verbal, Numerical, Abstract, Checking) with real, separately-timed sections. Always timed; choose a difficulty above.",
     study_label: "<b>Study mode</b> · untimed, explanations shown immediately",
     study_note: "In timed mode the countdown runs and explanations are withheld until the review screen.",
     past_results: "Past results", clear_history: "Clear history", acc_short: "acc",
@@ -100,23 +110,31 @@ const STRINGS = {
     "topic_numerical-inference": "عددي: صح/خطأ/لا يمكن الجزم", topic_verbal: "الاستدلال اللفظي",
     "topic_verbal-synonym": "لفظي: معنى الكلمة", "topic_verbal-detail": "لفظي: تفصيل",
     "topic_verbal-inference": "لفظي: صح/خطأ/لا يمكن الجزم", "topic_error-checking": "تدقيق الأخطاء",
+    sec_abstract: "الاستدلال التجريدي",
+    "topic_abstract-series": "تجريدي: التالي في المتسلسلة", "topic_abstract-odd": "تجريدي: الشكل الشاذ",
+    mode_abstract_t: "الاستدلال التجريدي", mode_abstract_d: "{n} سؤالاً · أشكال ومتسلسلات والشكل الشاذ",
+    feat_abstract: "تجريدي",
+    difficulty: "الصعوبة", diff_mixed: "متنوّع", diff_easy: "سهل", diff_medium: "متوسط", diff_hard: "صعب", diff_incremental: "تصاعدي",
+    diff_note: "تنطبق الصعوبة على ما تبدأه تالياً. النمط التصاعدي يرتّب القسم الواحد من الأسهل إلى الأصعب (المحاكاة تستخدم مزيجاً دائماً).",
+    abs_series_q: "أي شكل يأتي تالياً في المتسلسلة؟", abs_odd_q: "أي شكل هو الشاذ عن البقية؟",
+    opt_n: "الخيار {n}",
     lock_title: "وصول مقيّد",
     lock_sub: "تطبيق التدريب على اختبار الاستيعاب السريع خاص. أدخل كلمة مرور الوصول للمتابعة.",
     lock_placeholder: "كلمة مرور الوصول", unlock: "فتح القفل",
     lock_error: "كلمة المرور غير صحيحة. حاول مرة أخرى.",
     badge: "مدرّب اختبارات القدرات", hero_title: "الاستيعاب السريع",
-    hero_sub: "درّب دقّتك تحت ضغط الوقت في أقسام اللفظي والعددي وتدقيق الأخطاء، مع شرح كامل لكل سؤال.",
+    hero_sub: "درّب دقّتك تحت ضغط الوقت في أقسام اللفظي والعددي والتجريدي وتدقيق الأخطاء، مع شرح كامل لكل سؤال.",
     feat_verbal: "لفظي", feat_numerical: "عددي", feat_error: "تدقيق الأخطاء",
     start: "ابدأ التدريب ←",
     app_title: "تدريب الاستيعاب السريع",
-    app_sub: "الدقة تحت ضغط الوقت · لفظي · عددي · تدقيق الأخطاء",
+    app_sub: "الدقة تحت ضغط الوقت · لفظي · عددي · تجريدي · تدقيق الأخطاء",
     choose_mode: "اختر النمط", settings: "الإعدادات",
     mode_verbal_t: "الاستدلال اللفظي", mode_verbal_d: "{n} سؤالاً · صح / خطأ / لا يمكن الجزم",
     mode_numerical_t: "الاستدلال العددي", mode_numerical_d: "{n} سؤالاً · جداول ورسوم (يُسمح بالآلة الحاسبة)",
     mode_error_t: "تدقيق الأخطاء", mode_error_d: "{n} سؤالاً · اكتشف أخطاء النسخ",
     mode_all_t: "اختبار الحزمة الكاملة", mode_all_d: "كل الأسئلة {n} · جميع الأقسام في جلسة واحدة",
     mock_t: "اختبار محاكاة حقيقي",
-    mock_d: "محاكاة كاملة للاختبار: 24 سؤالاً في ~9.5 دقيقة بقواعد وتوقيتات حقيقية (لفظي 2×4 في 2:00، عددي 2×4 في 2:00، تدقيق 8 في 1:30). موقوت دائماً.",
+    mock_d: "محاكاة كاملة للاختبار تشمل جميع الأقسام (لفظي، عددي، تجريدي، تدقيق) بأقسام موقوتة منفصلة. موقوت دائماً؛ اختر الصعوبة بالأعلى.",
     study_label: "<b>وضع الدراسة</b> · بلا توقيت، تظهر الشروح فوراً",
     study_note: "في الوضع الموقوت يعمل العدّاد وتُؤجَّل الشروح حتى شاشة المراجعة.",
     past_results: "نتائج سابقة", clear_history: "مسح السجل", acc_short: "دقة",
@@ -171,7 +189,41 @@ function setLang(l) {
 let state = null;        // active quiz session, or null on home/results
 let studyMode = false;   // untimed + immediate explanations
 
+// Difficulty: "mixed" | "easy" | "medium" | "hard" | "incremental"
+let diffChoice = (function () { try { return localStorage.getItem("sc-diff") || "mixed"; } catch { return "mixed"; } })();
+function setDiff(d) { diffChoice = d; try { localStorage.setItem("sc-diff", d); } catch {} }
+
 const app = document.getElementById("app");
+
+/* ==========================================================================
+   DIFFICULTY
+   --------------------------------------------------------------------------
+   New questions carry an explicit `difficulty`. The original bank is graded
+   here so every section spans easy/medium/hard (anything unlisted = medium).
+   ========================================================================== */
+const DIFF_RANK = { easy: 0, medium: 1, hard: 2 };
+const EASY_IDS = new Set([
+  // verbal: word-meaning & detail
+  "verb-09", "verb-10", "verb-13", "verb-14", "verb-29", "verb-30", "verb-33", "verb-34", "verb-37", "verb-38", "verb-41", "verb-42",
+  // numerical: read-off & straightforward averages
+  "num-02", "num-11", "num-13", "num-18", "num-34", "num-37", "num-40", "num-41",
+  // error: clean / single-field
+  "err-01", "err-04", "err-05", "err-07", "err-10", "err-12", "chk-01", "chk-17", "chk-21"
+]);
+const HARD_IDS = new Set([
+  // verbal: nuanced "not possible to say" / inference
+  "verb-04", "verb-08", "verb-12", "verb-16", "verb-32", "verb-36", "verb-44",
+  // numerical: chart inference & multi-step
+  "num-08", "num-12", "num-16", "num-36", "num-39", "num-45",
+  // error: multi-error & decode traps
+  "chk-03", "chk-04", "chk-15", "chk-16", "chk-19", "chk-24"
+]);
+function diffOf(q) {
+  if (q.difficulty) return q.difficulty;
+  if (EASY_IDS.has(q.id)) return "easy";
+  if (HARD_IDS.has(q.id)) return "hard";
+  return "medium";
+}
 
 /* ==========================================================================
    HELPERS
@@ -235,7 +287,7 @@ let timerSettings = (function () {
   const def = { ...CONFIG.perQuestionSeconds };
   try {
     const saved = JSON.parse(localStorage.getItem("sc-timing"));
-    if (saved) ["verbal", "numerical", "error"].forEach((k) => {
+    if (saved) ["verbal", "numerical", "abstract", "error"].forEach((k) => {
       if (Number.isFinite(saved[k]) && saved[k] > 0) def[k] = saved[k];
     });
   } catch {}
@@ -369,6 +421,15 @@ function loc(q) {
   if (lang !== "ar") return q;
   const a = (typeof QUESTIONS_AR !== "undefined") ? QUESTIONS_AR[q.id] : null;
   if (!a) return q; // untranslated -> English fallback
+  // Abstract questions use figure (object) options and an index answer; only
+  // the prompt and explanation are translatable.
+  const figureOptions = q.options.some((o) => typeof o !== "string");
+  if (figureOptions) {
+    return Object.assign({}, q, {
+      question: a.question || q.question,
+      explanation: a.explanation || q.explanation
+    });
+  }
   const opts = a.options || q.options;
   const idx = (v) => { const i = q.options.indexOf(v); return i >= 0 ? opts[i] : v; };
   const answer = Array.isArray(q.answer) ? q.answer.map(idx) : idx(q.answer);
@@ -385,18 +446,21 @@ function buildQuiz(mode) {
   // mode: "verbal" | "numerical" | "error" | "all" | "mock"
   if (mode === "mock") return buildMock();
 
-  let questions;
-  if (mode === "all") {
-    // Full deck: every question in the bank, sections in order, stimulus groups
-    // randomised within each section. One pooled timer (or untimed in study).
-    questions = [
-      ...shuffleByStimulus(QUESTIONS.filter((q) => q.section === "verbal")),
-      ...shuffleByStimulus(QUESTIONS.filter((q) => q.section === "numerical")),
-      ...shuffleByStimulus(QUESTIONS.filter((q) => q.section === "error"))
-    ];
-  } else {
-    // Single section: randomise the stimulus groups each session.
-    questions = shuffleByStimulus(QUESTIONS.filter((q) => q.section === mode));
+  const sections = mode === "all" ? ["verbal", "numerical", "abstract", "error"] : [mode];
+  let questions = [];
+  for (const s of sections) {
+    let pool = QUESTIONS.filter((q) => q.section === s);
+    // Difficulty filter (easy/medium/hard); fall back to the full pool if a
+    // section has none at that level.
+    if (diffChoice === "easy" || diffChoice === "medium" || diffChoice === "hard") {
+      const f = pool.filter((q) => diffOf(q) === diffChoice);
+      pool = f.length ? f : pool;
+    }
+    questions = questions.concat(shuffleByStimulus(pool));
+  }
+  // Incremental: order the whole session from easy to hard.
+  if (diffChoice === "incremental") {
+    questions.sort((p, q) => DIFF_RANK[diffOf(p)] - DIFF_RANK[diffOf(q)]);
   }
   questions = questions.map(loc); // localise to the active language
   const times = readTimerSettings();
@@ -422,49 +486,44 @@ function buildQuiz(mode) {
 /* ==========================================================================
    REAL MOCK TEST  (official structure & timings)
    --------------------------------------------------------------------------
-   Mirrors the real Saville Swift Comprehension:
+   Mirrors the real Saville Swift assessment, across ALL sections:
      Verbal    - 2 testlets of 4 questions, 2:00 each
      Numerical - 2 testlets of 4 questions, 2:00 each
+     Abstract  - 1 section of 6 questions, 2:00
      Checking  - 1 section of 8 questions, 1:30
-   = 24 questions in ~9.5 minutes. Each block is separately timed; when a
+   = 30 questions in ~11.5 minutes. Each block is separately timed; when a
    block's time runs out you move straight to the next one (no going back).
+   Difficulty (easy/medium/hard) filters the pool; mixed/incremental use all.
    ========================================================================== */
-const MOCK = {
-  verbal:    { testlets: 2, size: 4, time: 120 },
-  numerical: { testlets: 2, size: 4, time: 120 },
-  error:     { groups: 2, size: 4, time: 90 } // two 4-item tables = one 8-question section
-};
+const MOCK_BLOCKS = [
+  { section: "verbal", time: 120, size: 4 },
+  { section: "verbal", time: 120, size: 4 },
+  { section: "numerical", time: 120, size: 4 },
+  { section: "numerical", time: 120, size: 4 },
+  { section: "abstract", time: 120, size: 6 },
+  { section: "error", time: 90, size: 8 }
+];
 
-// Random stimulus groups for a section, optionally filtered to a minimum size.
-function stimulusGroups(section, minSize) {
-  const map = new Map();
-  QUESTIONS.filter((q) => q.section === section).forEach((q) => {
-    const k = stimulusKey(q);
-    if (!map.has(k)) map.set(k, []);
-    map.get(k).push(q);
-  });
-  let groups = [...map.values()];
-  if (minSize) groups = groups.filter((g) => g.length >= minSize);
-  return shuffle(groups);
+// A shuffled pool for a section, difficulty-filtered when a level is chosen.
+function mockPool(section) {
+  let pool = QUESTIONS.filter((q) => q.section === section);
+  if (diffChoice === "easy" || diffChoice === "medium" || diffChoice === "hard") {
+    const f = pool.filter((q) => diffOf(q) === diffChoice);
+    if (f.length) pool = f;
+  }
+  return shuffle(pool.slice());
 }
 
 function buildMock() {
-  const blocks = [];
-
-  const vg = stimulusGroups("verbal", MOCK.verbal.size);
-  for (let i = 0; i < MOCK.verbal.testlets && i < vg.length; i++) {
-    blocks.push({ section: "verbal", timeLimit: MOCK.verbal.time, questions: vg[i].slice(0, MOCK.verbal.size) });
-  }
-
-  const ng = stimulusGroups("numerical", MOCK.numerical.size);
-  for (let i = 0; i < MOCK.numerical.testlets && i < ng.length; i++) {
-    blocks.push({ section: "numerical", timeLimit: MOCK.numerical.time, questions: ng[i].slice(0, MOCK.numerical.size) });
-  }
-
-  const cg = stimulusGroups("error", MOCK.error.size);
-  let checkQs = [];
-  for (let i = 0; i < MOCK.error.groups && i < cg.length; i++) checkQs = checkQs.concat(cg[i].slice(0, MOCK.error.size));
-  if (checkQs.length) blocks.push({ section: "error", timeLimit: MOCK.error.time, questions: checkQs });
+  // Draw distinct questions per section, then split them into the timed blocks.
+  const pools = {}, used = {};
+  const blocks = MOCK_BLOCKS.map((spec) => {
+    if (!pools[spec.section]) { pools[spec.section] = mockPool(spec.section); used[spec.section] = 0; }
+    const pool = pools[spec.section];
+    const qs = pool.slice(used[spec.section], used[spec.section] + spec.size);
+    used[spec.section] += spec.size;
+    return { section: spec.section, timeLimit: spec.time, questions: qs };
+  }).filter((b) => b.questions.length);
 
   // Flatten into one question list, recording each question's block.
   const questions = [], qBlock = [], blockStart = [];
@@ -651,9 +710,38 @@ function computeResults() {
 /* ==========================================================================
    RENDERING - STIMULUS
    ========================================================================== */
+// Renders one abstract-reasoning figure from a compact spec as inline SVG.
+// spec: { shape: "square|circle|triangle|diamond|arrow", rot, fill, dots }
+function absFigure(spec) {
+  const s = spec || {};
+  const c = 32, stroke = "currentColor", fill = s.fill ? "currentColor" : "none";
+  const rot = `rotate(${s.rot || 0} ${c} ${c})`;
+  let shape = "";
+  switch (s.shape) {
+    case "circle": shape = `<circle cx="32" cy="32" r="17" fill="${fill}" stroke="${stroke}" stroke-width="3"/>`; break;
+    case "triangle": shape = `<polygon points="32,14 50,48 14,48" fill="${fill}" stroke="${stroke}" stroke-width="3" stroke-linejoin="round" transform="${rot}"/>`; break;
+    case "diamond": shape = `<polygon points="32,11 53,32 32,53 11,32" fill="${fill}" stroke="${stroke}" stroke-width="3" stroke-linejoin="round" transform="${rot}"/>`; break;
+    case "arrow": shape = `<g transform="${rot}"><line x1="32" y1="48" x2="32" y2="16" stroke="${stroke}" stroke-width="3" stroke-linecap="round"/><polyline points="23,25 32,15 41,25" fill="none" stroke="${stroke}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>`; break;
+    default: shape = `<rect x="15" y="15" width="34" height="34" rx="3" fill="${fill}" stroke="${stroke}" stroke-width="3" transform="${rot}"/>`;
+  }
+  let dots = "";
+  const n = s.dots || 0;
+  for (let i = 0; i < n; i++) dots += `<circle cx="${13 + i * 13}" cy="57" r="3.4" fill="${stroke}"/>`;
+  return `<svg class="absfig" viewBox="0 0 64 64" aria-hidden="true">${shape}${dots}</svg>`;
+}
+
 function renderStimulus(q, { reviewDiff = false } = {}) {
   if (q.section === "verbal") {
     return `<p class="passage">${esc(q.stimulus.passage)}</p>`;
+  }
+
+  if (q.section === "abstract") {
+    // Series questions show the sequence followed by a "?" tile; odd-one-out
+    // questions have no stimulus row (the candidates are the options).
+    const seq = q.stimulus && q.stimulus.series;
+    if (!seq) return "";
+    const tiles = seq.map((f) => `<div class="abs-tile">${absFigure(f)}</div>`).join("");
+    return `<div class="abs-seq">${tiles}<div class="abs-tile abs-q">?</div></div>`;
   }
 
   if (q.section === "numerical") {
@@ -960,6 +1048,7 @@ const ICONS = {
   numerical: `<svg viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="11" width="3.6" height="9" rx="1"/><rect x="10.2" y="5" width="3.6" height="15" rx="1"/><rect x="16.4" y="14" width="3.6" height="6" rx="1"/></svg>`,
   error: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6"/><line x1="15" y1="15" x2="20" y2="20"/><polyline points="8,10.5 10,12.5 13.5,8.5"/></svg>`,
   all: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 16l9 5 9-5"/></svg>`,
+  abstract: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="1"/><circle cx="17.5" cy="7" r="3.6"/><polygon points="7 13.5 11 20.5 3 20.5"/><polygon points="17.5 13.5 21 20 14 20"/></svg>`,
   mock: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l11-6.5a1 1 0 0 0 0-1.72l-11-6.5A1 1 0 0 0 8 5.5z"/></svg>`
 };
 
@@ -974,7 +1063,10 @@ function renderHome() {
     error: QUESTIONS.filter((q) => q.section === "error").length
   };
   const history = loadHistory();
-  const total = counts.verbal + counts.numerical + counts.error;
+  counts.abstract = QUESTIONS.filter((q) => q.section === "abstract").length;
+  const total = counts.verbal + counts.numerical + counts.abstract + counts.error;
+  const diffChips = ["mixed", "easy", "medium", "hard", "incremental"]
+    .map((dv) => `<button class="diff-chip ${diffChoice === dv ? "active" : ""}" data-diff="${dv}">${t("diff_" + dv)}</button>`).join("");
 
   app.innerHTML = `
     <div class="topbar">
@@ -987,6 +1079,13 @@ function renderHome() {
 
     <div class="card">
       <h3 style="margin-top:0">${t("choose_mode")}</h3>
+
+      <div class="diff-row">
+        <span class="diff-label">${t("difficulty")}</span>
+        <div class="diff-chips">${diffChips}</div>
+      </div>
+      <p class="small muted" style="margin:0 0 14px">${t("diff_note")}</p>
+
       <div class="mode-grid">
         <button class="mode-btn" data-mode="verbal">
           <span class="mode-ic ic-verbal">${ICONS.verbal}</span>
@@ -998,17 +1097,23 @@ function renderHome() {
           <span class="mode-tx"><span class="t">${t("mode_numerical_t")}</span>
           <span class="d">${t("mode_numerical_d", { n: counts.numerical })}</span></span>
         </button>
+        <button class="mode-btn" data-mode="abstract">
+          <span class="mode-ic ic-abstract">${ICONS.abstract}</span>
+          <span class="mode-tx"><span class="t">${t("mode_abstract_t")}</span>
+          <span class="d">${t("mode_abstract_d", { n: counts.abstract })}</span></span>
+        </button>
         <button class="mode-btn" data-mode="error">
           <span class="mode-ic ic-error">${ICONS.error}</span>
           <span class="mode-tx"><span class="t">${t("mode_error_t")}</span>
           <span class="d">${t("mode_error_d", { n: counts.error })}</span></span>
         </button>
-        <button class="mode-btn" data-mode="all">
-          <span class="mode-ic ic-all">${ICONS.all}</span>
-          <span class="mode-tx"><span class="t">${t("mode_all_t")}</span>
-          <span class="d">${t("mode_all_d", { n: total })}</span></span>
-        </button>
       </div>
+
+      <button class="mode-btn wide-btn" data-mode="all">
+        <span class="mode-ic ic-all">${ICONS.all}</span>
+        <span class="mode-tx"><span class="t">${t("mode_all_t")}</span>
+        <span class="d">${t("mode_all_d", { n: total })}</span></span>
+      </button>
       <button class="mode-btn mock-btn" data-mode="mock">
         <span class="mode-ic ic-mock">${ICONS.mock}</span>
         <span class="mode-tx"><span class="t">${t("mock_t")}</span>
@@ -1044,6 +1149,9 @@ function renderHome() {
   `;
 
   $("#study-toggle").addEventListener("change", (e) => { studyMode = e.target.checked; });
+  app.querySelectorAll(".diff-chip").forEach((b) =>
+    b.addEventListener("click", () => { setDiff(b.dataset.diff); renderHome(); })
+  );
   app.querySelectorAll(".mode-btn").forEach((b) =>
     b.addEventListener("click", () => buildQuiz(b.dataset.mode))
   );
@@ -1081,6 +1189,7 @@ function renderSettings() {
       </div>
       <div class="settings-row"><span>${t("sec_verbal")}</span><input type="number" id="t-verbal" min="3" value="${cur.verbal}"></div>
       <div class="settings-row"><span>${t("sec_numerical")}</span><input type="number" id="t-numerical" min="3" value="${cur.numerical}"></div>
+      <div class="settings-row"><span>${t("sec_abstract")}</span><input type="number" id="t-abstract" min="3" value="${cur.abstract}"></div>
       <div class="settings-row"><span>${t("sec_error")}</span><input type="number" id="t-error" min="3" value="${cur.error}"></div>
       <p class="small muted" style="margin:10px 0 0">${t("timing_note")}</p>
     </div>
@@ -1095,13 +1204,14 @@ function renderSettings() {
     const v = parseInt(e.target.value, 10);
     if (Number.isFinite(v) && v > 0) { timerSettings[key] = v; saveTimerSettings(); }
   });
-  bind("t-verbal", "verbal"); bind("t-numerical", "numerical"); bind("t-error", "error");
+  bind("t-verbal", "verbal"); bind("t-numerical", "numerical"); bind("t-abstract", "abstract"); bind("t-error", "error");
 
   $("#reset-timing").addEventListener("click", () => {
     timerSettings = { ...CONFIG.perQuestionSeconds };
     saveTimerSettings();
     $("#t-verbal").value = timerSettings.verbal;
     $("#t-numerical").value = timerSettings.numerical;
+    $("#t-abstract").value = timerSettings.abstract;
     $("#t-error").value = timerSettings.error;
   });
 }
@@ -1118,23 +1228,22 @@ function renderQuiz() {
   const showExplain = study && state.revealed;
 
   const multi = isMulti(q);
+  const isAbs = q.section === "abstract";
   const selArr = multi ? (Array.isArray(selected) ? selected : []) : [];
   const optsHtml = q.options.map((opt, i) => {
-    let cls = "opt" + (multi ? " multi" : "");
-    const isSel = multi ? selArr.includes(opt) : opt === selected;
+    const val = isAbs ? String(i) : opt;          // abstract options are figures, keyed by index
+    let cls = "opt" + (multi ? " multi" : "") + (isAbs ? " optfig" : "");
+    const isSel = multi ? selArr.includes(val) : val === selected;
     if (showExplain) {
-      const isAns = multi ? q.answer.includes(opt) : opt === q.answer;
+      const isAns = multi ? q.answer.includes(val) : val === q.answer;
       if (isAns) cls += " correct";
       else if (isSel) cls += " wrong";
     } else if (isSel) {
       cls += " selected";
     }
-    const indicator = multi
-      ? `<span class="checkbox"></span>`
-      : `<span class="key">${esc(keys[i])}</span>`;
-    return `<button class="${cls}" data-opt="${esc(opt)}">
-      ${indicator}<span>${esc(opt)}</span>
-    </button>`;
+    const indicator = multi ? `<span class="checkbox"></span>` : `<span class="key">${esc(keys[i])}</span>`;
+    const content = isAbs ? absFigure(opt) : `<span>${esc(opt)}</span>`;
+    return `<button class="${cls}" data-opt="${esc(val)}">${indicator}${content}</button>`;
   }).join("");
 
   const timerHtml = study
@@ -1148,10 +1257,11 @@ function renderQuiz() {
   let explainHtml = "";
   if (showExplain) {
     const correct = isCorrect(q, selected);
+    const optLabel = (v) => isAbs ? t("opt_n", { n: parseInt(v, 10) + 1 }) : v;
     const yourTxt = multi
       ? (selArr.length ? selArr.join("; ") : t("nothing"))
-      : (selected != null ? selected : t("nothing"));
-    const correctTxt = multi ? q.answer.join("; ") : q.answer;
+      : (selected != null ? optLabel(selected) : t("nothing"));
+    const correctTxt = multi ? q.answer.join("; ") : optLabel(q.answer);
     const verdict = correct
       ? t("verdict_correct", { a: esc(correctTxt) })
       : t("verdict_wrong", { you: esc(yourTxt), a: esc(correctTxt) });
@@ -1166,15 +1276,17 @@ function renderQuiz() {
 
   // Section indicator: in a mock, show which section/testlet you're on; in
   // single-section practice, name the section.
+  const dl = diffOf(q);
+  const diffTag = `<span class="difftag ${dl}">${t("diff_" + dl)}</span>`;
   let progressHtml, barPct;
   if (state.mock) {
     const b = state.blocks[state.blockIdx];
     const posInBlock = state.idx - state.blockStart[state.blockIdx] + 1;
-    progressHtml = `<span class="seclabel">${t("section_of", { a: state.blockIdx + 1, b: state.blocks.length })}</span>` +
+    progressHtml = `<span class="seclabel">${t("section_of", { a: state.blockIdx + 1, b: state.blocks.length })} ${diffTag}</span>` +
       `<span class="progress">${secLabel(b.section)} · ${t("q_of", { a: posInBlock, b: b.questions.length })}</span>`;
     barPct = ((state.idx - state.blockStart[state.blockIdx]) / b.questions.length) * 100;
   } else {
-    progressHtml = `<span class="seclabel">${secLabel(q.section)}</span>` +
+    progressHtml = `<span class="seclabel">${secLabel(q.section)} ${diffTag}</span>` +
       `<span class="progress">${t("q_label", { a: state.idx + 1, b: n })}</span>`;
     barPct = (state.idx / n) * 100;
   }
@@ -1189,7 +1301,7 @@ function renderQuiz() {
     <div class="card">
       ${renderStimulus(q)}
       <div class="q-text">${esc(q.question)}</div>
-      <div class="options">${optsHtml}</div>
+      <div class="options${isAbs ? " abs-opts" : ""}">${optsHtml}</div>
       ${explainHtml}
     </div>
 
@@ -1317,20 +1429,24 @@ function renderResults() {
 function renderReview() {
   const items = state.questions.map((q, i) => {
     const a = state.answers[i];
+    const isAbs = q.section === "abstract";
     const answered = isAnswered(a);
     const correct = answered && isCorrect(q, a);
     const yourCls = !answered ? "" : (correct ? "ok" : "no");
+    const optLabel = (v) => isAbs ? t("opt_n", { n: parseInt(v, 10) + 1 }) : v;
     const yourTxt = !answered
       ? t("not_answered")
-      : esc(Array.isArray(a) ? a.join("; ") : a);
-    const correctTxt = esc(Array.isArray(q.answer) ? q.answer.join("; ") : q.answer);
+      : esc(Array.isArray(a) ? a.join("; ") : optLabel(a));
+    const correctTxt = esc(Array.isArray(q.answer) ? q.answer.join("; ") : optLabel(q.answer));
 
+    const dl = diffOf(q);
     const tLabel = topicLabel(q.topic);
     const showTopicTag = tLabel.toLowerCase() !== secLabel(q.section).toLowerCase();
     return `<div class="review-item">
       <div>
         <span class="tag">${secLabel(q.section)}</span>
         ${showTopicTag ? `<span class="tag">${tLabel}</span>` : ""}
+        <span class="difftag ${dl}">${t("diff_" + dl)}</span>
       </div>
       <div style="margin:10px 0">${renderStimulus(q, { reviewDiff: q.section === "error" })}</div>
       <div class="q-text" style="font-size:18px">${esc(q.question)}</div>
@@ -1391,10 +1507,10 @@ document.addEventListener("keydown", (e) => {
   } else if (o.length === 2 && o[0] === "Correct" && o[1] === "Error") {
     if (k === "c") chosen = "Correct"; else if (k === "e") chosen = "Error";
   }
-  // Number keys 1..N for any question.
+  // Number keys 1..N for any question. Abstract options are keyed by index.
   if (chosen == null) {
     const idx = parseInt(k, 10) - 1;
-    if (idx >= 0 && idx < o.length) chosen = o[idx];
+    if (idx >= 0 && idx < o.length) chosen = (q.section === "abstract") ? String(idx) : o[idx];
   }
 
   if (chosen != null) { e.preventDefault(); selectOption(chosen); }
@@ -1403,6 +1519,12 @@ document.addEventListener("keydown", (e) => {
 /* ==========================================================================
    BOOT
    ========================================================================== */
+// Abstract questions declare the correct option via `answerIndex`; normalise it
+// to the string answer the scoring/render code expects.
+QUESTIONS.forEach((q) => {
+  if (q.section === "abstract" && q.answerIndex != null && q.answer == null) q.answer = String(q.answerIndex);
+});
+
 initTheme();
 applyLang();
 if (isUnlocked()) renderLanding();

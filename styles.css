@@ -213,11 +213,61 @@ button:disabled { opacity: .5; cursor: default; }
 .ic-numerical { --ic: #43c47e; }
 .ic-error     { --ic: #e0a23a; }
 .ic-all       { --ic: #c879e6; }
+.ic-abstract  { --ic: #ef6f6c; }
 .ic-mock      { --ic: var(--brand); }
 .mode-btn.ic-verbal, .mode-btn[data-mode="verbal"] { --ic: #5b82ff; }
 .mode-btn[data-mode="numerical"] { --ic: #43c47e; }
+.mode-btn[data-mode="abstract"] { --ic: #ef6f6c; }
 .mode-btn[data-mode="error"] { --ic: #e0a23a; }
 .mode-btn[data-mode="all"] { --ic: #c879e6; }
+
+/* Full-width secondary CTA (Full Deck) */
+.wide-btn { width: 100%; margin-top: 12px; }
+
+/* Difficulty selector (home) */
+.diff-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; margin: 4px 0 8px; }
+.diff-label { font-weight: 600; font-size: 14px; color: var(--ink-soft); }
+.diff-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.diff-chip {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px; font-weight: 600;
+  background: var(--chip);
+  border: 1px solid transparent;
+}
+.diff-chip:hover { border-color: color-mix(in srgb, var(--brand) 45%, var(--line)); }
+.diff-chip.active { background: var(--brand); color: var(--brand-ink); }
+
+/* Difficulty tag (quiz header + review) */
+.difftag {
+  display: inline-block;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .03em;
+  padding: 1px 8px;
+  border-radius: 999px;
+  vertical-align: middle;
+}
+.difftag.easy   { color: var(--good); background: var(--good-bg); }
+.difftag.medium { color: var(--warn); background: var(--note-bg); }
+.difftag.hard   { color: var(--bad);  background: var(--bad-bg); }
+
+/* Abstract reasoning figures */
+.absfig { width: 100%; height: 100%; color: var(--ink); display: block; }
+.abs-seq { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 6px 0 4px; }
+.abs-tile {
+  width: 64px; height: 64px;
+  display: grid; place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  flex: 0 0 auto;
+}
+.abs-tile.abs-q { font-size: 26px; font-weight: 800; color: var(--ink-soft); }
+.abs-opts { grid-template-columns: repeat(4, 1fr); }
+.opt.optfig { flex-direction: column; gap: 8px; padding: 12px; justify-items: center; text-align: center; }
+.opt.optfig .key { align-self: flex-start; }
+.opt.optfig .absfig { width: 60px; height: 60px; }
+@media (max-width: 520px) { .abs-opts { grid-template-columns: repeat(2, 1fr); } }
 
 /* Real Mock Test: full-width, accented call-to-action below the practice grid */
 .mock-btn {
