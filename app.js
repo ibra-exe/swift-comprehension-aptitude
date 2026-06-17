@@ -26,13 +26,8 @@ const CONFIG = {
 };
 
 /* ==========================================================================
-   INTERNATIONALISATION (English / Arabic)
-   --------------------------------------------------------------------------
-   `lang` is "en" or "ar"; t(key, vars) looks up the string and fills {vars}.
-   Question content is translated separately (see questions.ar.js + loc()).
+   UI STRINGS  ·  t(key, vars) looks up the string and fills {vars}.
    ========================================================================== */
-let lang = (function () { try { return localStorage.getItem("sc-lang") === "ar" ? "ar" : "en"; } catch { return "en"; } })();
-
 const STRINGS = {
   en: {
     // sections & topics
@@ -63,7 +58,7 @@ const STRINGS = {
     // home
     app_title: "Swift Comprehension Practice",
     app_sub: "Accuracy under time pressure · Verbal · Numerical · Abstract · Error checking",
-    choose_mode: "Choose a mode", settings: "Settings",
+    choose_mode: "Choose a mode",
     mode_verbal_t: "Verbal Reasoning", mode_verbal_d: "{n} questions · True / False / Cannot Say",
     mode_numerical_t: "Numerical Reasoning", mode_numerical_d: "{n} questions · tables & charts (calculator allowed)",
     mode_error_t: "Error Checking", mode_error_d: "{n} questions · spot the copy errors",
@@ -74,10 +69,6 @@ const STRINGS = {
     study_note: "In timed mode the countdown runs and explanations are withheld until the review screen.",
     past_results: "Past results", clear_history: "Clear history", acc_short: "acc",
     storage_note: "Stored locally in your browser (localStorage) · no server involved.",
-    // settings
-    settings_title: "Settings", back: "← Back", language: "Language",
-    timing: "Timing", timing_unit: "(seconds per question)", reset_default: "Reset to default",
-    timing_note: "Like the real test, there is no per-question timer: each rate below is pooled into one section countdown (rate × number of questions). Defaults match the official pace: 30s verbal & numerical, ~11s checking.",
     // quiz
     section_of: "Section {a} of {b}", q_of: "Q{a} of {b}", q_label: "Q{a} of {b}",
     time_left: "Time left", study_untimed: "Study mode · untimed",
@@ -103,85 +94,15 @@ const STRINGS = {
     not_answered: "· (not answered)", nothing: "nothing",
     back_results: "← Results", done_home: "Done · Home"
   },
-  ar: {
-    sec_verbal: "الاستدلال اللفظي", sec_numerical: "الاستدلال العددي", sec_error: "تدقيق الأخطاء",
-    "topic_percentage-change": "نسبة التغيّر", topic_average: "المتوسطات", topic_share: "النسبة من الكل",
-    "topic_forward-percentage": "زيادة/نقصان نسبي", topic_ratio: "النِّسَب", "topic_read-off": "قراءة الرسم البياني",
-    "topic_numerical-inference": "عددي: صح/خطأ/لا يمكن الجزم", topic_verbal: "الاستدلال اللفظي",
-    "topic_verbal-synonym": "لفظي: معنى الكلمة", "topic_verbal-detail": "لفظي: تفصيل",
-    "topic_verbal-inference": "لفظي: صح/خطأ/لا يمكن الجزم", "topic_error-checking": "تدقيق الأخطاء",
-    sec_abstract: "الاستدلال التجريدي",
-    "topic_abstract-series": "تجريدي: التالي في المتسلسلة", "topic_abstract-odd": "تجريدي: الشكل الشاذ",
-    mode_abstract_t: "الاستدلال التجريدي", mode_abstract_d: "{n} سؤالاً · أشكال ومتسلسلات والشكل الشاذ",
-    feat_abstract: "تجريدي",
-    difficulty: "الصعوبة", diff_mixed: "متنوّع", diff_easy: "سهل", diff_medium: "متوسط", diff_hard: "صعب", diff_incremental: "تصاعدي",
-    diff_note: "تنطبق الصعوبة على ما تبدأه تالياً. النمط التصاعدي يرتّب القسم الواحد من الأسهل إلى الأصعب (المحاكاة تستخدم مزيجاً دائماً).",
-    abs_series_q: "أي شكل يأتي تالياً في المتسلسلة؟", abs_odd_q: "أي شكل هو الشاذ عن البقية؟",
-    opt_n: "الخيار {n}",
-    lock_title: "وصول مقيّد",
-    lock_sub: "تطبيق التدريب على اختبار الاستيعاب السريع خاص. أدخل كلمة مرور الوصول للمتابعة.",
-    lock_placeholder: "كلمة مرور الوصول", unlock: "فتح القفل",
-    lock_error: "كلمة المرور غير صحيحة. حاول مرة أخرى.",
-    badge: "مدرّب اختبارات القدرات", hero_title: "الاستيعاب السريع",
-    hero_sub: "درّب دقّتك تحت ضغط الوقت في أقسام اللفظي والعددي والتجريدي وتدقيق الأخطاء، مع شرح كامل لكل سؤال.",
-    feat_verbal: "لفظي", feat_numerical: "عددي", feat_error: "تدقيق الأخطاء",
-    start: "ابدأ التدريب ←",
-    app_title: "تدريب الاستيعاب السريع",
-    app_sub: "الدقة تحت ضغط الوقت · لفظي · عددي · تجريدي · تدقيق الأخطاء",
-    choose_mode: "اختر النمط", settings: "الإعدادات",
-    mode_verbal_t: "الاستدلال اللفظي", mode_verbal_d: "{n} سؤالاً · صح / خطأ / لا يمكن الجزم",
-    mode_numerical_t: "الاستدلال العددي", mode_numerical_d: "{n} سؤالاً · جداول ورسوم (يُسمح بالآلة الحاسبة)",
-    mode_error_t: "تدقيق الأخطاء", mode_error_d: "{n} سؤالاً · اكتشف أخطاء النسخ",
-    mode_all_t: "اختبار الحزمة الكاملة", mode_all_d: "كل الأسئلة {n} · جميع الأقسام في جلسة واحدة",
-    mock_t: "اختبار محاكاة حقيقي",
-    mock_d: "محاكاة كاملة للاختبار تشمل جميع الأقسام (لفظي، عددي، تجريدي، تدقيق) بأقسام موقوتة منفصلة. موقوت دائماً؛ اختر الصعوبة بالأعلى.",
-    study_label: "<b>وضع الدراسة</b> · بلا توقيت، تظهر الشروح فوراً",
-    study_note: "في الوضع الموقوت يعمل العدّاد وتُؤجَّل الشروح حتى شاشة المراجعة.",
-    past_results: "نتائج سابقة", clear_history: "مسح السجل", acc_short: "دقة",
-    storage_note: "محفوظة محلياً في متصفحك (localStorage) · بدون خادم.",
-    settings_title: "الإعدادات", back: "→ رجوع", language: "اللغة",
-    timing: "التوقيت", timing_unit: "(ثوانٍ لكل سؤال)", reset_default: "إعادة الضبط الافتراضي",
-    timing_note: "كما في الاختبار الحقيقي لا يوجد عدّاد لكل سؤال: يُجمَع المعدل أدناه في عدّاد واحد للقسم (المعدل × عدد الأسئلة). الإعدادات الافتراضية تطابق الوتيرة الرسمية: 30 ث للفظي والعددي، ~11 ث للتدقيق.",
-    section_of: "القسم {a} من {b}", q_of: "السؤال {a} من {b}", q_label: "السؤال {a} من {b}",
-    time_left: "الوقت المتبقي", study_untimed: "وضع الدراسة · بلا توقيت",
-    calc_note: "🖩 يُسمح بالآلة الحاسبة (كما في الاختبار الحقيقي)",
-    quit: "خروج إلى القائمة", skip: "تخطٍّ ←", skip_section: "تخطّي القسم ←",
-    next: "التالي ←", next_section: "القسم التالي ←", finish: "إنهاء",
-    check_answer: "تحقّق من الإجابة", back_btn: "السابق",
-    verdict_correct: "✓ صحيح · الإجابة هي {a}",
-    verdict_wrong: "✗ ليس تماماً. اخترت {you} · الإجابة الصحيحة هي {a}",
-    heading_why: "لماذا هذا صحيح", heading_how: "كيف نصل إلى الحل", explanation: "الشرح",
-    coding_key: "مفتاح الترميز:", original_prefix: "الأصل: {title}", reentered: "السجل المُعاد إدخاله",
-    results: "النتائج", total_score: "النتيجة الكلية", accuracy: "الدقة", accuracy_sub: "(من المُحاوَل)",
-    speed: "السرعة", speed_sub: "(سؤال/دقيقة)",
-    attempted_n: "حاولت {a} من {b}", per_question: "{s} ث لكل سؤال", time_used: "الوقت المستخدم {time}",
-    study_untimed_paren: " (وضع الدراسة، بلا توقيت)",
-    breakdown: "تفصيل حسب القسم",
-    focus_areas: "<b>مجالات التركيز</b> · الأضعف دقّةً:",
-    no_weak: "<b>ممتاز.</b> لا توجد نقاط ضعف في هذه الجلسة.",
-    home: "الرئيسية", review_btn: "مراجعة الإجابات والشروح ←", full_mock: "محاكاة كاملة",
-    review: "المراجعة", your_answer: "إجابتك:", correct_answer: "الإجابة الصحيحة:",
-    not_answered: "· (لم تُجب)", nothing: "لا شيء",
-    back_results: "→ النتائج", done_home: "تم · الرئيسية"
-  }
 };
 
 function t(key, vars) {
-  let s = (STRINGS[lang] && STRINGS[lang][key] != null) ? STRINGS[lang][key] : (STRINGS.en[key] != null ? STRINGS.en[key] : key);
+  let s = STRINGS.en[key] != null ? STRINGS.en[key] : key;
   if (vars) for (const k in vars) s = s.replace(new RegExp("\\{" + k + "\\}", "g"), vars[k]);
   return s;
 }
 const secLabel = (section) => t("sec_" + section);
 const topicLabel = (topic) => t("topic_" + topic);
-function applyLang() {
-  document.documentElement.lang = lang;
-  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-}
-function setLang(l) {
-  lang = (l === "ar") ? "ar" : "en";
-  try { localStorage.setItem("sc-lang", lang); } catch {}
-  applyLang();
-}
 
 /* --------------------------------------------------------------------------
    STATE - current session lives in memory; history is persisted (see below).
@@ -280,21 +201,6 @@ function shuffleByStimulus(questions) {
   return shuffle([...groups.values()]).flat();
 }
 
-// Read the editable per-question times from the home inputs (falling back to CONFIG).
-// Per-question timing lives here (not in the DOM), so changes made on the
-// Settings screen persist after you leave it. Loaded from localStorage if set.
-let timerSettings = (function () {
-  const def = { ...CONFIG.perQuestionSeconds };
-  try {
-    const saved = JSON.parse(localStorage.getItem("sc-timing"));
-    if (saved) ["verbal", "numerical", "abstract", "error"].forEach((k) => {
-      if (Number.isFinite(saved[k]) && saved[k] > 0) def[k] = saved[k];
-    });
-  } catch {}
-  return def;
-})();
-function saveTimerSettings() { try { localStorage.setItem("sc-timing", JSON.stringify(timerSettings)); } catch {} }
-function readTimerSettings() { return { ...timerSettings }; }
 
 /* ==========================================================================
    PERSISTENCE
@@ -379,69 +285,6 @@ function initTheme() {
 // timed (real rules), so study is suppressed while a mock is running.
 function inStudy() { return studyMode && !(state && state.mock); }
 
-/* --------------------------------------------------------------------------
-   LOCALISING A QUESTION
-   Returns the question in the active language. In Arabic it merges the English
-   question with its translation (from QUESTIONS_AR, keyed by id); any missing
-   field falls back to English. The correct answer is derived BY POSITION from
-   the English answer, so the Arabic options must keep the same order — this
-   guarantees the answer always matches a localised option.
-   -------------------------------------------------------------------------- */
-function localizeStimulus(en, ar) {
-  if (!en) return en;
-  if (!ar) return en;
-  if (en.passage) return { passage: ar.passage || en.passage };
-  if (en.table) {
-    const a = ar.table || {};
-    return { table: { title: a.title || en.table.title, note: a.note || en.table.note,
-      columns: a.columns || en.table.columns, rows: a.rows || en.table.rows } };
-  }
-  if (en.chart) {
-    const a = ar.chart || {};
-    const labels = a.labels || null;
-    return { chart: Object.assign({}, en.chart, {
-      title: a.title || en.chart.title, unit: a.unit || en.chart.unit,
-      data: en.chart.data.map((d, i) => Object.assign({}, d, { label: labels ? labels[i] : d.label })) }) };
-  }
-  if (en.check) {
-    const a = ar.check || {};
-    const c = en.check;
-    return { check: { title: a.title || c.title, columns: a.columns || c.columns,
-      rows: c.rows, codingKey: a.codingKey || c.codingKey,
-      entryLabel: a.entryLabel || c.entryLabel, entry: a.entry || c.entry } };
-  }
-  if (en.fields) { // legacy single-record checking: translate labels, keep values
-    const labels = ar.labels || null;
-    return { recordTitle: ar.recordTitle || en.recordTitle,
-      fields: en.fields.map((f, i) => ({ label: labels ? labels[i] : f.label, original: f.original, copied: f.copied })) };
-  }
-  return en;
-}
-function loc(q) {
-  if (lang !== "ar") return q;
-  const a = (typeof QUESTIONS_AR !== "undefined") ? QUESTIONS_AR[q.id] : null;
-  if (!a) return q; // untranslated -> English fallback
-  // Abstract questions use figure (object) options and an index answer; only
-  // the prompt and explanation are translatable.
-  const figureOptions = q.options.some((o) => typeof o !== "string");
-  if (figureOptions) {
-    return Object.assign({}, q, {
-      question: a.question || q.question,
-      explanation: a.explanation || q.explanation
-    });
-  }
-  const opts = a.options || q.options;
-  const idx = (v) => { const i = q.options.indexOf(v); return i >= 0 ? opts[i] : v; };
-  const answer = Array.isArray(q.answer) ? q.answer.map(idx) : idx(q.answer);
-  return Object.assign({}, q, {
-    question: a.question || q.question,
-    options: opts,
-    answer,
-    explanation: a.explanation || q.explanation,
-    stimulus: localizeStimulus(q.stimulus, a.stimulus || {})
-  });
-}
-
 function buildQuiz(mode) {
   // mode: "verbal" | "numerical" | "error" | "all" | "mock"
   if (mode === "mock") return buildMock();
@@ -462,8 +305,7 @@ function buildQuiz(mode) {
   if (diffChoice === "incremental") {
     questions.sort((p, q) => DIFF_RANK[diffOf(p)] - DIFF_RANK[diffOf(q)]);
   }
-  questions = questions.map(loc); // localise to the active language
-  const times = readTimerSettings();
+  const times = CONFIG.perQuestionSeconds;
   const totalSeconds = questions.reduce((sum, q) => sum + times[q.section], 0);
 
   state = {
@@ -529,7 +371,7 @@ function buildMock() {
   const questions = [], qBlock = [], blockStart = [];
   blocks.forEach((b, bi) => {
     blockStart[bi] = questions.length;
-    b.questions.forEach((q) => { questions.push(loc(q)); qBlock.push(bi); });
+    b.questions.forEach((q) => { questions.push(q); qBlock.push(bi); });
   });
 
   state = {
@@ -1074,7 +916,6 @@ function renderHome() {
         <h1>${t("app_title")}</h1>
         <div class="sub">${t("app_sub")}</div>
       </div>
-      <button class="ghost small" id="settings-btn">⚙ ${t("settings")}</button>
     </div>
 
     <div class="card">
@@ -1149,71 +990,18 @@ function renderHome() {
   `;
 
   $("#study-toggle").addEventListener("change", (e) => { studyMode = e.target.checked; });
+  // Update the active chip in place (avoids a full re-render / page flicker).
   app.querySelectorAll(".diff-chip").forEach((b) =>
-    b.addEventListener("click", () => { setDiff(b.dataset.diff); renderHome(); })
+    b.addEventListener("click", () => {
+      setDiff(b.dataset.diff);
+      app.querySelectorAll(".diff-chip").forEach((c) => c.classList.toggle("active", c === b));
+    })
   );
   app.querySelectorAll(".mode-btn").forEach((b) =>
     b.addEventListener("click", () => buildQuiz(b.dataset.mode))
   );
-  $("#settings-btn").addEventListener("click", renderSettings);
   const clr = $("#clear-hist");
   if (clr) clr.addEventListener("click", clearHistory);
-}
-
-/* ==========================================================================
-   RENDERING - SETTINGS (language + timing)
-   ========================================================================== */
-function renderSettings() {
-  state = null;
-  const d = CONFIG.perQuestionSeconds;
-  const cur = readTimerSettings();
-
-  app.innerHTML = `
-    <div class="topbar">
-      <div><h1>${t("settings_title")}</h1></div>
-      <button class="ghost small" id="settings-back">${t("back")}</button>
-    </div>
-
-    <div class="card">
-      <h3 style="margin-top:0">${t("language")}</h3>
-      <div class="lang-seg">
-        <button class="lang-opt ${lang === "en" ? "active" : ""}" data-lang="en">English</button>
-        <button class="lang-opt ${lang === "ar" ? "active" : ""}" data-lang="ar">العربية</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="timing-head">
-        <h3 style="margin:0">${t("timing")} <span class="small muted">${t("timing_unit")}</span></h3>
-        <button class="ghost small" id="reset-timing">${t("reset_default")}</button>
-      </div>
-      <div class="settings-row"><span>${t("sec_verbal")}</span><input type="number" id="t-verbal" min="3" value="${cur.verbal}"></div>
-      <div class="settings-row"><span>${t("sec_numerical")}</span><input type="number" id="t-numerical" min="3" value="${cur.numerical}"></div>
-      <div class="settings-row"><span>${t("sec_abstract")}</span><input type="number" id="t-abstract" min="3" value="${cur.abstract}"></div>
-      <div class="settings-row"><span>${t("sec_error")}</span><input type="number" id="t-error" min="3" value="${cur.error}"></div>
-      <p class="small muted" style="margin:10px 0 0">${t("timing_note")}</p>
-    </div>
-  `;
-
-  $("#settings-back").addEventListener("click", renderHome);
-  app.querySelectorAll(".lang-opt").forEach((b) =>
-    b.addEventListener("click", () => { setLang(b.dataset.lang); renderSettings(); })
-  );
-
-  const bind = (id, key) => $("#" + id).addEventListener("input", (e) => {
-    const v = parseInt(e.target.value, 10);
-    if (Number.isFinite(v) && v > 0) { timerSettings[key] = v; saveTimerSettings(); }
-  });
-  bind("t-verbal", "verbal"); bind("t-numerical", "numerical"); bind("t-abstract", "abstract"); bind("t-error", "error");
-
-  $("#reset-timing").addEventListener("click", () => {
-    timerSettings = { ...CONFIG.perQuestionSeconds };
-    saveTimerSettings();
-    $("#t-verbal").value = timerSettings.verbal;
-    $("#t-numerical").value = timerSettings.numerical;
-    $("#t-abstract").value = timerSettings.abstract;
-    $("#t-error").value = timerSettings.error;
-  });
 }
 
 /* ==========================================================================
@@ -1526,6 +1314,5 @@ QUESTIONS.forEach((q) => {
 });
 
 initTheme();
-applyLang();
 if (isUnlocked()) renderLanding();
 else renderLock();

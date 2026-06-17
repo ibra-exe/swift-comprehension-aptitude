@@ -45,11 +45,10 @@ There are no dependencies to install.
   start (Mixed / Easy / Medium / Hard), or choose **Incremental** to have a single section run
   from easy to hard. The current question's difficulty is shown as a tag in the quiz header.
   The mock honours the chosen difficulty (Incremental falls back to Mixed).
-- **Real Mock Test:** a full exam simulation that mirrors the official structure and timings -
-  Verbal (2 testlets of 4 questions, 2:00 each), Numerical (2 testlets of 4, 2:00 each) and
-  Checking (8 questions, 1:30) = 24 questions in ~9.5 minutes. Each section is separately timed;
-  when its time runs out you move straight to the next one. Always timed (study mode is ignored).
-  Questions are drawn at random from the bank each attempt.
+- **Real Mock Test:** a full exam simulation across all sections - Verbal (2 testlets of 4),
+  Numerical (2 testlets of 4), Abstract (6) and Checking (8) = 30 questions in ~11.5 minutes.
+  Each section is separately timed; when its time runs out you move to the next one. Always timed
+  (study mode is ignored). Questions are drawn at random each attempt.
 - **Section indicator:** the header always shows which section you're on (e.g. "Section 2 of 5")
   during the mock, and the section name during single-section practice.
 - **Randomised order:** each session shuffles the question order. Whole stimulus groups (a
@@ -117,46 +116,19 @@ and the rest of the app.
 The lock screen needs `crypto.subtle`, which requires a secure context — it works on the hosted
 HTTPS site and on `http://127.0.0.1`, but not when opening `index.html` directly via `file://`.
 
-## Language (English / Arabic)
+## Section timing
 
-Open **Settings** (top-right on the home screen) to switch the whole app between **English** and
-**العربية**. Arabic flips the layout to right-to-left; numerals stay Western (0-9). The choice is
-remembered in `localStorage`.
-
-- **Interface** strings live in the `STRINGS` table (`en` / `ar`) near the top of `app.js`, read
-  through `t(key, vars)`.
-- **Question content** is translated in **`questions.ar.js`**, an object keyed by question `id`.
-  Each entry supplies the translated `question`, `options`, `explanation`, and `stimulus`; any
-  field you leave out falls back to English, so partial coverage is safe.
-  - Keep `options` in the **same order** as the English ones — the correct answer is matched by
-    position, so order = correctness (no separate `answer` field needed).
-  - Numbers, IDs, codes and dates stay as-is; translate labels, titles, column headers, passages,
-    questions, options and the prose of explanations (formula lines stay unchanged).
-
-> Coverage note: the interface, layout (RTL) and the first batch of questions are translated. Any
-> question without an Arabic entry yet simply shows in English until its translation is added to
-> `questions.ar.js`.
-
-## Settings: changing the timer
-
-The **Timing** controls now live in **Settings** (alongside Language). Defaults live in **one
-place**: the `CONFIG` object at the top of `app.js`; changes made in Settings persist in
-`localStorage`.
+There's no per-question timer; each section runs on one pooled countdown sized from the per-question
+rates in the `CONFIG` object at the top of `app.js` (`section timer = rate × number of questions`):
 
 ```js
 const CONFIG = {
-  perQuestionSeconds: {
-    verbal: 50,    // seconds per verbal statement
-    numerical: 45, // seconds per numerical question
-    error: 25      // seconds per error-checking item
-  },
+  perQuestionSeconds: { verbal: 30, numerical: 30, abstract: 20, error: 11 },
   ...
 };
 ```
 
-The section timer is simply `per-question seconds × number of questions` (in a mixed mock, each
-question contributes its own section's allowance). You can also tweak these live in the
-**Timing** panel on the home screen without editing code.
+The Real Mock Test uses its own fixed, separately-timed sections.
 
 ---
 

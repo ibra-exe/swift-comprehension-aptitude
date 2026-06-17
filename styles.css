@@ -850,39 +850,8 @@ button.ghost:hover { border-color: color-mix(in srgb, var(--brand) 45%, var(--li
   .mode-btn:hover, .metric:hover, .opt:hover { transform: none; }
 }
 
-/* ==========================================================================
-   LANGUAGE: settings control + Arabic / RTL
-   ========================================================================== */
-.lang-seg { display: flex; gap: 8px; }
-.lang-opt {
-  flex: 1;
-  padding: 12px;
-  border: 1.5px solid var(--line);
-  background: var(--surface);
-  border-radius: 10px;
-  font-size: 16px;
-}
-.lang-opt.active { border-color: var(--brand); background: var(--sel-bg); color: var(--ink); font-weight: 600; }
-.lang-opt:hover { border-color: var(--brand); }
-
-/* Mixed Arabic prose + LTR formulas: each line picks its own run direction.
-   In RTL we force the block's base direction to LTR so number/formula-only
-   lines (which have no strong directional character) are never mirrored;
-   Arabic prose lines still render right-to-left thanks to `plaintext`. */
+/* Keep formula lines in explanations from being reordered. */
 .explain pre { unicode-bidi: plaintext; }
-[dir="rtl"] .explain pre { direction: ltr; text-align: left; }
-
-/* Arabic typography + right-to-left mirroring */
-[lang="ar"] body, html[lang="ar"] {
-  font-family: "Segoe UI", Tahoma, "Geeza Pro", "Noto Naskh Arabic", "Noto Sans Arabic", -apple-system, sans-serif;
-}
-[dir="rtl"] table.data th, [dir="rtl"] table.data td { text-align: left; }
-[dir="rtl"] table.data th:first-child, [dir="rtl"] table.data td:first-child { text-align: right; }
-[dir="rtl"] table.record th, [dir="rtl"] table.record td { text-align: right; }
-[dir="rtl"] .calc-note { direction: rtl; }
-[dir="rtl"] .lock-input, [dir="rtl"] .settings-row input { text-align: center; }
-/* keep the chart legend/swatch order natural in RTL */
-[dir="rtl"] .legend { direction: rtl; }
 
 /* ---- Responsive ----------------------------------------------------------- */
 @media (max-width: 520px) {
