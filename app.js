@@ -67,8 +67,8 @@ const STRINGS = {
     main_title: "Swift Aptitude Practice", main_sub: "Choose your assessment", back_assess: "← Assessments",
     open_assessment: "Open →",
     assess_comprehension_full: "Swift Comprehension Aptitude",
-    assess_comprehension_sub: "Verbal · Numerical · Abstract · Error checking",
-    assess_comprehension_blurb: "For operational, sales, customer-service and administrative roles. Read and judge information at pace: Verbal, Numerical, Abstract and Error Checking.",
+    assess_comprehension_sub: "Verbal · Numerical · Error checking",
+    assess_comprehension_blurb: "For operational, sales, customer-service and administrative roles. Read and judge information at pace: Verbal, Numerical and Error Checking.",
     assess_executive_full: "Swift Executive Aptitude",
     assess_executive_sub: "Verbal · Numerical · Abstract",
     assess_executive_blurb: "For senior-manager, director and executive roles. Denser passages, multi-step numerical reasoning and harder Abstract logic. Verbal, Numerical and Abstract.",
@@ -135,12 +135,12 @@ const app = document.getElementById("app");
    ========================================================================== */
 const ASSESSMENTS = {
   comprehension: {
-    key: "comprehension", sections: ["verbal", "numerical", "abstract", "error"],
+    key: "comprehension", sections: ["verbal", "numerical", "error"],
     rates: CONFIG.perQuestionSeconds,
     mock: [
       { section: "verbal", time: 120, size: 4 }, { section: "verbal", time: 120, size: 4 },
       { section: "numerical", time: 120, size: 4 }, { section: "numerical", time: 120, size: 4 },
-      { section: "abstract", time: 120, size: 6 }, { section: "error", time: 90, size: 8 }
+      { section: "error", time: 90, size: 8 }
     ]
   },
   executive: {
