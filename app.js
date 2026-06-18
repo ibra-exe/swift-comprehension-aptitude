@@ -182,7 +182,30 @@ const HARD_IDS = new Set([
   // error: multi-error & decode traps
   "chk-03", "chk-04", "chk-15", "chk-16", "chk-19", "chk-24"
 ]);
+// Difficulty corrections from the two-rater blind audit (id -> level). Applied
+// where both independent raters agreed on a level different from the original
+// tag. These take precedence over the per-question tag and the curated sets.
+const DIFF_OVERRIDE = {
+  "verb-01": "easy", "verb-02": "easy", "verb-04": "medium", "verb-05": "easy", "verb-07": "easy",
+  "verb-08": "medium", "verb-11": "easy", "verb-12": "medium", "verb-15": "easy", "verb-16": "medium",
+  "verb-17": "easy", "verb-18": "easy", "verb-19": "easy", "verb-21": "easy", "verb-22": "easy",
+  "verb-23": "easy", "verb-25": "easy", "verb-26": "easy", "verb-27": "easy", "verb-28": "easy",
+  "verb-31": "easy", "verb-32": "medium", "verb-35": "easy", "verb-36": "medium", "verb-40": "easy",
+  "verb-43": "easy", "verb-44": "medium", "verb-47": "easy", "verb-48": "medium",
+  "num-04": "easy", "num-05": "easy", "num-06": "hard", "num-07": "easy", "num-08": "medium",
+  "num-12": "easy", "num-14": "easy", "num-19": "easy", "num-21": "easy", "num-22": "easy",
+  "num-26": "easy", "num-27": "easy", "num-34": "medium", "num-38": "easy", "num-39": "easy",
+  "num-41": "medium", "num-45": "medium", "num-46": "easy",
+  "chk-08": "hard", "chk-09": "easy", "chk-13": "easy", "chk-15": "medium",
+  "ex-verb-03": "easy", "ex-verb-07": "easy", "ex-verb-09": "easy", "ex-verb-13": "easy",
+  "ex-verb-15": "easy", "ex-verb-16": "medium", "ex-verb-18": "easy", "ex-verb-19": "easy", "ex-verb-20": "medium",
+  "ex-num-01": "medium", "ex-num-02": "hard", "ex-num-05": "hard", "ex-num-06": "medium", "ex-num-07": "hard",
+  "ex-num-09": "easy", "ex-num-10": "medium", "ex-num-12": "medium", "ex-num-13": "easy", "ex-num-15": "hard",
+  "ex-num-17": "easy", "ex-num-20": "medium",
+  "ex-abs-02": "hard", "ex-abs-05": "hard", "ex-abs-06": "hard", "ex-abs-09": "hard", "ex-abs-10": "easy"
+};
 function diffOf(q) {
+  if (DIFF_OVERRIDE[q.id]) return DIFF_OVERRIDE[q.id];
   if (q.difficulty) return q.difficulty;
   if (EASY_IDS.has(q.id)) return "easy";
   if (HARD_IDS.has(q.id)) return "hard";
