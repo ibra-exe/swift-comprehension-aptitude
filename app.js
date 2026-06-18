@@ -21,6 +21,12 @@ const CONFIG = {
     abstract: 20,
     error: 11
   },
+  // Swift Executive is harder and runs slower per question.
+  execSeconds: {
+    verbal: 45,
+    numerical: 60,
+    abstract: 40
+  },
   storageKey: "saville-history-v1", // localStorage key for cross-session history
   themeKey: "saville-theme"         // localStorage key for the light/dark choice
 };
@@ -58,6 +64,14 @@ const STRINGS = {
     // home
     app_title: "Swift Comprehension Practice",
     app_sub: "Accuracy under time pressure · Verbal · Numerical · Abstract · Error checking",
+    main_title: "Swift Aptitude Practice", main_sub: "Choose your assessment", back_assess: "← Assessments",
+    open_assessment: "Open →",
+    assess_comprehension_full: "Swift Comprehension Aptitude",
+    assess_comprehension_sub: "Verbal · Numerical · Abstract · Error checking",
+    assess_comprehension_blurb: "For operational, sales, customer-service and administrative roles. Read and judge information at pace: Verbal, Numerical, Abstract and Error Checking.",
+    assess_executive_full: "Swift Executive Aptitude",
+    assess_executive_sub: "Verbal · Numerical · Abstract",
+    assess_executive_blurb: "For senior-manager, director and executive roles. Denser passages, multi-step numerical reasoning and harder Abstract logic. Verbal, Numerical and Abstract.",
     choose_mode: "Choose a mode",
     mode_verbal_t: "Verbal Reasoning", mode_verbal_d: "{n} questions · True / False / Cannot Say",
     mode_numerical_t: "Numerical Reasoning", mode_numerical_d: "{n} questions · tables & charts (calculator allowed)",
@@ -115,6 +129,35 @@ let diffChoice = (function () { try { return localStorage.getItem("sc-diff") || 
 function setDiff(d) { diffChoice = d; try { localStorage.setItem("sc-diff", d); } catch {} }
 
 const app = document.getElementById("app");
+
+/* ==========================================================================
+   ASSESSMENTS  ·  two separate banks, sections and mock structures.
+   ========================================================================== */
+const ASSESSMENTS = {
+  comprehension: {
+    key: "comprehension", sections: ["verbal", "numerical", "abstract", "error"],
+    rates: CONFIG.perQuestionSeconds,
+    mock: [
+      { section: "verbal", time: 120, size: 4 }, { section: "verbal", time: 120, size: 4 },
+      { section: "numerical", time: 120, size: 4 }, { section: "numerical", time: 120, size: 4 },
+      { section: "abstract", time: 120, size: 6 }, { section: "error", time: 90, size: 8 }
+    ]
+  },
+  executive: {
+    key: "executive", sections: ["verbal", "numerical", "abstract"],
+    rates: CONFIG.execSeconds,
+    mock: [
+      { section: "verbal", time: 180, size: 4 }, { section: "verbal", time: 180, size: 4 },
+      { section: "numerical", time: 240, size: 4 }, { section: "numerical", time: 240, size: 4 },
+      { section: "abstract", time: 240, size: 6 }
+    ]
+  }
+};
+let currentAssessment = (function () { try { return localStorage.getItem("sc-assess") === "executive" ? "executive" : "comprehension"; } catch { return "comprehension"; } })();
+function setAssessment(a) { currentAssessment = a === "executive" ? "executive" : "comprehension"; try { localStorage.setItem("sc-assess", currentAssessment); } catch {} }
+function curAssess() { return ASSESSMENTS[currentAssessment]; }
+// Active question bank for the chosen assessment.
+function bank() { return currentAssessment === "executive" ? (typeof QUESTIONS_EXEC !== "undefined" ? QUESTIONS_EXEC : []) : QUESTIONS; }
 
 /* ==========================================================================
    DIFFICULTY
@@ -289,10 +332,10 @@ function buildQuiz(mode) {
   // mode: "verbal" | "numerical" | "error" | "all" | "mock"
   if (mode === "mock") return buildMock();
 
-  const sections = mode === "all" ? ["verbal", "numerical", "abstract", "error"] : [mode];
+  const sections = mode === "all" ? curAssess().sections : [mode];
   let questions = [];
   for (const s of sections) {
-    let pool = QUESTIONS.filter((q) => q.section === s);
+    let pool = bank().filter((q) => q.section === s);
     // Difficulty filter (easy/medium/hard); fall back to the full pool if a
     // section has none at that level.
     if (diffChoice === "easy" || diffChoice === "medium" || diffChoice === "hard") {
@@ -305,7 +348,7 @@ function buildQuiz(mode) {
   if (diffChoice === "incremental") {
     questions.sort((p, q) => DIFF_RANK[diffOf(p)] - DIFF_RANK[diffOf(q)]);
   }
-  const times = CONFIG.perQuestionSeconds;
+  const times = curAssess().rates;
   const totalSeconds = questions.reduce((sum, q) => sum + times[q.section], 0);
 
   state = {
@@ -333,22 +376,14 @@ function buildQuiz(mode) {
      Numerical - 2 testlets of 4 questions, 2:00 each
      Abstract  - 1 section of 6 questions, 2:00
      Checking  - 1 section of 8 questions, 1:30
-   = 30 questions in ~11.5 minutes. Each block is separately timed; when a
-   block's time runs out you move straight to the next one (no going back).
-   Difficulty (easy/medium/hard) filters the pool; mixed/incremental use all.
+   Each block is separately timed; when a block's time runs out you move
+   straight to the next one. Block structure/timing comes from the chosen
+   assessment (see ASSESSMENTS). Difficulty filters the pool.
    ========================================================================== */
-const MOCK_BLOCKS = [
-  { section: "verbal", time: 120, size: 4 },
-  { section: "verbal", time: 120, size: 4 },
-  { section: "numerical", time: 120, size: 4 },
-  { section: "numerical", time: 120, size: 4 },
-  { section: "abstract", time: 120, size: 6 },
-  { section: "error", time: 90, size: 8 }
-];
 
 // A shuffled pool for a section, difficulty-filtered when a level is chosen.
 function mockPool(section) {
-  let pool = QUESTIONS.filter((q) => q.section === section);
+  let pool = bank().filter((q) => q.section === section);
   if (diffChoice === "easy" || diffChoice === "medium" || diffChoice === "hard") {
     const f = pool.filter((q) => diffOf(q) === diffChoice);
     if (f.length) pool = f;
@@ -359,7 +394,7 @@ function mockPool(section) {
 function buildMock() {
   // Draw distinct questions per section, then split them into the timed blocks.
   const pools = {}, used = {};
-  const blocks = MOCK_BLOCKS.map((spec) => {
+  const blocks = curAssess().mock.map((spec) => {
     if (!pools[spec.section]) { pools[spec.section] = mockPool(spec.section); used[spec.section] = 0; }
     const pool = pools[spec.section];
     const qs = pool.slice(used[spec.section], used[spec.section] + spec.size);
@@ -798,7 +833,7 @@ function renderLock() {
     try { ok = (await sha256Hex(val)) === AUTH.hash; } catch { ok = false; }
     if (ok) {
       try { sessionStorage.setItem(AUTH.sessionKey, "1"); } catch {}
-      renderLanding();
+      renderMain();
     } else {
       errEl.hidden = false;
       card.classList.remove("shake");
@@ -812,7 +847,7 @@ function renderLock() {
 }
 
 /* ==========================================================================
-   RENDERING - LANDING (the homepage; leads to the mode-select screen)
+   RENDERING - MAIN (assessment selector: Comprehension vs Executive)
    ========================================================================== */
 
 // Inline SVG alien (not an emoji) - themes via currentColor / CSS variables.
@@ -823,28 +858,35 @@ const ALIEN_SVG = `
     <ellipse class="alien-eye" cx="41" cy="29" rx="5.2" ry="8.6" transform="rotate(22 41 29)"/>
   </svg>`;
 
-function renderLanding() {
+function assessTotal(key) {
+  const b = key === "executive" ? (typeof QUESTIONS_EXEC !== "undefined" ? QUESTIONS_EXEC : []) : QUESTIONS;
+  const secs = ASSESSMENTS[key].sections;
+  return b.filter((q) => secs.includes(q.section)).length;
+}
+
+function renderMain() {
   state = null;
-  const counts = {
-    verbal: QUESTIONS.filter((q) => q.section === "verbal").length,
-    numerical: QUESTIONS.filter((q) => q.section === "numerical").length,
-    abstract: QUESTIONS.filter((q) => q.section === "abstract").length,
-    error: QUESTIONS.filter((q) => q.section === "error").length
-  };
+  const card = (key) => `
+    <button class="assess-card" data-assess="${key}">
+      <div class="assess-head">
+        <span class="assess-name">${t("assess_" + key + "_full")}</span>
+        <span class="assess-count">${assessTotal(key)} Q</span>
+      </div>
+      <span class="assess-sub">${t("assess_" + key + "_sub")}</span>
+      <span class="assess-blurb">${t("assess_" + key + "_blurb")}</span>
+      <span class="assess-go">${t("open_assessment")}</span>
+    </button>`;
 
   app.innerHTML = `
     <div class="landing">
-      <section class="hero">
+      <section class="hero main-hero">
         <span class="hero-badge">${t("badge")}</span>
-        <h1 class="hero-title">${t("hero_title")}</h1>
-        <p class="hero-sub">${t("hero_sub")}</p>
-        <div class="hero-feats">
-          <div class="hero-feat"><span class="n">${counts.verbal}</span><span class="l">${t("feat_verbal")}</span></div>
-          <div class="hero-feat"><span class="n">${counts.numerical}</span><span class="l">${t("feat_numerical")}</span></div>
-          <div class="hero-feat"><span class="n">${counts.abstract}</span><span class="l">${t("feat_abstract")}</span></div>
-          <div class="hero-feat"><span class="n">${counts.error}</span><span class="l">${t("feat_error")}</span></div>
+        <h1 class="hero-title">${t("main_title")}</h1>
+        <p class="hero-sub">${t("main_sub")}</p>
+        <div class="assess-grid">
+          ${card("comprehension")}
+          ${card("executive")}
         </div>
-        <button class="enter-btn" id="enter-btn">${t("start")}</button>
       </section>
 
       <footer class="sig">
@@ -853,7 +895,9 @@ function renderLanding() {
     </div>
   `;
 
-  $("#enter-btn").addEventListener("click", renderHome);
+  app.querySelectorAll(".assess-card").forEach((b) =>
+    b.addEventListener("click", () => { setAssessment(b.dataset.assess); renderHome(); })
+  );
   runSignature();
 }
 
@@ -899,25 +943,32 @@ const ICONS = {
 /* ==========================================================================
    RENDERING - HOME
    ========================================================================== */
+// One mode tile for a section.
+function sectionTile(sec, count) {
+  return `<button class="mode-btn" data-mode="${sec}">
+    <span class="mode-ic ic-${sec}">${ICONS[sec]}</span>
+    <span class="mode-tx"><span class="t">${t("mode_" + sec + "_t")}</span>
+    <span class="d">${t("mode_" + sec + "_d", { n: count })}</span></span>
+  </button>`;
+}
+
 function renderHome() {
   state = null;
-  const counts = {
-    verbal: QUESTIONS.filter((q) => q.section === "verbal").length,
-    numerical: QUESTIONS.filter((q) => q.section === "numerical").length,
-    error: QUESTIONS.filter((q) => q.section === "error").length
-  };
+  const sections = curAssess().sections;
+  const counts = {};
+  sections.forEach((s) => { counts[s] = bank().filter((q) => q.section === s).length; });
+  const total = sections.reduce((a, s) => a + counts[s], 0);
   const history = loadHistory();
-  counts.abstract = QUESTIONS.filter((q) => q.section === "abstract").length;
-  const total = counts.verbal + counts.numerical + counts.abstract + counts.error;
   const diffChips = ["mixed", "easy", "medium", "hard", "incremental"]
     .map((dv) => `<button class="diff-chip ${diffChoice === dv ? "active" : ""}" data-diff="${dv}">${t("diff_" + dv)}</button>`).join("");
 
   app.innerHTML = `
     <div class="topbar">
       <div>
-        <h1>${t("app_title")}</h1>
-        <div class="sub">${t("app_sub")}</div>
+        <h1>${t("assess_" + currentAssessment + "_full")}</h1>
+        <div class="sub">${t("assess_" + currentAssessment + "_sub")}</div>
       </div>
+      <button class="ghost small" id="assess-back">${t("back_assess")}</button>
     </div>
 
     <div class="card">
@@ -930,26 +981,7 @@ function renderHome() {
       <p class="small muted" style="margin:0 0 14px">${t("diff_note")}</p>
 
       <div class="mode-grid">
-        <button class="mode-btn" data-mode="verbal">
-          <span class="mode-ic ic-verbal">${ICONS.verbal}</span>
-          <span class="mode-tx"><span class="t">${t("mode_verbal_t")}</span>
-          <span class="d">${t("mode_verbal_d", { n: counts.verbal })}</span></span>
-        </button>
-        <button class="mode-btn" data-mode="numerical">
-          <span class="mode-ic ic-numerical">${ICONS.numerical}</span>
-          <span class="mode-tx"><span class="t">${t("mode_numerical_t")}</span>
-          <span class="d">${t("mode_numerical_d", { n: counts.numerical })}</span></span>
-        </button>
-        <button class="mode-btn" data-mode="abstract">
-          <span class="mode-ic ic-abstract">${ICONS.abstract}</span>
-          <span class="mode-tx"><span class="t">${t("mode_abstract_t")}</span>
-          <span class="d">${t("mode_abstract_d", { n: counts.abstract })}</span></span>
-        </button>
-        <button class="mode-btn" data-mode="error">
-          <span class="mode-ic ic-error">${ICONS.error}</span>
-          <span class="mode-tx"><span class="t">${t("mode_error_t")}</span>
-          <span class="d">${t("mode_error_d", { n: counts.error })}</span></span>
-        </button>
+        ${sections.map((s) => sectionTile(s, counts[s])).join("")}
       </div>
 
       <button class="mode-btn wide-btn" data-mode="all">
@@ -1002,6 +1034,7 @@ function renderHome() {
   app.querySelectorAll(".mode-btn").forEach((b) =>
     b.addEventListener("click", () => buildQuiz(b.dataset.mode))
   );
+  $("#assess-back").addEventListener("click", renderMain);
   const clr = $("#clear-hist");
   if (clr) clr.addEventListener("click", clearHistory);
 }
@@ -1310,11 +1343,13 @@ document.addEventListener("keydown", (e) => {
    BOOT
    ========================================================================== */
 // Abstract questions declare the correct option via `answerIndex`; normalise it
-// to the string answer the scoring/render code expects.
-QUESTIONS.forEach((q) => {
-  if (q.section === "abstract" && q.answerIndex != null && q.answer == null) q.answer = String(q.answerIndex);
-});
+// to the string answer the scoring/render code expects (both banks).
+[QUESTIONS, (typeof QUESTIONS_EXEC !== "undefined" ? QUESTIONS_EXEC : [])].forEach((b) =>
+  b.forEach((q) => {
+    if (q.section === "abstract" && q.answerIndex != null && q.answer == null) q.answer = String(q.answerIndex);
+  })
+);
 
 initTheme();
-if (isUnlocked()) renderLanding();
+if (isUnlocked()) renderMain();
 else renderLock();

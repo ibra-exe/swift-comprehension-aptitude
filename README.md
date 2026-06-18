@@ -1,8 +1,15 @@
-# Swift Comprehension Practice
+# Swift Aptitude Practice
 
-A self-contained, **fully offline** practice app for the Saville *Swift Comprehension* aptitude
-test. Three timed section types - **Verbal Reasoning**, **Numerical Reasoning**, and
-**Error Checking** - built for training accuracy under time pressure.
+A self-contained, **fully offline** practice app for the Saville *Swift* aptitude tests, with two
+separate assessments selected on the main page:
+
+- **Swift Comprehension Aptitude** (operational/admin level) — Verbal, Numerical, Abstract and
+  **Error Checking**.
+- **Swift Executive Aptitude** (senior-manager/director level) — Verbal, Numerical and Abstract,
+  pitched harder (denser passages, multi-step numerical reasoning, tougher abstract rules).
+
+Each assessment has its own question bank, sections and mock structure. Flow: **password → choose
+assessment → home (tests)**. All questions are original, written to match the real formats.
 
 No backend. No build step. No network. Just static files.
 
