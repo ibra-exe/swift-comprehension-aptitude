@@ -876,6 +876,7 @@ button.ghost:hover { border-color: color-mix(in srgb, var(--brand) 45%, var(--li
   body { font-size: 17px; }
   .app { padding: 14px 12px 56px; }
   .card { padding: 16px; }
+  .mode-grid { grid-template-columns: 1fr; }
 
   .hero-title { font-size: 32px; }
   .hero { padding: 36px 16px 32px; }
@@ -887,7 +888,9 @@ button.ghost:hover { border-color: color-mix(in srgb, var(--brand) 45%, var(--li
 
   /* Quiz header: let the timers wrap below the progress label if space is tight */
   .quiz-head { flex-wrap: wrap; padding-right: 52px; }
-  .topbar { padding-right: 52px; }
+  /* Topbar: stack title and the back/Assessments button so the title isn't squeezed */
+  .topbar { flex-direction: column; align-items: flex-start; gap: 8px; padding-right: 52px; }
+  .topbar h1 { font-size: 19px; }
   .quiz-head .progress { font-size: 13px; }
   .timer-pill { min-width: 66px; padding: 3px 10px; }
   .timer-pill .tval { font-size: 18px; }
