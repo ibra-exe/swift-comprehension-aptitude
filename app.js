@@ -65,6 +65,15 @@ const STRINGS = {
     app_title: "Swift Comprehension Practice",
     app_sub: "Accuracy under time pressure · Verbal · Numerical · Abstract · Error checking",
     main_title: "Swift Aptitude Practice", main_sub: "Choose your assessment", back_assess: "← Assessments",
+    main_choose: "Choose your assessment", main_choose_sub: "Two timed assessments, modelled on the real Saville Swift tests. Pick one to see its sections.",
+    back: "← Back",
+    // landing
+    land_sub: "Build speed and accuracy for the Saville Swift Comprehension and Executive aptitude tests. Verbal, Numerical, Abstract and Error Checking, with real exam timings, full worked answers and a built-in study guide.",
+    land_start: "Start practising →",
+    land_q_sub: "practice questions",
+    land_assess: "Two assessments", land_assess_sub: "Comprehension & Executive",
+    land_mock: "Real exam timings", land_mock_sub: "section-by-section mocks",
+    land_study: "Study guide", land_study_sub: "formulas & tips · EN / AR",
     open_assessment: "Open →",
     assess_comprehension_full: "Swift Comprehension Aptitude",
     assess_comprehension_sub: "Verbal · Numerical · Error checking",
@@ -846,6 +855,42 @@ function assessTotal(key) {
   return b.filter((q) => secs.includes(q.section)).length;
 }
 
+// The public front page: a branded welcome that leads into the chooser.
+function renderLanding() {
+  state = null;
+  const total = assessTotal("comprehension") + assessTotal("executive");
+  const feat = (icon, cls, head, sub) => `
+    <div class="land-feat">
+      <span class="mode-ic ${cls}">${icon}</span>
+      <div class="lf-tx"><b>${head}</b><span>${sub}</span></div>
+    </div>`;
+
+  app.innerHTML = `
+    <div class="landing land-front">
+      <section class="hero">
+        <span class="hero-badge">${t("badge")}</span>
+        <h1 class="hero-title">${t("main_title")}</h1>
+        <p class="hero-sub">${t("land_sub")}</p>
+        <div class="land-feats">
+          ${feat(ICONS.all, "ic-all", total, t("land_q_sub"))}
+          ${feat(ICONS.abstract, "ic-abstract", t("land_assess"), t("land_assess_sub"))}
+          ${feat(ICONS.mock, "ic-mock", t("land_mock"), t("land_mock_sub"))}
+          ${feat(ICONS.study, "ic-study", t("land_study"), t("land_study_sub"))}
+        </div>
+        <button class="enter-btn" id="land-start">${t("land_start")}</button>
+      </section>
+
+      <footer class="sig">
+        <span class="sig-text" id="sig-text"></span><span class="sig-alien" id="sig-alien">${ALIEN_SVG}</span><span class="sig-cursor">_</span>
+      </footer>
+    </div>
+  `;
+
+  const go = document.getElementById("land-start");
+  if (go) go.addEventListener("click", renderMain);
+  runSignature();
+}
+
 function renderMain() {
   state = null;
   const card = (key) => `
@@ -860,27 +905,24 @@ function renderMain() {
     </button>`;
 
   app.innerHTML = `
-    <div class="landing">
-      <section class="hero main-hero">
-        <span class="hero-badge">${t("badge")}</span>
-        <h1 class="hero-title">${t("main_title")}</h1>
-        <p class="hero-sub">${t("main_sub")}</p>
-        <div class="assess-grid">
-          ${card("comprehension")}
-          ${card("executive")}
-        </div>
-      </section>
-
-      <footer class="sig">
-        <span class="sig-text" id="sig-text"></span><span class="sig-alien" id="sig-alien">${ALIEN_SVG}</span><span class="sig-cursor">_</span>
-      </footer>
+    <div class="topbar">
+      <button class="ghost small" id="main-back">${t("back")}</button>
     </div>
+    <section class="choose-wrap">
+      <h1 class="choose-title">${t("main_choose")}</h1>
+      <p class="choose-sub">${t("main_choose_sub")}</p>
+      <div class="assess-grid">
+        ${card("comprehension")}
+        ${card("executive")}
+      </div>
+    </section>
   `;
 
+  const back = document.getElementById("main-back");
+  if (back) back.addEventListener("click", renderLanding);
   app.querySelectorAll(".assess-card").forEach((b) =>
     b.addEventListener("click", () => { setAssessment(b.dataset.assess); renderHome(); })
   );
-  runSignature();
 }
 
 // Typewriter effect: types out the signature, leaving the cursor blinking.
@@ -1425,4 +1467,4 @@ document.addEventListener("keydown", (e) => {
 );
 
 initTheme();
-renderMain();
+renderLanding();

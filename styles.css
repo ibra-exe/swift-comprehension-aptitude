@@ -623,6 +623,44 @@ table.record td.label { font-weight: 600; width: 34%; }
 .hero-feat .n { display: block; font-size: 22px; font-weight: 800; color: var(--ink); }
 .hero-feat .l { display: block; font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
 
+/* ---- Landing feature tiles ------------------------------------------------ */
+.land-feats {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  max-width: 520px;
+  margin: 4px auto 30px;
+  text-align: left;
+}
+.land-feat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  border-radius: 14px;
+  padding: 14px;
+}
+.land-feat .lf-tx { display: flex; flex-direction: column; min-width: 0; }
+.land-feat .lf-tx b { font-size: 17px; font-weight: 800; color: var(--ink); line-height: 1.1; }
+.land-feat .lf-tx span { font-size: 12.5px; color: var(--ink-soft); margin-top: 3px; }
+
+/* ---- Assessment chooser page ---------------------------------------------- */
+.choose-wrap { text-align: center; padding: 8px 0 24px; }
+.choose-title {
+  margin: 4px 0 8px;
+  font-size: 28px;
+  letter-spacing: -.02em;
+  font-weight: 800;
+}
+.choose-sub {
+  max-width: 480px;
+  margin: 0 auto 24px;
+  color: var(--ink-soft);
+  font-size: 15px;
+}
+
 .enter-btn {
   position: relative;
   font-size: 18px;
@@ -969,6 +1007,9 @@ button.ghost:hover { border-color: color-mix(in srgb, var(--brand) 45%, var(--li
   .hero-feat { padding: 12px 6px; }
   .hero-feat .n { font-size: 20px; }
   .enter-btn { width: 100%; }
+  .land-feats { grid-template-columns: 1fr; gap: 10px; }
+  .land-feat { padding: 13px 14px; }
+  .choose-title { font-size: 24px; }
 
   /* Quiz header: let the timers wrap below the progress label if space is tight */
   .quiz-head { flex-wrap: wrap; padding-right: 52px; }

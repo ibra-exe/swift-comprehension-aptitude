@@ -8,8 +8,9 @@ separate assessments selected on the main page:
 - **Swift Executive Aptitude** (senior-manager/director level) — Verbal, Numerical and Abstract,
   pitched harder (denser passages, multi-step numerical reasoning, tougher abstract rules).
 
-Each assessment has its own question bank, sections and mock structure. Flow: **password → choose
-assessment → home (tests)**. All questions are original, written to match the real formats.
+Each assessment has its own question bank, sections and mock structure. Flow: **landing → choose
+assessment → home (tests)**. The app is public (no login). All questions are original, written to
+match the real formats.
 
 No backend. No build step. No network. Just static files.
 
@@ -80,8 +81,10 @@ There are no dependencies to install.
   and the full explanation. Numerical explanations show the complete step-by-step working.
 - **Cross-session history** stored in the browser's `localStorage` (local only - no database,
   no server). Clearing browser data or the in-app "Clear history" button wipes it.
-- **Landing page** - an attractive homepage (`renderLanding()` in `app.js`) with a "Start
-  Practising" button that leads to the mode-select screen.
+- **Landing page** - an attractive public homepage (`renderLanding()` in `app.js`): app name,
+  tagline, four feature tiles (question count, the two assessments, real exam timings, study
+  guide) and a "Start practising" button that leads to the assessment chooser
+  (`renderMain()`), which in turn opens each assessment's home screen.
 - **Dark mode is the default**, toggled via the floating ☀️/🌙 button (top-right). An explicit
   choice is remembered in `localStorage`; clearing it returns to the dark default. All colours
   are CSS variables at the top of `styles.css` (light values under `:root`, dark overrides under
@@ -96,32 +99,11 @@ shows an on-screen reminder. Use your device calculator freely while practising 
 
 ---
 
-## Access password (lock screen)
+## Access
 
-The app opens on a password lock screen; entering the correct password reveals the landing page
-and the rest of the app.
-
-- The password is stored only as a **SHA-256 hash** in `app.js` (the constant `AUTH.hash`), never
-  in plain text.
-- To set a new password, run this in the browser console and paste the result into `AUTH.hash`:
-
-  ```js
-  crypto.subtle.digest('SHA-256', new TextEncoder().encode('YOUR-PASSWORD'))
-    .then(b => console.log([...new Uint8Array(b)].map(x => x.toString(16).padStart(2,'0')).join('')))
-  ```
-
-- The unlock is remembered for the browser session (`sessionStorage`), so closing the tab
-  re-locks the app.
-
-> **Security note:** this is a *client-side* gate. It keeps casual visitors out, but it is **not**
-> real access control — this repo is public, so anyone can read the source (including the questions)
-> directly on GitHub, and a determined user could bypass the gate. For genuine "authorized people
-> only" access you need either a private repo on a host that supports authenticated pages
-> (e.g. Netlify password protection, Cloudflare Access) or content encrypted with the password so
-> the published files are unreadable without it. Happy to set either of those up.
-
-The lock screen needs `crypto.subtle`, which requires a secure context — it works on the hosted
-HTTPS site and on `http://127.0.0.1`, but not when opening `index.html` directly via `file://`.
+The app is **public** - there is no login or password gate. It opens on the landing page, then the
+assessment chooser, then the selected assessment's home screen. The repo is public, so the source
+(including the questions) is readable on GitHub.
 
 ## Section timing
 
