@@ -311,6 +311,7 @@ button:disabled { opacity: .5; cursor: default; }
 .toggle { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; }
 .toggle input { display: none; }
 .toggle .track {
+  flex: 0 0 auto; /* never shrink: a squeezed track lets the knob escape on mobile */
   width: 46px; height: 26px; border-radius: 999px;
   background: var(--track); position: relative; transition: background .15s;
 }
