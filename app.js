@@ -75,10 +75,10 @@ const STRINGS = {
     land_mock: "Real exam timings", land_mock_sub: "section-by-section mocks",
     land_study: "Study guide", land_study_sub: "formulas & tips · EN / AR",
     open_assessment: "Open →",
-    assess_comprehension_full: "Swift Comprehension (Grades 2-5)",
+    assess_comprehension_full: "Swift Comprehension", assess_comprehension_grade: "(Grades 2-5)",
     assess_comprehension_sub: "Verbal · Numerical · Error checking",
     assess_comprehension_blurb: "For operational, sales, customer-service and administrative roles. Read and judge information at pace: Verbal, Numerical and Error Checking.",
-    assess_executive_full: "Swift Executive (Grades 6-9)",
+    assess_executive_full: "Swift Executive", assess_executive_grade: "(Grades 6-9)",
     assess_executive_sub: "Verbal · Numerical · Abstract",
     assess_executive_blurb: "For senior-manager, director and executive roles. Denser passages, multi-step numerical reasoning and harder Abstract logic. Verbal, Numerical and Abstract.",
     choose_mode: "Choose a mode",
@@ -896,7 +896,7 @@ function renderMain() {
   const card = (key) => `
     <button class="assess-card" data-assess="${key}">
       <div class="assess-head">
-        <span class="assess-name">${t("assess_" + key + "_full")}</span>
+        <span class="assess-name">${t("assess_" + key + "_full")}<span class="assess-grade">${t("assess_" + key + "_grade")}</span></span>
         <span class="assess-count">${assessTotal(key)} Q</span>
       </div>
       <span class="assess-sub">${t("assess_" + key + "_sub")}</span>
@@ -990,7 +990,7 @@ function renderHome() {
   app.innerHTML = `
     <div class="topbar">
       <div>
-        <h1>${t("assess_" + currentAssessment + "_full")}</h1>
+        <h1>${t("assess_" + currentAssessment + "_full")}<span class="assess-grade">${t("assess_" + currentAssessment + "_grade")}</span></h1>
         <div class="sub">${t("assess_" + currentAssessment + "_sub")}</div>
       </div>
       <button class="ghost small" id="assess-back">${t("back_assess")}</button>
