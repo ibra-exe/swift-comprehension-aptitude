@@ -827,86 +827,6 @@ function optionKeys(q) {
   return o.map((_, i) => String(i + 1));
 }
 
-/* ==========================================================================
-   ACCESS GATE (password lock)
-   --------------------------------------------------------------------------
-   A simple front-door password so the practice app isn't open to anyone with
-   the link. The password is stored only as a SHA-256 hash (never in plain
-   text). To change it, run this in the browser console and paste the result
-   into AUTH.hash below:
-     crypto.subtle.digest('SHA-256', new TextEncoder().encode('YOUR-PASSWORD'))
-       .then(b => console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')))
-
-   NOTE: this is a client-side gate. It keeps casual visitors out, but it is
-   not strong security - see the README for the real options.
-   ========================================================================== */
-const AUTH = {
-  // SHA-256 of the access password.
-  hash: "289f5d2095a64493ed78244853fa4db7236dc354382eeb8fa69d98b154da7cc9",
-  sessionKey: "sc-unlocked"
-};
-
-function isUnlocked() {
-  try { return sessionStorage.getItem(AUTH.sessionKey) === "1"; } catch { return false; }
-}
-async function sha256Hex(text) {
-  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
-  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
-}
-
-const LOCK_ICON = `
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <rect x="4" y="10" width="16" height="11" rx="2.5"/>
-    <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
-    <circle cx="12" cy="15.5" r="1.4" fill="currentColor" stroke="none"/>
-  </svg>`;
-
-function renderLock() {
-  state = null;
-  app.innerHTML = `
-    <div class="lock-wrap">
-      <section class="lock-card" id="lock-card">
-        <div class="lock-badge">${LOCK_ICON}</div>
-        <h1 class="lock-title">${t("lock_title")}</h1>
-        <p class="lock-sub">${t("lock_sub")}</p>
-        <form class="lock-form" id="lock-form" autocomplete="off" novalidate>
-          <input class="lock-input" id="lock-input" type="password" placeholder="${t("lock_placeholder")}"
-                 autocomplete="current-password" aria-label="${t("lock_placeholder")}" />
-          <button class="enter-btn" type="submit" id="lock-btn">${t("unlock")}</button>
-        </form>
-        <p class="lock-error" id="lock-error" role="alert" hidden>${t("lock_error")}</p>
-      </section>
-      <footer class="sig">
-        <span class="sig-text" id="sig-text"></span><span class="sig-alien" id="sig-alien">${ALIEN_SVG}</span><span class="sig-cursor">_</span>
-      </footer>
-    </div>
-  `;
-
-  const form = $("#lock-form");
-  const input = $("#lock-input");
-  const errEl = $("#lock-error");
-  const card = $("#lock-card");
-  if (input) input.focus();
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const val = input.value || "";
-    let ok = false;
-    try { ok = (await sha256Hex(val)) === AUTH.hash; } catch { ok = false; }
-    if (ok) {
-      try { sessionStorage.setItem(AUTH.sessionKey, "1"); } catch {}
-      renderMain();
-    } else {
-      errEl.hidden = false;
-      card.classList.remove("shake");
-      void card.offsetWidth;       // restart the animation
-      card.classList.add("shake");
-      input.select();
-    }
-  });
-
-  runSignature();
-}
 
 /* ==========================================================================
    RENDERING - MAIN (assessment selector: Comprehension vs Executive)
@@ -1119,13 +1039,32 @@ const STUDY_SECTION = {
   "comp-numerical": "numerical", "comp-verbal": "verbal", "comp-error": "error",
   "exec-numerical": "numerical", "exec-verbal": "verbal", "exec-abstract": "abstract"
 };
-// One study item: bold formula chip, plain detail, worked example, shortcut callout.
-function studyItem(it) {
+// Study-guide-only language (the rest of the app stays English).
+const STUDY_UI = {
+  en: {
+    title: "Study Guide", back: "← Back", formulas: "Formulas", techniques: "Tips & techniques",
+    egLabel: "Example:", shortcut: "Shortcut:",
+    sec_numerical: "Numerical Reasoning", sec_verbal: "Verbal Reasoning", sec_error: "Error Checking", sec_abstract: "Abstract Reasoning",
+    assess_comprehension: "Swift Comprehension Aptitude", assess_executive: "Swift Executive Aptitude"
+  },
+  ar: {
+    title: "دليل الدراسة", back: "رجوع", formulas: "الصيغ", techniques: "نصائح وتقنيات",
+    egLabel: "مثال:", shortcut: "اختصار:",
+    sec_numerical: "الاستدلال العددي", sec_verbal: "الاستدلال اللفظي", sec_error: "تدقيق الأخطاء", sec_abstract: "الاستدلال التجريدي",
+    assess_comprehension: "اختبار الاستيعاب السريع", assess_executive: "اختبار الكفاءة التنفيذية السريع"
+  }
+};
+let studyLang = (function () { try { return localStorage.getItem("sc-study-lang") === "ar" ? "ar" : "en"; } catch { return "en"; } })();
+function setStudyLang(l) { studyLang = l === "ar" ? "ar" : "en"; try { localStorage.setItem("sc-study-lang", studyLang); } catch {} }
+
+// One study item: bold formula chip, numbered steps, worked example, shortcut callout.
+function studyItem(it, ui) {
   let s = `<div class="study-item"><div class="study-term">${esc(it.term)}</div>`;
   if (it.formula) s += `<div class="study-formula">${esc(it.formula)}</div>`;
   if (it.detail) s += `<p class="study-text">${esc(it.detail)}</p>`;
-  if (it.example) s += `<div class="study-example"><span>e.g.</span> ${esc(it.example)}</div>`;
-  if (it.trick) s += `<div class="study-trick"><span class="study-trick-ic">💡</span><span><b>Shortcut:</b> ${esc(it.trick)}</span></div>`;
+  if (Array.isArray(it.steps) && it.steps.length) s += `<ol class="study-steps">${it.steps.map((x) => `<li>${esc(x)}</li>`).join("")}</ol>`;
+  if (it.example) s += `<div class="study-example"><span>${esc(ui.egLabel)}</span> ${esc(it.example)}</div>`;
+  if (it.trick) s += `<div class="study-trick"><span class="study-trick-ic">💡</span><span><b>${esc(ui.shortcut)}</b> ${esc(it.trick)}</span></div>`;
   return s + `</div>`;
 }
 // A fraction <-> percentage group renders as a compact grid of chips.
@@ -1135,29 +1074,43 @@ function studyFractionGrid(items) {
 }
 function renderStudy() {
   state = null;
-  const data = (typeof STUDY !== "undefined") ? STUDY : {};
+  const ui = STUDY_UI[studyLang] || STUDY_UI.en;
+  // STUDY may be old shape {area:groups} or new {en:{...}, ar:{...}} — handle both.
+  const root = (typeof STUDY !== "undefined" && STUDY.en) ? STUDY : { en: (typeof STUDY !== "undefined" ? STUDY : {}), ar: {} };
+  const src = (root[studyLang] && Object.keys(root[studyLang]).length) ? root[studyLang] : root.en;
   const areas = STUDY_AREAS[currentAssessment] || [];
   const body = areas.map((area, idx) => {
     const sec = STUDY_SECTION[area];
-    const suffix = sec === "numerical" ? t("study_formulas") : t("study_techniques");
-    const groups = (data[area] || []).map((g) => {
-      const isFrac = /fraction/i.test(g.heading || "");
-      const inner = isFrac ? studyFractionGrid(g.items || []) : (g.items || []).map(studyItem).join("");
+    const suffix = sec === "numerical" ? ui.formulas : ui.techniques;
+    const groups = ((src && src[area]) || []).map((g) => {
+      const isFrac = /fraction|كسر/i.test(g.heading || "");
+      const inner = isFrac ? studyFractionGrid(g.items || []) : (g.items || []).map((it) => studyItem(it, ui)).join("");
       return `<div class="study-group"><h4>${esc(g.heading)}</h4>${inner}</div>`;
     }).join("");
     return `<details class="card study-area" ${idx === 0 ? "open" : ""}>
-      <summary><span class="mode-ic ic-${sec}">${ICONS[sec]}</span><span class="study-area-title">${secLabel(sec)} · ${suffix}</span><span class="study-chev">▾</span></summary>
+      <summary><span class="mode-ic ic-${sec}">${ICONS[sec]}</span><span class="study-area-title">${esc(ui["sec_" + sec] || sec)} · ${esc(suffix)}</span><span class="study-chev">▾</span></summary>
       <div class="study-body">${groups}</div>
     </details>`;
   }).join("");
 
+  const hasAr = root.ar && Object.keys(root.ar).length;
+  const langSeg = hasAr ? `
+      <div class="study-lang">
+        <button class="study-lang-opt ${studyLang === "en" ? "active" : ""}" data-slang="en">English</button>
+        <button class="study-lang-opt ${studyLang === "ar" ? "active" : ""}" data-slang="ar">العربية</button>
+      </div>` : "";
   app.innerHTML = `
-    <div class="topbar">
-      <div><h1>${t("study_title")}</h1><div class="sub">${t("assess_" + currentAssessment + "_full")}</div></div>
-      <button class="ghost small" id="study-back">${t("back")}</button>
-    </div>
-    ${body}`;
+    <div class="study-screen" dir="${studyLang === "ar" ? "rtl" : "ltr"}">
+      <div class="topbar">
+        <div><h1>${esc(ui.title)}</h1><div class="sub">${esc(ui["assess_" + currentAssessment] || "")}</div></div>
+        <button class="ghost small" id="study-back">${esc(ui.back)}</button>
+      </div>
+      ${langSeg}
+      ${body}
+    </div>`;
   $("#study-back").addEventListener("click", renderHome);
+  app.querySelectorAll(".study-lang-opt").forEach((b) =>
+    b.addEventListener("click", () => { setStudyLang(b.dataset.slang); renderStudy(); }));
 }
 
 /* ==========================================================================
@@ -1472,5 +1425,4 @@ document.addEventListener("keydown", (e) => {
 );
 
 initTheme();
-if (isUnlocked()) renderMain();
-else renderLock();
+renderMain();

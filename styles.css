@@ -695,6 +695,29 @@ table.record td.label { font-weight: 600; width: 34%; }
 .frac-f { font-weight: 700; font-size: 16px; color: var(--ink); }
 .frac-p { font-size: 13px; color: var(--brand); font-weight: 600; }
 
+/* Numbered step-by-step list */
+.study-steps { margin: 0 0 8px; padding-inline-start: 22px; }
+.study-steps li { font-size: 14px; line-height: 1.55; color: var(--ink); margin-bottom: 4px; }
+.study-steps li::marker { color: var(--brand); font-weight: 700; }
+
+/* Study-guide language toggle */
+.study-lang { display: flex; gap: 8px; margin: 0 0 14px; }
+.study-lang-opt {
+  padding: 7px 16px; border-radius: 999px; font-size: 14px; font-weight: 600;
+  background: var(--chip); border: 1px solid transparent;
+}
+.study-lang-opt:hover { border-color: color-mix(in srgb, var(--brand) 45%, var(--line)); }
+.study-lang-opt.active { background: var(--brand); color: var(--brand-ink); }
+
+/* RTL for the study screen (scoped — rest of app stays LTR) */
+.study-screen[dir="rtl"] .study-formula { border-left: none; border-right: 3px solid var(--brand); }
+.study-screen[dir="rtl"] .study-steps { padding-inline-start: 22px; }
+.study-screen[dir="rtl"] .study-trick { flex-direction: row; }
+.study-screen[dir="rtl"] .study-area > summary { text-align: right; }
+.study-screen[dir="rtl"] .study-example,
+.study-screen[dir="rtl"] .study-formula { direction: rtl; }
+.study-screen[dir="rtl"] { font-family: "Segoe UI", Tahoma, "Geeza Pro", "Noto Naskh Arabic", -apple-system, sans-serif; }
+
 /* ---- Assessment selector (main page) -------------------------------------- */
 .main-hero { padding-bottom: 36px; }
 .assess-grid { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 640px; margin: 8px auto 0; }
