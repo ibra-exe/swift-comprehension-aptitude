@@ -21,11 +21,11 @@ const CONFIG = {
     abstract: 20,
     error: 11
   },
-  // Swift Executive is harder and runs slower per question.
+  // Swift Executive: ~6 min per section. Verbal/Numerical 8 Q -> 45s; Abstract 12 Q -> 30s.
   execSeconds: {
     verbal: 45,
-    numerical: 60,
-    abstract: 40
+    numerical: 45,
+    abstract: 30
   },
   storageKey: "saville-history-v1", // localStorage key for cross-session history
   themeKey: "saville-theme"         // localStorage key for the light/dark choice
@@ -85,6 +85,12 @@ const STRINGS = {
     storage_note: "Stored locally in your browser (localStorage) · no server involved.",
     // quiz
     section_of: "Section {a} of {b}", q_of: "Q{a} of {b}", q_label: "Q{a} of {b}",
+    intro_meta: "{n} questions · {time}",
+    intro_note: "The timer starts when you press Start. Once a section's time runs out it moves on automatically — you cannot return to it.",
+    start_section: "Start section →",
+    study: "Study guide", study_title: "Study Guide", study_sub: "Formulas & techniques",
+    study_d: "Formulas, tips & techniques for every section",
+    study_formulas: "Formulas", study_techniques: "Tips & techniques",
     time_left: "Time left", study_untimed: "Study mode · untimed",
     calc_note: "🖩 Calculator permitted (as in the real test)",
     quit: "Quit to menu", skip: "Skip →", skip_section: "Skip section →",
@@ -148,8 +154,8 @@ const ASSESSMENTS = {
     rates: CONFIG.execSeconds,
     mock: [
       { section: "verbal", time: 180, size: 4 }, { section: "verbal", time: 180, size: 4 },
-      { section: "numerical", time: 240, size: 4 }, { section: "numerical", time: 240, size: 4 },
-      { section: "abstract", time: 240, size: 6 }
+      { section: "numerical", time: 180, size: 4 }, { section: "numerical", time: 180, size: 4 },
+      { section: "abstract", time: 360, size: 12 }
     ]
   }
 };
@@ -440,24 +446,52 @@ function buildMock() {
     answers: new Array(questions.length).fill(null),
     revealed: false,
     startedAt: Date.now(),
-    blockStartedAt: Date.now(),
+    blockStartedAt: 0,
+    usedMs: 0,         // accumulated active (timed) time across blocks
     timeUsed: 0,
     timerId: null,
     totalSeconds: blocks.reduce((s, b) => s + b.timeLimit, 0)
   };
+  // Like the real test, show a "section is starting" screen before each block.
+  renderSectionIntro();
+}
+
+// Begin the current block: start its own countdown and show the first question.
+function startBlock() {
+  state.idx = state.blockStart[state.blockIdx];
+  state.revealed = false;
+  state.blockStartedAt = Date.now();
   startTimer();
   renderQuiz();
 }
 
-// Move to the next mock block (or finish). Unanswered questions in the block
-// just stay unanswered.
+// Move to the next mock block (or finish). Banks the block's elapsed time first.
 function advanceBlock() {
+  if (state.blockStartedAt) state.usedMs += Date.now() - state.blockStartedAt;
+  state.blockStartedAt = 0;
+  stopTimer();
   state.blockIdx++;
   if (state.blockIdx >= state.blocks.length) { endQuiz(); return; }
-  state.idx = state.blockStart[state.blockIdx];
-  state.blockStartedAt = Date.now();
-  state.revealed = false;
-  renderQuiz();
+  renderSectionIntro();
+}
+
+// The "next section is starting" screen shown before each timed mock block.
+function renderSectionIntro() {
+  const b = state.blocks[state.blockIdx];
+  app.innerHTML = `
+    <div class="lock-wrap">
+      <div class="card lock-card intro-card">
+        <span class="mode-ic ic-${b.section} intro-ic">${ICONS[b.section]}</span>
+        <div class="intro-eyebrow">${t("section_of", { a: state.blockIdx + 1, b: state.blocks.length })}</div>
+        <h1 class="intro-title">${secLabel(b.section)}</h1>
+        <div class="intro-meta">${t("intro_meta", { n: b.questions.length, time: fmtTime(b.timeLimit) })}</div>
+        <p class="intro-note">${t("intro_note")}</p>
+        <button class="enter-btn" id="intro-start">${t("start_section")}</button>
+        <button class="ghost small intro-quit" id="intro-quit">${t("quit")}</button>
+      </div>
+    </div>`;
+  $("#intro-start").addEventListener("click", startBlock);
+  $("#intro-quit").addEventListener("click", () => { stopTimer(); renderHome(); });
 }
 
 function startTimer() {
@@ -557,8 +591,13 @@ function prev() {
 
 function endQuiz() {
   stopTimer();
-  const elapsed = (Date.now() - state.startedAt) / 1000;
-  state.timeUsed = inStudy() ? elapsed : Math.min(elapsed, state.totalSeconds);
+  if (state.mock) {
+    // Active time only (excludes the section-intro pauses), capped at the pool.
+    state.timeUsed = Math.min(state.usedMs / 1000, state.totalSeconds);
+  } else {
+    const elapsed = (Date.now() - state.startedAt) / 1000;
+    state.timeUsed = inStudy() ? elapsed : Math.min(elapsed, state.totalSeconds);
+  }
   renderResults();
 }
 
@@ -960,7 +999,8 @@ const ICONS = {
   error: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6"/><line x1="15" y1="15" x2="20" y2="20"/><polyline points="8,10.5 10,12.5 13.5,8.5"/></svg>`,
   all: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 16l9 5 9-5"/></svg>`,
   abstract: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="1"/><circle cx="17.5" cy="7" r="3.6"/><polygon points="7 13.5 11 20.5 3 20.5"/><polygon points="17.5 13.5 21 20 14 20"/></svg>`,
-  mock: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l11-6.5a1 1 0 0 0 0-1.72l-11-6.5A1 1 0 0 0 8 5.5z"/></svg>`
+  mock: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l11-6.5a1 1 0 0 0 0-1.72l-11-6.5A1 1 0 0 0 8 5.5z"/></svg>`,
+  study: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H12v15H5.5A1.5 1.5 0 0 0 4 20.5z"/><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H12v15h6.5A1.5 1.5 0 0 1 20 20.5z"/></svg>`
 };
 
 /* ==========================================================================
@@ -1017,6 +1057,11 @@ function renderHome() {
         <span class="mode-tx"><span class="t">${t("mock_t")}</span>
         <span class="d">${t("mock_d")}</span></span>
       </button>
+      <button class="mode-btn wide-btn" id="study-btn">
+        <span class="mode-ic ic-study">${ICONS.study}</span>
+        <span class="mode-tx"><span class="t">${t("study")}</span>
+        <span class="d">${t("study_d")}</span></span>
+      </button>
     </div>
 
     <div class="card">
@@ -1054,12 +1099,51 @@ function renderHome() {
       app.querySelectorAll(".diff-chip").forEach((c) => c.classList.toggle("active", c === b));
     })
   );
-  app.querySelectorAll(".mode-btn").forEach((b) =>
+  app.querySelectorAll(".mode-btn[data-mode]").forEach((b) =>
     b.addEventListener("click", () => buildQuiz(b.dataset.mode))
   );
   $("#assess-back").addEventListener("click", renderMain);
+  $("#study-btn").addEventListener("click", renderStudy);
   const clr = $("#clear-hist");
   if (clr) clr.addEventListener("click", clearHistory);
+}
+
+/* ==========================================================================
+   RENDERING - STUDY GUIDE (formulas & techniques per assessment)
+   ========================================================================== */
+const STUDY_AREAS = {
+  comprehension: ["comp-numerical", "comp-verbal", "comp-error"],
+  executive: ["exec-numerical", "exec-verbal", "exec-abstract"]
+};
+const STUDY_SECTION = {
+  "comp-numerical": "numerical", "comp-verbal": "verbal", "comp-error": "error",
+  "exec-numerical": "numerical", "exec-verbal": "verbal", "exec-abstract": "abstract"
+};
+function renderStudy() {
+  state = null;
+  const data = (typeof STUDY !== "undefined") ? STUDY : {};
+  const areas = STUDY_AREAS[currentAssessment] || [];
+  const body = areas.map((area, idx) => {
+    const sec = STUDY_SECTION[area];
+    const suffix = sec === "numerical" ? t("study_formulas") : t("study_techniques");
+    const groups = (data[area] || []).map((g) => `
+      <div class="study-group">
+        <h4>${esc(g.heading)}</h4>
+        ${(g.items || []).map((it) => `<div class="study-item"><div class="study-term">${esc(it.term)}</div><pre class="study-detail">${esc(it.detail)}</pre></div>`).join("")}
+      </div>`).join("");
+    return `<details class="card study-area" ${idx === 0 ? "open" : ""}>
+      <summary><span class="mode-ic ic-${sec}">${ICONS[sec]}</span><span class="study-area-title">${secLabel(sec)} · ${suffix}</span><span class="study-chev">▾</span></summary>
+      <div class="study-body">${groups}</div>
+    </details>`;
+  }).join("");
+
+  app.innerHTML = `
+    <div class="topbar">
+      <div><h1>${t("study_title")}</h1><div class="sub">${t("assess_" + currentAssessment + "_full")}</div></div>
+      <button class="ghost small" id="study-back">${t("back")}</button>
+    </div>
+    ${body}`;
+  $("#study-back").addEventListener("click", renderHome);
 }
 
 /* ==========================================================================
