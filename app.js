@@ -1119,6 +1119,20 @@ const STUDY_SECTION = {
   "comp-numerical": "numerical", "comp-verbal": "verbal", "comp-error": "error",
   "exec-numerical": "numerical", "exec-verbal": "verbal", "exec-abstract": "abstract"
 };
+// One study item: bold formula chip, plain detail, worked example, shortcut callout.
+function studyItem(it) {
+  let s = `<div class="study-item"><div class="study-term">${esc(it.term)}</div>`;
+  if (it.formula) s += `<div class="study-formula">${esc(it.formula)}</div>`;
+  if (it.detail) s += `<p class="study-text">${esc(it.detail)}</p>`;
+  if (it.example) s += `<div class="study-example"><span>e.g.</span> ${esc(it.example)}</div>`;
+  if (it.trick) s += `<div class="study-trick"><span class="study-trick-ic">💡</span><span><b>Shortcut:</b> ${esc(it.trick)}</span></div>`;
+  return s + `</div>`;
+}
+// A fraction <-> percentage group renders as a compact grid of chips.
+function studyFractionGrid(items) {
+  return `<div class="frac-grid">${items.map((it) =>
+    `<div class="frac-chip"><span class="frac-f">${esc(it.term)}</span><span class="frac-p">${esc(it.detail || "")}</span></div>`).join("")}</div>`;
+}
 function renderStudy() {
   state = null;
   const data = (typeof STUDY !== "undefined") ? STUDY : {};
@@ -1126,11 +1140,11 @@ function renderStudy() {
   const body = areas.map((area, idx) => {
     const sec = STUDY_SECTION[area];
     const suffix = sec === "numerical" ? t("study_formulas") : t("study_techniques");
-    const groups = (data[area] || []).map((g) => `
-      <div class="study-group">
-        <h4>${esc(g.heading)}</h4>
-        ${(g.items || []).map((it) => `<div class="study-item"><div class="study-term">${esc(it.term)}</div><pre class="study-detail">${esc(it.detail)}</pre></div>`).join("")}
-      </div>`).join("");
+    const groups = (data[area] || []).map((g) => {
+      const isFrac = /fraction/i.test(g.heading || "");
+      const inner = isFrac ? studyFractionGrid(g.items || []) : (g.items || []).map(studyItem).join("");
+      return `<div class="study-group"><h4>${esc(g.heading)}</h4>${inner}</div>`;
+    }).join("");
     return `<details class="card study-area" ${idx === 0 ? "open" : ""}>
       <summary><span class="mode-ic ic-${sec}">${ICONS[sec]}</span><span class="study-area-title">${secLabel(sec)} · ${suffix}</span><span class="study-chev">▾</span></summary>
       <div class="study-body">${groups}</div>

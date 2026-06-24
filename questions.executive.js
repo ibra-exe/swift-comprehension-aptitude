@@ -1840,6 +1840,1270 @@ const QUESTIONS_EXEC = [
     ],
     "answerIndex": 1,
     "explanation": "Every diamond is filled except one. Four of the five figures share the property of being filled (figures 1, 3, 4 and 5). Figure 2 is the only unfilled diamond, breaking the shared filled property, so it is the odd one out. Rotation and dot count vary freely across all five and provide no consistent rule, so fill is the single binding feature; only figure 2 violates it."
+  },
+  {
+    "id": "ex-abs-11",
+    "section": "abstract",
+    "topic": "abstract-series",
+    "difficulty": "easy",
+    "stimulus": {
+      "series": [
+        {
+          "shape": "square",
+          "rot": 0
+        },
+        {
+          "shape": "square",
+          "rot": 90
+        },
+        {
+          "shape": "square",
+          "rot": 180
+        }
+      ]
+    },
+    "question": "Which figure comes next in the sequence?",
+    "options": [
+      {
+        "shape": "square",
+        "rot": 270
+      },
+      {
+        "shape": "square",
+        "rot": 90
+      },
+      {
+        "shape": "square",
+        "rot": 0
+      },
+      {
+        "shape": "square",
+        "rot": 180
+      }
+    ],
+    "answerIndex": 0,
+    "explanation": "Only the rotation changes. The square turns 90 degrees clockwise at each step: 0 then 90 then 180. The next position is 270 degrees, and the shape stays a square throughout."
+  },
+  {
+    "id": "ex-abs-12",
+    "section": "abstract",
+    "topic": "abstract-series",
+    "difficulty": "easy",
+    "stimulus": {
+      "series": [
+        {
+          "shape": "arrow",
+          "rot": 315
+        },
+        {
+          "shape": "arrow",
+          "rot": 270
+        },
+        {
+          "shape": "arrow",
+          "rot": 225
+        }
+      ]
+    },
+    "question": "Which figure comes next in the sequence?",
+    "options": [
+      {
+        "shape": "arrow",
+        "rot": 180
+      },
+      {
+        "shape": "arrow",
+        "rot": 270
+      },
+      {
+        "shape": "arrow",
+        "rot": 225
+      },
+      {
+        "shape": "arrow",
+        "rot": 315
+      }
+    ],
+    "answerIndex": 0,
+    "explanation": "Only the rotation changes. The arrow turns 45 degrees counter-clockwise each step: 315 then 270 then 225. The next position is 180 degrees, with the shape unchanged."
+  },
+  {
+    "id": "ex-abs-13",
+    "section": "abstract",
+    "topic": "abstract-series",
+    "difficulty": "easy",
+    "stimulus": {
+      "series": [
+        {
+          "shape": "circle",
+          "fill": false
+        },
+        {
+          "shape": "circle",
+          "fill": true
+        },
+        {
+          "shape": "circle",
+          "fill": false
+        }
+      ]
+    },
+    "question": "Which figure comes next in the sequence?",
+    "options": [
+      {
+        "shape": "circle",
+        "fill": true
+      },
+      {
+        "shape": "circle",
+        "fill": false
+      },
+      {
+        "shape": "square",
+        "fill": true
+      },
+      {
+        "shape": "circle",
+        "fill": false
+      }
+    ],
+    "answerIndex": 0,
+    "explanation": "Only the fill changes. It alternates outline then solid then outline, so the next circle must be solid. Everything else stays the same: it is always a circle."
+  },
+  {
+    "id": "ex-abs-14",
+    "section": "abstract",
+    "topic": "abstract-series",
+    "difficulty": "easy",
+    "stimulus": {
+      "series": [
+        {
+          "shape": "triangle",
+          "fill": true
+        },
+        {
+          "shape": "triangle",
+          "fill": false
+        },
+        {
+          "shape": "triangle",
+          "fill": true
+        }
+      ]
+    },
+    "question": "Which figure comes next in the sequence?",
+    "options": [
+      {
+        "shape": "triangle",
+        "fill": false
+      },
+      {
+        "shape": "triangle",
+        "fill": true
+      },
+      {
+        "shape": "diamond",
+        "fill": false
+      },
+      {
+        "shape": "triangle",
+        "fill": true
+      }
+    ],
+    "answerIndex": 0,
+    "explanation": "Only the fill changes. It alternates solid then outline then solid, so the next triangle must be an outline. The shape remains a triangle the whole way through."
+  },
+  {
+    "id": "ex-abs-15",
+    "section": "abstract",
+    "topic": "abstract-series",
+    "difficulty": "easy",
+    "stimulus": {
+      "series": [
+        {
+          "shape": "diamond",
+          "dots": 0
+        },
+        {
+          "shape": "diamond",
+          "dots": 1
+        },
+        {
+          "shape": "diamond",
+          "dots": 2
+        }
+      ]
+    },
+    "question": "Which figure comes next in the sequence?",
+    "options": [
+      {
+        "shape": "diamond",
+        "dots": 3
+      },
+      {
+        "shape": "diamond",
+        "dots": 2
+      },
+      {
+        "shape": "diamond",
+        "dots": 1
+      },
+      {
+        "shape": "diamond",
+        "dots": 0
+      }
+    ],
+    "answerIndex": 0,
+    "explanation": "Only the number of dots changes. The count rises by one each step: 0 then 1 then 2. The next diamond has 3 dots, and the shape stays a diamond."
+  },
+  {
+    "id": "ex-abs-16",
+    "section": "abstract",
+    "topic": "abstract-odd",
+    "difficulty": "easy",
+    "stimulus": {},
+    "question": "Which figure is the odd one out?",
+    "options": [
+      {
+        "shape": "circle"
+      },
+      {
+        "shape": "circle"
+      },
+      {
+        "shape": "circle"
+      },
+      {
+        "shape": "square"
+      },
+      {
+        "shape": "circle"
+      }
+    ],
+    "answerIndex": 3,
+    "explanation": "Four of the figures are circles. The fourth is a square, so it is the odd one out."
+  },
+  {
+    "id": "ex-abs-17",
+    "section": "abstract",
+    "topic": "abstract-odd",
+    "difficulty": "easy",
+    "stimulus": {},
+    "question": "Which figure is the odd one out?",
+    "options": [
+      {
+        "shape": "triangle",
+        "fill": true
+      },
+      {
+        "shape": "triangle",
+        "fill": true
+      },
+      {
+        "shape": "triangle",
+        "fill": false
+      },
+      {
+        "shape": "triangle",
+        "fill": true
+      },
+      {
+        "shape": "triangle",
+        "fill": true
+      }
+    ],
+    "answerIndex": 2,
+    "explanation": "Every triangle is solid (filled) except the third, which is just an outline. It is the odd one out."
+  },
+  {
+    "id": "ex-abs-18",
+    "section": "abstract",
+    "topic": "abstract-odd",
+    "difficulty": "easy",
+    "stimulus": {},
+    "question": "Which figure is the odd one out?",
+    "options": [
+      {
+        "shape": "square",
+        "dots": 2
+      },
+      {
+        "shape": "square",
+        "dots": 2
+      },
+      {
+        "shape": "square",
+        "dots": 2
+      },
+      {
+        "shape": "square",
+        "dots": 2
+      },
+      {
+        "shape": "square",
+        "dots": 4
+      }
+    ],
+    "answerIndex": 4,
+    "explanation": "Four squares contain 2 dots each. The fifth contains 4 dots, so it is the odd one out."
+  },
+  {
+    "id": "ex-abs-19",
+    "section": "abstract",
+    "topic": "abstract-odd",
+    "difficulty": "easy",
+    "stimulus": {},
+    "question": "Which figure is the odd one out?",
+    "options": [
+      {
+        "shape": "arrow",
+        "rot": 90
+      },
+      {
+        "shape": "arrow",
+        "rot": 0
+      },
+      {
+        "shape": "arrow",
+        "rot": 0
+      },
+      {
+        "shape": "arrow",
+        "rot": 0
+      },
+      {
+        "shape": "arrow",
+        "rot": 0
+      }
+    ],
+    "answerIndex": 0,
+    "explanation": "Every arrow points upwards (0 degrees) except the first, which points to the right (90 degrees). It is the odd one out."
+  },
+  {
+    "id": "ex-abs-20",
+    "section": "abstract",
+    "topic": "abstract-odd",
+    "difficulty": "easy",
+    "stimulus": {},
+    "question": "Which figure is the odd one out?",
+    "options": [
+      {
+        "shape": "diamond",
+        "fill": false
+      },
+      {
+        "shape": "diamond",
+        "fill": false
+      },
+      {
+        "shape": "diamond",
+        "fill": true
+      },
+      {
+        "shape": "diamond",
+        "fill": false
+      },
+      {
+        "shape": "diamond",
+        "fill": false
+      }
+    ],
+    "answerIndex": 2,
+    "explanation": "Every diamond is just an outline except the third, which is solid (filled). It is the odd one out."
+  },
+  {
+    "id": "ex-abs-21",
+    "section": "abstract",
+    "topic": "abstract-series",
+    "difficulty": "medium",
+    "stimulus": {
+      "series": [
+        {
+          "shape": "square",
+          "rot": 0,
+          "fill": true
+        },
+        {
+          "shape": "square",
+          "rot": 45,
+          "fill": false
+        },
+        {
+          "shape": "square",
+          "rot": 90,
+          "fill": true
+        }
+      ]
+    },
+    "question": "Which figure comes next in the sequence?",
+    "options": [
+      {
+        "shape": "square",
+        "rot": 135,
+        "fill": false
+      },
+      {
+        "shape": "square",
+        "rot": 135,
+        "fill": true
+      },
+      {
+        "shape": "square",
+        "rot": 90,
+        "fill": false
+      },
+      {
+        "shape": "square",
+        "rot": 180,
+        "fill": false
+      }
+    ],
+    "answerIndex": 0,
+    "explanation": "Two attributes change together: the square rotates 45 degrees clockwise each step (0 to 45 to 90) and the fill alternates solid, outline, solid. The next figure must be 135 degrees and outline."
+  },
+  {
+    "id": "ex-abs-22",
+    "section": "abstract",
+    "topic": "abstract-series",
+    "difficulty": "medium",
+    "stimulus": {
+      "series": [
+        {
+          "shape": "circle",
+          "dots": 0
+        },
+        {
+          "shape": "triangle",
+          "dots": 1
+        },
+        {
+          "shape": "square",
+          "dots": 2
+        }
+      ]
+    },
+    "question": "Which figure comes next in the sequence?",
+    "options": [
+      {
+        "shape": "diamond",
+        "dots": 3
+      },
+      {
+        "shape": "diamond",
+        "dots": 2
+      },
+      {
+        "shape": "square",
+        "dots": 3
+      },
+      {
+        "shape": "circle",
+        "dots": 3
+      }
+    ],
+    "answerIndex": 0,
+    "explanation": "Two attributes change together: the shape follows a circle, triangle, square, diamond cycle, and the dots increase by one each step (0 to 1 to 2). The next figure is a diamond with 3 dots."
+  },
+  {
+    "id": "ex-abs-23",
+    "section": "abstract",
+    "topic": "abstract-series",
+    "difficulty": "medium",
+    "stimulus": {
+      "series": [
+        {
+          "shape": "arrow",
+          "rot": 0,
+          "dots": 4
+        },
+        {
+          "shape": "arrow",
+          "rot": 90,
+          "dots": 3
+        },
+        {
+          "shape": "arrow",
+          "rot": 180,
+          "dots": 2
+        }
+      ]
+    },
+    "question": "Which figure comes next in the sequence?",
+    "options": [
+      {
+        "shape": "arrow",
+        "rot": 270,
+        "dots": 1
+      },
+      {
+        "shape": "arrow",
+        "rot": 270,
+        "dots": 3
+      },
+      {
+        "shape": "arrow",
+        "rot": 180,
+        "dots": 1
+      },
+      {
+        "shape": "arrow",
+        "rot": 0,
+        "dots": 1
+      }
+    ],
+    "answerIndex": 0,
+    "explanation": "Two attributes change together: the arrow rotates 90 degrees clockwise each step (0 to 90 to 180) and the dots decrease by one (4 to 3 to 2). The next figure points at 270 degrees with 1 dot."
+  },
+  {
+    "id": "ex-abs-24",
+    "section": "abstract",
+    "topic": "abstract-series",
+    "difficulty": "medium",
+    "stimulus": {
+      "series": [
+        {
+          "shape": "diamond",
+          "fill": false,
+          "dots": 1
+        },
+        {
+          "shape": "diamond",
+          "fill": true,
+          "dots": 2
+        },
+        {
+          "shape": "diamond",
+          "fill": false,
+          "dots": 3
+        }
+      ]
+    },
+    "question": "Which figure comes next in the sequence?",
+    "options": [
+      {
+        "shape": "diamond",
+        "fill": true,
+        "dots": 4
+      },
+      {
+        "shape": "diamond",
+        "fill": false,
+        "dots": 4
+      },
+      {
+        "shape": "diamond",
+        "fill": true,
+        "dots": 3
+      },
+      {
+        "shape": "diamond",
+        "fill": false,
+        "dots": 2
+      }
+    ],
+    "answerIndex": 0,
+    "explanation": "Two attributes change together: the fill alternates outline, solid, outline, and the dots increase by one each step (1 to 2 to 3). The next figure is a solid diamond with 4 dots."
+  },
+  {
+    "id": "ex-abs-25",
+    "section": "abstract",
+    "topic": "abstract-series",
+    "difficulty": "medium",
+    "stimulus": {
+      "series": [
+        {
+          "shape": "triangle",
+          "rot": 270
+        },
+        {
+          "shape": "square",
+          "rot": 225
+        },
+        {
+          "shape": "triangle",
+          "rot": 180
+        }
+      ]
+    },
+    "question": "Which figure comes next in the sequence?",
+    "options": [
+      {
+        "shape": "square",
+        "rot": 135
+      },
+      {
+        "shape": "triangle",
+        "rot": 135
+      },
+      {
+        "shape": "square",
+        "rot": 90
+      },
+      {
+        "shape": "square",
+        "rot": 225
+      }
+    ],
+    "answerIndex": 0,
+    "explanation": "Two attributes change together: the shape alternates triangle, square, triangle, square, and the rotation decreases by 45 degrees each step (270 to 225 to 180). The next figure is a square at 135 degrees."
+  },
+  {
+    "id": "ex-abs-26",
+    "section": "abstract",
+    "topic": "abstract-odd",
+    "difficulty": "medium",
+    "stimulus": {},
+    "question": "Which figure is the odd one out?",
+    "options": [
+      {
+        "shape": "arrow",
+        "rot": 0,
+        "fill": true
+      },
+      {
+        "shape": "arrow",
+        "rot": 90,
+        "fill": false
+      },
+      {
+        "shape": "arrow",
+        "rot": 180,
+        "fill": true
+      },
+      {
+        "shape": "arrow",
+        "rot": 270,
+        "fill": false
+      },
+      {
+        "shape": "arrow",
+        "rot": 45,
+        "fill": true
+      }
+    ],
+    "answerIndex": 4,
+    "explanation": "Four arrows follow a paired rule: each points along a cardinal direction (0, 90, 180, 270) and the fill alternates with the rotation so that the two even quarter-turns (0, 180) are solid and the two odd quarter-turns (90, 270) are outline. The fifth arrow is at 45 degrees, a diagonal that is not on the cardinal cycle, so it breaks the pattern and is the odd one out."
+  },
+  {
+    "id": "ex-abs-27",
+    "section": "abstract",
+    "topic": "abstract-odd",
+    "difficulty": "medium",
+    "stimulus": {},
+    "question": "Which figure is the odd one out?",
+    "options": [
+      {
+        "shape": "square",
+        "fill": true,
+        "dots": 2
+      },
+      {
+        "shape": "square",
+        "fill": false,
+        "dots": 0
+      },
+      {
+        "shape": "square",
+        "fill": true,
+        "dots": 2
+      },
+      {
+        "shape": "square",
+        "fill": false,
+        "dots": 0
+      },
+      {
+        "shape": "square",
+        "fill": true,
+        "dots": 0
+      }
+    ],
+    "answerIndex": 4,
+    "explanation": "Fill and dot count are linked: every filled square carries 2 dots, and every outline square carries 0 dots. The first, second, third and fourth figures all obey this pairing. The fifth is filled but carries 0 dots, breaking the link. Fill alone does not single it out (three squares are filled) and dots alone do not single it out (three squares show 0 dots); only by tracking fill and dots together do you find the figure where they disagree."
+  },
+  {
+    "id": "ex-abs-28",
+    "section": "abstract",
+    "topic": "abstract-odd",
+    "difficulty": "medium",
+    "stimulus": {},
+    "question": "Which figure is the odd one out?",
+    "options": [
+      {
+        "shape": "arrow",
+        "rot": 90,
+        "fill": true
+      },
+      {
+        "shape": "arrow",
+        "rot": 270,
+        "fill": false
+      },
+      {
+        "shape": "arrow",
+        "rot": 90,
+        "fill": true
+      },
+      {
+        "shape": "arrow",
+        "rot": 270,
+        "fill": false
+      },
+      {
+        "shape": "arrow",
+        "rot": 270,
+        "fill": true
+      }
+    ],
+    "answerIndex": 4,
+    "explanation": "Rotation and fill are linked: an arrow pointing right (90°) is always filled, and an arrow pointing left (270°) is always an outline. The first four arrows obey this pairing. The fifth points left (270°) but is filled instead of an outline, breaking the link. Rotation alone does not identify it (three arrows point left) and fill alone does not identify it (three arrows are filled); only tracking rotation and fill together reveals the mismatch."
+  },
+  {
+    "id": "ex-abs-29",
+    "section": "abstract",
+    "topic": "abstract-odd",
+    "difficulty": "medium",
+    "stimulus": {},
+    "question": "Which figure is the odd one out?",
+    "options": [
+      {
+        "shape": "diamond",
+        "dots": 1,
+        "rot": 0
+      },
+      {
+        "shape": "diamond",
+        "dots": 2,
+        "rot": 90
+      },
+      {
+        "shape": "diamond",
+        "dots": 3,
+        "rot": 180
+      },
+      {
+        "shape": "diamond",
+        "dots": 4,
+        "rot": 180
+      },
+      {
+        "shape": "diamond",
+        "dots": 1,
+        "rot": 0
+      }
+    ],
+    "answerIndex": 3,
+    "explanation": "Dots and rotation are paired: 1 dot goes with 0°, 2 dots with 90°, and 3 dots with 180°. Four figures obey this dots-to-rotation mapping. The fourth shows 4 dots but is rotated to 180°, the position that belongs to 3 dots, so its dot count and rotation no longer agree. It is identifiable only by checking both attributes together, which makes this a two-attribute (medium) item."
+  },
+  {
+    "id": "ex-abs-30",
+    "section": "abstract",
+    "topic": "abstract-odd",
+    "difficulty": "medium",
+    "stimulus": {},
+    "question": "Which figure is the odd one out?",
+    "options": [
+      {
+        "shape": "circle",
+        "fill": true,
+        "dots": 0
+      },
+      {
+        "shape": "circle",
+        "fill": false,
+        "dots": 2
+      },
+      {
+        "shape": "circle",
+        "fill": true,
+        "dots": 0
+      },
+      {
+        "shape": "circle",
+        "fill": false,
+        "dots": 2
+      },
+      {
+        "shape": "circle",
+        "fill": true,
+        "dots": 2
+      }
+    ],
+    "answerIndex": 4,
+    "explanation": "Fill and dots are linked: a filled circle always has 0 dots and an outline circle always has 2 dots. The first four circles obey this pairing. The fifth is filled but carries 2 dots, breaking the link. Fill alone does not single it out (three circles are filled) and dots alone do not single it out (three circles show 2 dots); only tracking both together identifies the mismatch."
+  },
+  {
+    "id": "ex-abs-31",
+    "section": "abstract",
+    "topic": "abstract-series",
+    "difficulty": "hard",
+    "stimulus": {
+      "series": [
+        {
+          "shape": "diamond",
+          "rot": 0,
+          "fill": true,
+          "dots": 1
+        },
+        {
+          "shape": "diamond",
+          "rot": 45,
+          "fill": false,
+          "dots": 2
+        },
+        {
+          "shape": "diamond",
+          "rot": 90,
+          "fill": true,
+          "dots": 3
+        }
+      ]
+    },
+    "question": "Which figure comes next in the sequence?",
+    "options": [
+      {
+        "shape": "diamond",
+        "rot": 135,
+        "fill": false,
+        "dots": 4
+      },
+      {
+        "shape": "diamond",
+        "rot": 135,
+        "fill": true,
+        "dots": 4
+      },
+      {
+        "shape": "diamond",
+        "rot": 90,
+        "fill": false,
+        "dots": 4
+      },
+      {
+        "shape": "diamond",
+        "rot": 135,
+        "fill": false,
+        "dots": 3
+      }
+    ],
+    "answerIndex": 0,
+    "explanation": "Three attributes change together: the diamond rotates 45 degrees clockwise each step (0 to 45 to 90), the fill alternates solid, outline, solid, and the dots increase by one (1 to 2 to 3). The next figure is an outline diamond at 135 degrees with 4 dots."
+  },
+  {
+    "id": "ex-abs-32",
+    "section": "abstract",
+    "topic": "abstract-series",
+    "difficulty": "hard",
+    "stimulus": {
+      "series": [
+        {
+          "shape": "arrow",
+          "rot": 0,
+          "fill": true,
+          "dots": 0
+        },
+        {
+          "shape": "arrow",
+          "rot": 90,
+          "fill": false,
+          "dots": 1
+        },
+        {
+          "shape": "arrow",
+          "rot": 180,
+          "fill": true,
+          "dots": 2
+        }
+      ]
+    },
+    "question": "Which figure comes next in the sequence?",
+    "options": [
+      {
+        "shape": "arrow",
+        "rot": 270,
+        "fill": false,
+        "dots": 3
+      },
+      {
+        "shape": "arrow",
+        "rot": 270,
+        "fill": true,
+        "dots": 3
+      },
+      {
+        "shape": "arrow",
+        "rot": 180,
+        "fill": false,
+        "dots": 3
+      },
+      {
+        "shape": "arrow",
+        "rot": 270,
+        "fill": false,
+        "dots": 2
+      }
+    ],
+    "answerIndex": 0,
+    "explanation": "Three things change together: the arrow rotates 90 degrees each step (0 to 90 to 180), the fill alternates solid then outline, and the dots increase by one (0, 1, 2). Next is an arrow pointing at 270 degrees, outline, with 3 dots. An arrow is used because, unlike a square, every rotation is plainly visible."
+  },
+  {
+    "id": "ex-abs-33",
+    "section": "abstract",
+    "topic": "abstract-series",
+    "difficulty": "hard",
+    "stimulus": {
+      "series": [
+        {
+          "shape": "arrow",
+          "rot": 45,
+          "fill": false,
+          "dots": 4
+        },
+        {
+          "shape": "arrow",
+          "rot": 90,
+          "fill": true,
+          "dots": 3
+        },
+        {
+          "shape": "arrow",
+          "rot": 135,
+          "fill": false,
+          "dots": 2
+        }
+      ]
+    },
+    "question": "Which figure comes next in the sequence?",
+    "options": [
+      {
+        "shape": "arrow",
+        "rot": 180,
+        "fill": true,
+        "dots": 1
+      },
+      {
+        "shape": "arrow",
+        "rot": 180,
+        "fill": false,
+        "dots": 1
+      },
+      {
+        "shape": "arrow",
+        "rot": 135,
+        "fill": true,
+        "dots": 1
+      },
+      {
+        "shape": "arrow",
+        "rot": 180,
+        "fill": true,
+        "dots": 2
+      }
+    ],
+    "answerIndex": 0,
+    "explanation": "Three things change together: the arrow rotates 45 degrees each step (45 to 90 to 135), the fill alternates outline then solid, and the dots decrease by one (4, 3, 2). Next is an arrow at 180 degrees, solid, with 1 dot."
+  },
+  {
+    "id": "ex-abs-34",
+    "section": "abstract",
+    "topic": "abstract-series",
+    "difficulty": "hard",
+    "stimulus": {
+      "series": [
+        {
+          "shape": "triangle",
+          "rot": 0,
+          "fill": true,
+          "dots": 1
+        },
+        {
+          "shape": "triangle",
+          "rot": 90,
+          "fill": false,
+          "dots": 2
+        },
+        {
+          "shape": "triangle",
+          "rot": 180,
+          "fill": true,
+          "dots": 3
+        }
+      ]
+    },
+    "question": "Which figure comes next in the sequence?",
+    "options": [
+      {
+        "shape": "triangle",
+        "rot": 270,
+        "fill": false,
+        "dots": 4
+      },
+      {
+        "shape": "triangle",
+        "rot": 270,
+        "fill": true,
+        "dots": 4
+      },
+      {
+        "shape": "triangle",
+        "rot": 180,
+        "fill": false,
+        "dots": 4
+      },
+      {
+        "shape": "triangle",
+        "rot": 270,
+        "fill": false,
+        "dots": 3
+      }
+    ],
+    "answerIndex": 0,
+    "explanation": "Three things change together: the triangle rotates 90 degrees each step (0 to 90 to 180), the fill alternates solid then outline, and the dots increase by one (1, 2, 3). Each of these orientations points a different way, so the rotation is unambiguous. Next is a triangle at 270 degrees, outline, with 4 dots."
+  },
+  {
+    "id": "ex-abs-35",
+    "section": "abstract",
+    "topic": "abstract-series",
+    "difficulty": "hard",
+    "stimulus": {
+      "series": [
+        {
+          "shape": "circle",
+          "fill": true,
+          "dots": 0
+        },
+        {
+          "shape": "square",
+          "fill": false,
+          "dots": 1
+        },
+        {
+          "shape": "triangle",
+          "fill": true,
+          "dots": 2
+        }
+      ]
+    },
+    "question": "Which figure comes next in the sequence?",
+    "options": [
+      {
+        "shape": "circle",
+        "fill": false,
+        "dots": 3
+      },
+      {
+        "shape": "circle",
+        "fill": true,
+        "dots": 3
+      },
+      {
+        "shape": "square",
+        "fill": false,
+        "dots": 3
+      },
+      {
+        "shape": "circle",
+        "fill": false,
+        "dots": 2
+      }
+    ],
+    "answerIndex": 0,
+    "explanation": "Two patterns run together. The shape follows a three-step cycle circle then square then triangle, so the fourth figure returns to circle. At the same time the fill alternates solid then outline and the dots increase by one (0, 1, 2). Next is an outline circle with 3 dots."
+  },
+  {
+    "id": "ex-abs-36",
+    "section": "abstract",
+    "topic": "abstract-odd",
+    "difficulty": "hard",
+    "stimulus": {},
+    "question": "Which figure is the odd one out?",
+    "options": [
+      {
+        "shape": "triangle",
+        "fill": true,
+        "rot": 0
+      },
+      {
+        "shape": "circle",
+        "fill": false,
+        "rot": 90
+      },
+      {
+        "shape": "square",
+        "fill": true,
+        "rot": 0
+      },
+      {
+        "shape": "diamond",
+        "fill": false,
+        "rot": 90
+      },
+      {
+        "shape": "arrow",
+        "fill": false,
+        "rot": 0
+      }
+    ],
+    "answerIndex": 4,
+    "explanation": "Shapes all differ, so shape is not the rule. Fill and rotation are linked: every filled figure sits at 0° and every outline figure sits at 90°. The first four figures obey this pairing. The fifth is an outline (which should be 90°) but sits at 0°, breaking the link. Fill alone does not single it out (three figures are outlines) and rotation alone does not single it out (three figures are at 0°); only by checking fill against rotation do you find the contradiction."
+  },
+  {
+    "id": "ex-abs-37",
+    "section": "abstract",
+    "topic": "abstract-odd",
+    "difficulty": "hard",
+    "stimulus": {},
+    "question": "Which figure is the odd one out?",
+    "options": [
+      {
+        "shape": "square",
+        "rot": 45,
+        "fill": true
+      },
+      {
+        "shape": "diamond",
+        "rot": 135,
+        "fill": false
+      },
+      {
+        "shape": "arrow",
+        "rot": 45,
+        "fill": true
+      },
+      {
+        "shape": "circle",
+        "rot": 135,
+        "fill": false
+      },
+      {
+        "shape": "triangle",
+        "rot": 135,
+        "fill": true
+      }
+    ],
+    "answerIndex": 4,
+    "explanation": "Shapes vary, so shape is not the rule. Rotation and fill are linked: every figure at 45° is filled and every figure at 135° is an outline. The first four figures obey this pairing. The fifth sits at 135° (which should be an outline) but is filled, breaking the link. Rotation alone does not single it out (three figures are at 135°) and fill alone does not single it out (three figures are filled); only checking rotation against fill reveals the mismatch."
+  },
+  {
+    "id": "ex-abs-38",
+    "section": "abstract",
+    "topic": "abstract-odd",
+    "difficulty": "hard",
+    "stimulus": {},
+    "question": "Which figure is the odd one out?",
+    "options": [
+      {
+        "shape": "square",
+        "fill": true,
+        "dots": 2
+      },
+      {
+        "shape": "circle",
+        "fill": false,
+        "dots": 1
+      },
+      {
+        "shape": "triangle",
+        "fill": true,
+        "dots": 4
+      },
+      {
+        "shape": "diamond",
+        "fill": false,
+        "dots": 3
+      },
+      {
+        "shape": "arrow",
+        "fill": true,
+        "dots": 1
+      }
+    ],
+    "answerIndex": 4,
+    "explanation": "The non-obvious rule links fill and dot-count by parity across five deliberately different shapes: every solid figure carries an even number of dots (square solid 2, triangle solid 4) and every outline figure carries an odd number (circle outline 1, diamond outline 3). The arrow is solid yet carries 1 dot (odd), breaking the solid-is-even link, so it is the odd one out. Because the shapes are all different, only the fill-to-dot-parity relationship identifies the answer."
+  },
+  {
+    "id": "ex-abs-39",
+    "section": "abstract",
+    "topic": "abstract-odd",
+    "difficulty": "hard",
+    "stimulus": {},
+    "question": "Which figure is the odd one out?",
+    "options": [
+      {
+        "shape": "arrow",
+        "rot": 0,
+        "fill": true,
+        "dots": 0
+      },
+      {
+        "shape": "arrow",
+        "rot": 90,
+        "fill": false,
+        "dots": 1
+      },
+      {
+        "shape": "arrow",
+        "rot": 180,
+        "fill": true,
+        "dots": 2
+      },
+      {
+        "shape": "arrow",
+        "rot": 270,
+        "fill": false,
+        "dots": 3
+      },
+      {
+        "shape": "arrow",
+        "rot": 45,
+        "fill": true,
+        "dots": 2
+      }
+    ],
+    "answerIndex": 4,
+    "explanation": "Three attributes advance together for four of the arrows: the rotation steps by 90 degrees (0, 90, 180, 270), the dot-count equals the rotation divided by 90 (0, 1, 2, 3), and the fill alternates solid, outline, solid, outline with each step. The fifth arrow is at 45 degrees, which breaks the consistent 90-degree progression; a 45-degree rotation cannot yield a whole dot-count under the rotation-over-90 rule, and its solid fill does not continue the alternation. Failing all three rules, it is the odd one out."
+  },
+  {
+    "id": "ex-abs-40",
+    "section": "abstract",
+    "topic": "abstract-odd",
+    "difficulty": "hard",
+    "stimulus": {},
+    "question": "Which figure is the odd one out?",
+    "options": [
+      {
+        "shape": "square",
+        "rot": 0,
+        "fill": true,
+        "dots": 0
+      },
+      {
+        "shape": "diamond",
+        "rot": 45,
+        "fill": false,
+        "dots": 1
+      },
+      {
+        "shape": "square",
+        "rot": 90,
+        "fill": true,
+        "dots": 2
+      },
+      {
+        "shape": "diamond",
+        "rot": 135,
+        "fill": false,
+        "dots": 3
+      },
+      {
+        "shape": "diamond",
+        "rot": 225,
+        "fill": true,
+        "dots": 3
+      }
+    ],
+    "answerIndex": 4,
+    "explanation": "For four of the figures three attributes hold together: the shape alternates square, diamond, square, diamond with squares always solid and diamonds always outline; the rotation increases in consistent 45-degree steps (0, 45, 90, 135); and the dot-count counts up 0, 1, 2, 3. The fifth figure is a diamond shown solid (diamonds should be outline), rotated 225 degrees (breaking the 45-degree progression), with a dot-count of 3 that repeats rather than continuing the sequence. It violates all three rules, so it is the odd one out."
   }
 ];
 
