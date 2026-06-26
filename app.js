@@ -716,14 +716,33 @@ function absFigure(spec) {
   const scale = { sm: 0.6, md: 1, lg: 1.28 }[s.size] || 1;
   const tf = `translate(32 32) rotate(${rot}) scale(${scale}) translate(-32 -32)`;
   const inner = `<g transform="${tf}">${body}</g>`;
-  // Corner marker: a solid right-triangle pinned to one corner of the tile.
-  let corner = "";
-  const cm = { tl: "0,0 24,0 0,24", tr: "64,0 40,0 64,24", br: "64,64 40,64 64,40", bl: "0,64 24,64 0,40" }[s.corner];
-  if (cm) corner = `<polygon points="${cm}" fill="${stroke}"/>`;
+  // Corner decoration: a marker pinned to one corner (solid triangle, hatched
+  // triangle, or a dot), plus an optional count of dots placed in the corners.
+  let deco = "";
+  if (s.corner) {
+    const tri = { tl: "0,0 26,0 0,26", tr: "64,0 38,0 64,26", br: "64,64 38,64 64,38", bl: "0,64 26,64 0,38" }[s.corner];
+    const style = s.cornerStyle || "solid";
+    if (style === "hatch") {
+      const segs = {
+        tl: [[10, 0, 0, 10], [18, 0, 0, 18], [26, 0, 0, 26]],
+        tr: [[54, 0, 64, 10], [46, 0, 64, 18], [38, 0, 64, 26]],
+        br: [[64, 54, 54, 64], [64, 46, 46, 64], [64, 38, 38, 64]],
+        bl: [[10, 64, 0, 54], [18, 64, 0, 46], [26, 64, 0, 38]],
+      }[s.corner];
+      deco += `<polygon points="${tri}" fill="none" stroke="${stroke}" stroke-width="1.5"/>`;
+      for (const g of segs) deco += `<line x1="${g[0]}" y1="${g[1]}" x2="${g[2]}" y2="${g[3]}" stroke="${stroke}" stroke-width="2"/>`;
+    } else if (style === "dot") {
+      const dp = { tl: [12, 12], tr: [52, 12], br: [52, 52], bl: [12, 52] }[s.corner];
+      deco += `<circle cx="${dp[0]}" cy="${dp[1]}" r="4.2" fill="${stroke}"/>`;
+    } else {
+      deco += `<polygon points="${tri}" fill="${stroke}"/>`;
+    }
+  }
+  if (s.cdots) { const pos = [[12, 12], [52, 12], [52, 52], [12, 52]]; for (let i = 0; i < s.cdots && i < 4; i++) deco += `<circle cx="${pos[i][0]}" cy="${pos[i][1]}" r="3.4" fill="${stroke}"/>`; }
   let dots = "";
   const n = s.dots || 0;
   for (let i = 0; i < n; i++) dots += `<circle cx="${13 + i * 13}" cy="58" r="3.2" fill="${stroke}"/>`;
-  return `<svg class="absfig" viewBox="0 0 64 64" aria-hidden="true">${corner}${inner}${dots}</svg>`;
+  return `<svg class="absfig" viewBox="0 0 64 64" aria-hidden="true">${deco}${inner}${dots}</svg>`;
 }
 
 // How an answer value is shown on review / verdict lines. Abstract answers are

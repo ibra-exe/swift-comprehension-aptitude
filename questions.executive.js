@@ -2120,31 +2120,36 @@ const QUESTIONS_EXEC = [
       {
         "shape": "triangle",
         "rot": 0,
-        "fill": false
+        "fill": false,
+        "cdots": 3
       },
       {
         "shape": "triangle",
         "rot": 90,
-        "fill": false
+        "fill": false,
+        "cdots": 3
       },
       {
-        "shape": "play",
+        "shape": "triangle",
         "rot": 0,
-        "fill": false
+        "fill": false,
+        "cdots": 2
       },
       {
         "shape": "triangle",
         "rot": 180,
-        "fill": false
+        "fill": false,
+        "cdots": 3
       },
       {
         "shape": "triangle",
         "rot": 270,
-        "fill": false
+        "fill": false,
+        "cdots": 3
       }
     ],
     "answerIndex": 2,
-    "explanation": "Four of the figures are triangles; option 3 is a play-triangle, so it is the odd one out."
+    "explanation": "Every figure has the same number of corner dots except one. Option 3 has a different count, so it is the odd one out."
   },
   {
     "id": "ex-abs-17",
@@ -2157,31 +2162,36 @@ const QUESTIONS_EXEC = [
           "shape": "square",
           "rot": 0,
           "fill": false,
-          "corner": "tl"
+          "corner": "tl",
+          "cornerStyle": "hatch"
         },
         {
           "shape": "square",
           "rot": 0,
           "fill": false,
-          "corner": "tr"
+          "corner": "tr",
+          "cornerStyle": "hatch"
         },
         {
           "shape": "square",
           "rot": 0,
           "fill": false,
-          "corner": "br"
+          "corner": "br",
+          "cornerStyle": "hatch"
         },
         {
           "shape": "square",
           "rot": 0,
           "fill": false,
-          "corner": "bl"
+          "corner": "bl",
+          "cornerStyle": "hatch"
         },
         {
           "shape": "square",
           "rot": 0,
           "fill": false,
-          "corner": "tl"
+          "corner": "tl",
+          "cornerStyle": "hatch"
         }
       ]
     },
@@ -2191,29 +2201,33 @@ const QUESTIONS_EXEC = [
         "shape": "square",
         "rot": 0,
         "fill": false,
-        "corner": "br"
+        "corner": "br",
+        "cornerStyle": "hatch"
       },
       {
         "shape": "square",
         "rot": 0,
         "fill": false,
-        "corner": "tl"
+        "corner": "tl",
+        "cornerStyle": "hatch"
       },
       {
         "shape": "square",
         "rot": 0,
         "fill": true,
-        "corner": "tr"
+        "corner": "tr",
+        "cornerStyle": "hatch"
       },
       {
         "shape": "square",
         "rot": 0,
         "fill": false,
-        "corner": "tr"
+        "corner": "tr",
+        "cornerStyle": "hatch"
       }
     ],
     "answerIndex": 3,
-    "explanation": "The corner mark moves clockwise around the corners each step (top-left, top-right, bottom-right, bottom-left). The next figure is outline square, with a top-right corner mark (option 4)."
+    "explanation": "The hatched corner mark moves clockwise around the corners each step (top-left, top-right, bottom-right, bottom-left). The next figure is outline square, with a hatched top-right corner mark (option 4)."
   },
   {
     "id": "ex-abs-18",
@@ -2366,57 +2380,53 @@ const QUESTIONS_EXEC = [
     "stimulus": {
       "series": [
         {
-          "shape": "circle",
-          "rot": 0,
-          "fill": true
-        },
-        {
-          "shape": "star",
-          "rot": 0,
-          "fill": false
-        },
-        {
-          "shape": "triangle",
-          "rot": 0,
-          "fill": true
-        },
-        {
           "shape": "square",
           "rot": 0,
           "fill": false
         },
         {
-          "shape": "circle",
+          "shape": "square",
           "rot": 0,
-          "fill": true
+          "fill": false,
+          "cdots": 1
+        },
+        {
+          "shape": "square",
+          "rot": 0,
+          "fill": false,
+          "cdots": 2
         }
       ]
     },
     "question": "Which figure comes next in the sequence?",
     "options": [
       {
-        "shape": "triangle",
+        "shape": "square",
         "rot": 0,
-        "fill": false
+        "fill": false,
+        "cdots": 2
       },
       {
-        "shape": "circle",
+        "shape": "square",
         "rot": 0,
-        "fill": false
+        "fill": false,
+        "cdots": 4
       },
       {
-        "shape": "star",
+        "shape": "square",
         "rot": 0,
-        "fill": true
+        "fill": false,
+        "cdots": 1
       },
       {
-        "shape": "star",
+        "shape": "square",
         "rot": 0,
-        "fill": false
+        "fill": false,
+        "cdots": 3
       }
     ],
     "answerIndex": 3,
-    "explanation": "Several things change together: the shape cycles circle → star → triangle → square; the fill alternates each step. The next figure is outline star (option 4)."
+    "explanation": "The number of corner dots increases by one each step. The next figure is outline square, with 3 corner dots (option 4)."
   },
   {
     "id": "ex-abs-22",
@@ -2427,34 +2437,38 @@ const QUESTIONS_EXEC = [
     "question": "Which figure is the odd one out?",
     "options": [
       {
-        "shape": "triangle",
-        "rot": 0,
-        "fill": false
-      },
-      {
-        "shape": "triangle",
-        "rot": 90,
-        "fill": false
-      },
-      {
-        "shape": "triangle",
-        "rot": 180,
-        "fill": false
-      },
-      {
-        "shape": "triangle",
+        "shape": "arrow",
         "rot": 0,
         "fill": false,
-        "dots": 3
+        "cdots": 3
       },
       {
-        "shape": "triangle",
+        "shape": "arrow",
+        "rot": 90,
+        "fill": false,
+        "cdots": 3
+      },
+      {
+        "shape": "arrow",
+        "rot": 180,
+        "fill": false,
+        "cdots": 3
+      },
+      {
+        "shape": "arrow",
+        "rot": 0,
+        "fill": false,
+        "cdots": 2
+      },
+      {
+        "shape": "arrow",
         "rot": 270,
-        "fill": false
+        "fill": false,
+        "cdots": 3
       }
     ],
     "answerIndex": 3,
-    "explanation": "Every figure has no dots except one. Option 4 carries 3 dots, so it is the odd one out."
+    "explanation": "Every figure has the same number of corner dots except one. Option 4 has a different count, so it is the odd one out."
   },
   {
     "id": "ex-abs-23",
@@ -2561,66 +2575,75 @@ const QUESTIONS_EXEC = [
     "stimulus": {
       "series": [
         {
-          "shape": "hexagon",
+          "shape": "circle",
           "rot": 0,
           "fill": true,
-          "size": "sm"
+          "corner": "tl",
+          "cornerStyle": "dot"
         },
         {
-          "shape": "star",
-          "rot": 0,
-          "fill": false,
-          "size": "lg"
-        },
-        {
-          "shape": "hexagon",
+          "shape": "circle",
           "rot": 0,
           "fill": true,
-          "size": "sm"
+          "corner": "bl",
+          "cornerStyle": "dot"
         },
         {
-          "shape": "star",
-          "rot": 0,
-          "fill": false,
-          "size": "lg"
-        },
-        {
-          "shape": "hexagon",
+          "shape": "circle",
           "rot": 0,
           "fill": true,
-          "size": "sm"
+          "corner": "br",
+          "cornerStyle": "dot"
+        },
+        {
+          "shape": "circle",
+          "rot": 0,
+          "fill": true,
+          "corner": "tr",
+          "cornerStyle": "dot"
+        },
+        {
+          "shape": "circle",
+          "rot": 0,
+          "fill": true,
+          "corner": "tl",
+          "cornerStyle": "dot"
         }
       ]
     },
     "question": "Which figure comes next in the sequence?",
     "options": [
       {
-        "shape": "hexagon",
+        "shape": "circle",
         "rot": 0,
         "fill": true,
-        "size": "sm"
+        "corner": "br",
+        "cornerStyle": "dot"
       },
       {
-        "shape": "star",
+        "shape": "circle",
         "rot": 0,
         "fill": true,
-        "size": "lg"
+        "corner": "tl",
+        "cornerStyle": "dot"
       },
       {
-        "shape": "hexagon",
+        "shape": "circle",
         "rot": 0,
         "fill": false,
-        "size": "lg"
+        "corner": "bl",
+        "cornerStyle": "dot"
       },
       {
-        "shape": "star",
+        "shape": "circle",
         "rot": 0,
-        "fill": false,
-        "size": "lg"
+        "fill": true,
+        "corner": "bl",
+        "cornerStyle": "dot"
       }
     ],
     "answerIndex": 3,
-    "explanation": "Two figures alternate: small filled hexagon and large outline star. After small filled hexagon the next is large outline star (option 4)."
+    "explanation": "The corner dot moves anti-clockwise around the corners each step (top-left, top-right, bottom-right, bottom-left). The next figure is filled circle, with a dotted bottom-left corner mark (option 4)."
   },
   {
     "id": "ex-abs-26",
@@ -2856,35 +2879,35 @@ const QUESTIONS_EXEC = [
         "shape": "arrow",
         "rot": 0,
         "fill": false,
-        "dots": 1
+        "cdots": 1
       },
       {
         "shape": "arrow",
         "rot": 0,
         "fill": false,
-        "dots": 2
+        "cdots": 2
       },
       {
         "shape": "arrow",
         "rot": 90,
         "fill": false,
-        "dots": 1
+        "cdots": 1
       },
       {
         "shape": "arrow",
         "rot": 180,
         "fill": false,
-        "dots": 1
+        "cdots": 1
       },
       {
         "shape": "arrow",
         "rot": 270,
         "fill": false,
-        "dots": 1
+        "cdots": 1
       }
     ],
     "answerIndex": 1,
-    "explanation": "Every figure carries 1 dot except one. Option 2 carries 2 dots, so it is the odd one out."
+    "explanation": "Every figure has the same number of corner dots except one. Option 2 has a different count, so it is the odd one out."
   },
   {
     "id": "ex-abs-31",
@@ -2897,31 +2920,36 @@ const QUESTIONS_EXEC = [
           "shape": "square",
           "rot": 0,
           "fill": false,
-          "corner": "tl"
+          "corner": "tl",
+          "cornerStyle": "hatch"
         },
         {
           "shape": "square",
           "rot": 0,
           "fill": false,
-          "corner": "bl"
+          "corner": "bl",
+          "cornerStyle": "hatch"
         },
         {
           "shape": "square",
           "rot": 0,
           "fill": false,
-          "corner": "br"
+          "corner": "br",
+          "cornerStyle": "hatch"
         },
         {
           "shape": "square",
           "rot": 0,
           "fill": false,
-          "corner": "tr"
+          "corner": "tr",
+          "cornerStyle": "hatch"
         },
         {
           "shape": "square",
           "rot": 0,
           "fill": false,
-          "corner": "tl"
+          "corner": "tl",
+          "cornerStyle": "hatch"
         }
       ]
     },
@@ -2931,29 +2959,33 @@ const QUESTIONS_EXEC = [
         "shape": "square",
         "rot": 0,
         "fill": false,
-        "corner": "br"
+        "corner": "br",
+        "cornerStyle": "hatch"
       },
       {
         "shape": "square",
         "rot": 0,
         "fill": false,
-        "corner": "tl"
+        "corner": "tl",
+        "cornerStyle": "hatch"
       },
       {
         "shape": "square",
         "rot": 0,
         "fill": true,
-        "corner": "bl"
+        "corner": "bl",
+        "cornerStyle": "hatch"
       },
       {
         "shape": "square",
         "rot": 0,
         "fill": false,
-        "corner": "bl"
+        "corner": "bl",
+        "cornerStyle": "hatch"
       }
     ],
     "answerIndex": 3,
-    "explanation": "The corner mark moves anti-clockwise around the corners each step (top-left, top-right, bottom-right, bottom-left). The next figure is outline square, with a bottom-left corner mark (option 4)."
+    "explanation": "The hatched corner mark moves anti-clockwise around the corners each step (top-left, top-right, bottom-right, bottom-left). The next figure is outline square, with a hatched bottom-left corner mark (option 4)."
   },
   {
     "id": "ex-abs-32",
@@ -3023,13 +3055,13 @@ const QUESTIONS_EXEC = [
           "size": "sm"
         },
         {
-          "shape": "hexagon",
+          "shape": "circle",
           "rot": 0,
           "fill": true,
           "size": "lg"
         },
         {
-          "shape": "circle",
+          "shape": "square",
           "rot": 0,
           "fill": false,
           "size": "sm"
@@ -3039,12 +3071,6 @@ const QUESTIONS_EXEC = [
     "question": "Which figure comes next in the sequence?",
     "options": [
       {
-        "shape": "star",
-        "rot": 0,
-        "fill": true,
-        "size": "lg"
-      },
-      {
         "shape": "circle",
         "rot": 0,
         "fill": true,
@@ -3053,18 +3079,24 @@ const QUESTIONS_EXEC = [
       {
         "shape": "square",
         "rot": 0,
+        "fill": true,
+        "size": "lg"
+      },
+      {
+        "shape": "star",
+        "rot": 0,
         "fill": false,
         "size": "lg"
       },
       {
-        "shape": "square",
+        "shape": "star",
         "rot": 0,
         "fill": true,
         "size": "lg"
       }
     ],
     "answerIndex": 3,
-    "explanation": "Several things change together: the shape cycles circle → square → star → hexagon; the fill alternates each step; the size alternates small / large each step. The next figure is large filled square (option 4)."
+    "explanation": "Several things change together: the shape cycles circle → square → star; the fill alternates each step; the size alternates small / large each step. The next figure is large filled star (option 4)."
   },
   {
     "id": "ex-abs-34",
@@ -3176,35 +3208,35 @@ const QUESTIONS_EXEC = [
         "shape": "triangle",
         "rot": 0,
         "fill": false,
-        "dots": 1
+        "cdots": 1
       },
       {
         "shape": "triangle",
         "rot": 90,
         "fill": false,
-        "dots": 1
+        "cdots": 1
       },
       {
         "shape": "triangle",
         "rot": 0,
         "fill": false,
-        "dots": 2
+        "cdots": 2
       },
       {
         "shape": "triangle",
         "rot": 180,
         "fill": false,
-        "dots": 1
+        "cdots": 1
       },
       {
         "shape": "triangle",
         "rot": 270,
         "fill": false,
-        "dots": 1
+        "cdots": 1
       }
     ],
     "answerIndex": 2,
-    "explanation": "Every figure carries 1 dot except one. Option 3 carries 2 dots, so it is the odd one out."
+    "explanation": "Every figure has the same number of corner dots except one. Option 3 has a different count, so it is the odd one out."
   },
   {
     "id": "ex-abs-37",
@@ -3325,66 +3357,54 @@ const QUESTIONS_EXEC = [
     "stimulus": {
       "series": [
         {
-          "shape": "play",
+          "shape": "circle",
           "rot": 0,
           "fill": true,
-          "size": "sm"
+          "cdots": 1
         },
         {
-          "shape": "plus",
-          "rot": 0,
-          "fill": false,
-          "size": "lg"
-        },
-        {
-          "shape": "triangle",
+          "shape": "circle",
           "rot": 0,
           "fill": true,
-          "size": "sm"
+          "cdots": 2
         },
         {
-          "shape": "play",
-          "rot": 0,
-          "fill": false,
-          "size": "lg"
-        },
-        {
-          "shape": "plus",
+          "shape": "circle",
           "rot": 0,
           "fill": true,
-          "size": "sm"
+          "cdots": 3
         }
       ]
     },
     "question": "Which figure comes next in the sequence?",
     "options": [
       {
-        "shape": "play",
-        "rot": 0,
-        "fill": false,
-        "size": "lg"
-      },
-      {
-        "shape": "plus",
-        "rot": 0,
-        "fill": false,
-        "size": "lg"
-      },
-      {
-        "shape": "triangle",
+        "shape": "circle",
         "rot": 0,
         "fill": true,
-        "size": "lg"
+        "cdots": 3
       },
       {
-        "shape": "triangle",
+        "shape": "circle",
+        "rot": 0,
+        "fill": true,
+        "cdots": 2
+      },
+      {
+        "shape": "circle",
         "rot": 0,
         "fill": false,
-        "size": "lg"
+        "cdots": 4
+      },
+      {
+        "shape": "circle",
+        "rot": 0,
+        "fill": true,
+        "cdots": 4
       }
     ],
     "answerIndex": 3,
-    "explanation": "Several things change together: the shape cycles play-triangle → plus (+) → triangle; the fill alternates each step; the size alternates small / large each step. The next figure is large outline triangle (option 4)."
+    "explanation": "The number of corner dots increases by one each step. The next figure is filled circle, with 4 corner dots (option 4)."
   },
   {
     "id": "ex-abs-40",
