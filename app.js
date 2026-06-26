@@ -64,16 +64,22 @@ const STRINGS = {
     // home
     app_title: "Swift Comprehension Practice",
     app_sub: "Accuracy under time pressure · Verbal · Numerical · Abstract · Error checking",
-    main_title: "Swift Aptitude Practice", main_sub: "Choose your assessment", back_assess: "← Assessments",
+    main_title: "Swift Aptitude Practice", main_sub: "Choose your assessment", back_assess: "← Back",
     main_choose: "Choose your assessment", main_choose_sub: "Two timed assessments, modelled on the real Saville Swift tests. Pick one to see its sections.",
     back: "← Back",
     // landing
-    land_sub: "Build speed and accuracy for the Saville Swift Comprehension and Executive aptitude tests. Verbal, Numerical, Abstract and Error Checking, with real exam timings, full worked answers and a built-in study guide.",
+    land_sub: "Practise the Saville Swift Comprehension and Executive tests under real exam timing, with worked answers and a study guide.",
     land_start: "Start practising →",
     land_q_sub: "practice questions",
     land_assess: "Two assessments", land_assess_sub: "Comprehension & Executive",
     land_mock: "Real exam timings", land_mock_sub: "section-by-section mocks",
     land_study: "Study guide", land_study_sub: "formulas & tips · EN / AR",
+    // about
+    about_link: "About",
+    about_title: "About this tool",
+    about_purpose: "A free, offline practice tool for the Saville Swift Comprehension and Executive aptitude tests. It mirrors the real test structure and timing so you can build speed and accuracy before the day, with worked answers and a study guide for every section.",
+    about_contact: "Questions or feedback? Reach me on WhatsApp.",
+    about_wa: "Message on WhatsApp",
     open_assessment: "Open →",
     assess_comprehension_full: "Swift Comprehension", assess_comprehension_grade: "(Grades 2-5)",
     assess_comprehension_sub: "Verbal · Numerical · Error checking",
@@ -216,8 +222,9 @@ const DIFF_OVERRIDE = {
   "ex-verb-15": "easy", "ex-verb-16": "medium", "ex-verb-18": "easy", "ex-verb-19": "easy", "ex-verb-20": "medium",
   "ex-num-01": "medium", "ex-num-02": "hard", "ex-num-05": "hard", "ex-num-06": "medium", "ex-num-07": "hard",
   "ex-num-09": "easy", "ex-num-10": "medium", "ex-num-12": "medium", "ex-num-13": "easy", "ex-num-15": "hard",
-  "ex-num-17": "easy", "ex-num-20": "medium",
-  "ex-abs-02": "hard", "ex-abs-05": "hard", "ex-abs-06": "hard", "ex-abs-09": "hard", "ex-abs-10": "easy"
+  "ex-num-17": "easy", "ex-num-20": "medium"
+  // (ex-abs-* overrides removed: the abstract bank was regenerated with calibrated
+  //  difficulty fields, so the stale overrides no longer apply.)
 };
 function diffOf(q) {
   if (DIFF_OVERRIDE[q.id]) return DIFF_OVERRIDE[q.id];
@@ -678,6 +685,17 @@ function absFigure(spec) {
   return `<svg class="absfig" viewBox="0 0 64 64" aria-hidden="true">${shape}${dots}</svg>`;
 }
 
+// How an answer value is shown on review / verdict lines. Abstract answers are
+// figures (the value is the option index), so render the actual figure instead
+// of "option N"; everything else is plain text.
+function answerDisplay(q, v) {
+  if (q.section === "abstract") {
+    const fig = q.options[parseInt(v, 10)];
+    if (fig) return `<span class="ans-fig">${absFigure(fig)}</span>`;
+  }
+  return esc(String(v));
+}
+
 function renderStimulus(q, { reviewDiff = false } = {}) {
   if (q.section === "verbal") {
     return `<p class="passage">${esc(q.stimulus.passage)}</p>`;
@@ -855,6 +873,9 @@ function assessTotal(key) {
   return b.filter((q) => secs.includes(q.section)).length;
 }
 
+// WhatsApp glyph for the contact button on the About page.
+const WA_SVG = `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.004c5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm0 18.13h-.003c-1.52 0-3.01-.41-4.31-1.18l-.31-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.35c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.69 8.24-8.23 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43-.14 0-.31-.01-.48-.01-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg>`;
+
 // The public front page: a branded welcome that leads into the chooser.
 function renderLanding() {
   state = null;
@@ -925,6 +946,32 @@ function renderMain() {
   );
 }
 
+// About page: purpose, maker, and a WhatsApp contact button. Reached from the landing.
+function renderAbout() {
+  state = null;
+  app.innerHTML = `
+    <div class="topbar">
+      <button class="ghost small" id="about-back">${t("back")}</button>
+    </div>
+    <section class="about-wrap">
+      <h1 class="about-title">${t("about_title")}</h1>
+      <p class="about-text">${t("about_purpose")}</p>
+      <p class="about-text about-contact">${t("about_contact")}</p>
+      <a class="wa-btn" href="https://wa.me/966505502594" target="_blank" rel="noopener noreferrer">
+        ${WA_SVG}<span>${t("about_wa")}</span>
+      </a>
+      <div class="about-num">+966 50 550 2594</div>
+
+      <footer class="sig about-sig">
+        <span class="sig-text" id="sig-text"></span><span class="sig-alien" id="sig-alien">${ALIEN_SVG}</span><span class="sig-cursor">_</span>
+      </footer>
+    </section>
+  `;
+  const back = document.getElementById("about-back");
+  if (back) back.addEventListener("click", renderHome);
+  runSignature();
+}
+
 // Typewriter effect: types out the signature, leaving the cursor blinking.
 let sigTimer = null;
 function runSignature() {
@@ -988,12 +1035,15 @@ function renderHome() {
     .map((dv) => `<button class="diff-chip ${diffChoice === dv ? "active" : ""}" data-diff="${dv}">${t("diff_" + dv)}</button>`).join("");
 
   app.innerHTML = `
-    <div class="topbar">
-      <div>
-        <h1>${t("assess_" + currentAssessment + "_full")}<span class="assess-grade">${t("assess_" + currentAssessment + "_grade")}</span></h1>
+    <div class="topbar topbar-home">
+      <h1>${t("assess_" + currentAssessment + "_full")}<span class="assess-grade">${t("assess_" + currentAssessment + "_grade")}</span></h1>
+      <div class="topbar-subrow">
         <div class="sub">${t("assess_" + currentAssessment + "_sub")}</div>
+        <div class="topbar-actions">
+          <button class="ghost small" id="assess-back">${t("back_assess")}</button>
+          <button class="ghost small" id="about-home">${t("about_link")}</button>
+        </div>
       </div>
-      <button class="ghost small" id="assess-back">${t("back_assess")}</button>
     </div>
 
     <div class="card">
@@ -1065,6 +1115,7 @@ function renderHome() {
     b.addEventListener("click", () => buildQuiz(b.dataset.mode))
   );
   $("#assess-back").addEventListener("click", renderMain);
+  $("#about-home").addEventListener("click", renderAbout);
   $("#study-btn").addEventListener("click", renderStudy);
   const clr = $("#clear-hist");
   if (clr) clr.addEventListener("click", clearHistory);
@@ -1196,14 +1247,13 @@ function renderQuiz() {
   let explainHtml = "";
   if (showExplain) {
     const correct = isCorrect(q, selected);
-    const optLabel = (v) => isAbs ? t("opt_n", { n: parseInt(v, 10) + 1 }) : v;
     const yourTxt = multi
-      ? (selArr.length ? selArr.join("; ") : t("nothing"))
-      : (selected != null ? optLabel(selected) : t("nothing"));
-    const correctTxt = multi ? q.answer.join("; ") : optLabel(q.answer);
+      ? esc(selArr.length ? selArr.join("; ") : t("nothing"))
+      : (selected != null ? answerDisplay(q, selected) : esc(t("nothing")));
+    const correctTxt = multi ? esc(q.answer.join("; ")) : answerDisplay(q, q.answer);
     const verdict = correct
-      ? t("verdict_correct", { a: esc(correctTxt) })
-      : t("verdict_wrong", { you: esc(yourTxt), a: esc(correctTxt) });
+      ? t("verdict_correct", { a: correctTxt })
+      : t("verdict_wrong", { you: yourTxt, a: correctTxt });
     const heading = correct ? t("heading_why") : t("heading_how");
     explainHtml = `
       <div class="explain">
@@ -1368,15 +1418,13 @@ function renderResults() {
 function renderReview() {
   const items = state.questions.map((q, i) => {
     const a = state.answers[i];
-    const isAbs = q.section === "abstract";
     const answered = isAnswered(a);
     const correct = answered && isCorrect(q, a);
     const yourCls = !answered ? "" : (correct ? "ok" : "no");
-    const optLabel = (v) => isAbs ? t("opt_n", { n: parseInt(v, 10) + 1 }) : v;
     const yourTxt = !answered
-      ? t("not_answered")
-      : esc(Array.isArray(a) ? a.join("; ") : optLabel(a));
-    const correctTxt = esc(Array.isArray(q.answer) ? q.answer.join("; ") : optLabel(q.answer));
+      ? esc(t("not_answered"))
+      : (Array.isArray(a) ? esc(a.join("; ")) : answerDisplay(q, a));
+    const correctTxt = Array.isArray(q.answer) ? esc(q.answer.join("; ")) : answerDisplay(q, q.answer);
 
     const dl = diffOf(q);
     const tLabel = topicLabel(q.topic);

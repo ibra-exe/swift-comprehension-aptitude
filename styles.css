@@ -133,6 +133,17 @@ body::before {
   margin-bottom: 18px;
   padding-right: 56px; /* keep content clear of the fixed theme toggle (top-right) */
 }
+.topbar-actions { display: flex; align-items: center; gap: 8px; flex: 0 0 auto; }
+
+/* Home header: title (+ grade) on top, then the sub line and the action
+   buttons share one row so the buttons sit level with the sub text. */
+.topbar-home { flex-direction: column; align-items: stretch; gap: 6px; padding-right: 0; }
+.topbar-subrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
 .topbar h1 {
   font-size: 20px;
   margin: 0;
@@ -534,6 +545,11 @@ table.record td.label { font-weight: 600; width: 34%; }
 .ans-line .you.ok { color: var(--good); font-weight: 700; }
 .ans-line .you.no { color: var(--bad);  font-weight: 700; }
 .ans-line .corr   { color: var(--good); font-weight: 700; }
+/* Abstract answers shown as a small inline figure on review / verdict lines. */
+.ans-fig { display: inline-flex; vertical-align: middle; width: 34px; height: 34px; }
+.ans-fig .absfig { width: 34px; height: 34px; }
+.verdict .ans-fig { width: 30px; height: 30px; }
+.verdict .ans-fig .absfig { width: 30px; height: 30px; }
 
 /* ---- History list --------------------------------------------------------- */
 .hist { font-size: 14px; }
@@ -543,13 +559,45 @@ table.record td.label { font-weight: 600; width: 34%; }
 /* ---- Landing page --------------------------------------------------------- */
 .landing {
   min-height: calc(100vh - 80px);
+  min-height: calc(100dvh - 80px); /* dvh excludes Safari's bottom bar so the signature isn't hidden behind it */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 28px;
-  padding: 24px 0 8px;
+  padding: 24px 0 calc(24px + env(safe-area-inset-bottom));
 }
+
+/* ---- About page ----------------------------------------------------------- */
+.about-wrap {
+  max-width: 540px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 8px 4px calc(24px + env(safe-area-inset-bottom));
+}
+.about-title { margin: 4px 0 14px; font-size: 26px; font-weight: 800; letter-spacing: -.02em; }
+.about-text { margin: 0 0 16px; color: var(--ink-soft); font-size: 15.5px; line-height: 1.6; max-width: 480px; }
+.about-contact { margin: 6px 0 14px; }
+.wa-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 22px;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  background: #25d366; /* WhatsApp brand green */
+  box-shadow: 0 8px 22px color-mix(in srgb, #25d366 40%, transparent);
+  text-decoration: none;
+}
+.wa-btn:hover { filter: brightness(1.05); }
+.wa-btn svg { width: 22px; height: 22px; }
+.about-num { margin-top: 10px; font-size: 14px; color: var(--ink-soft); letter-spacing: .03em; }
+.about-sig { margin-top: 28px; }
 .hero {
   position: relative;
   overflow: hidden;
@@ -998,7 +1046,7 @@ button.ghost:hover { border-color: color-mix(in srgb, var(--brand) 45%, var(--li
 /* ---- Responsive ----------------------------------------------------------- */
 @media (max-width: 520px) {
   body { font-size: 17px; }
-  .app { padding: 14px 12px 56px; }
+  .app { padding: 14px 12px calc(56px + env(safe-area-inset-bottom)); }
   .card { padding: 16px; }
   .mode-grid { grid-template-columns: 1fr; }
 
@@ -1018,6 +1066,11 @@ button.ghost:hover { border-color: color-mix(in srgb, var(--brand) 45%, var(--li
   /* Topbar: stack title and the back/Assessments button so the title isn't squeezed */
   .topbar { flex-direction: column; align-items: flex-start; gap: 8px; padding-right: 52px; }
   .topbar h1 { font-size: 19px; }
+  /* Home: sub line and actions can't share a row on narrow screens, so stack
+     them; actions span full width with Back left / About right. */
+  .topbar-home { padding-right: 0; align-items: stretch; }
+  .topbar-subrow { flex-direction: column; align-items: stretch; gap: 8px; }
+  .topbar-subrow .topbar-actions { justify-content: space-between; }
   .quiz-head .progress { font-size: 13px; }
   .timer-pill { min-width: 66px; padding: 3px 10px; }
   .timer-pill .tval { font-size: 18px; }

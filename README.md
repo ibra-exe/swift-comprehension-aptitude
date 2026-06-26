@@ -84,7 +84,9 @@ There are no dependencies to install.
 - **Landing page** - an attractive public homepage (`renderLanding()` in `app.js`): app name,
   tagline, four feature tiles (question count, the two assessments, real exam timings, study
   guide) and a "Start practising" button that leads to the assessment chooser
-  (`renderMain()`), which in turn opens each assessment's home screen.
+  (`renderMain()`), which in turn opens each assessment's home screen. An **About** link in
+  the landing footer opens an about page (`renderAbout()`) with the tool's purpose, the maker
+  credit, a WhatsApp contact button and the signature.
 - **Dark mode is the default**, toggled via the floating ☀️/🌙 button (top-right). An explicit
   choice is remembered in `localStorage`; clearing it returns to the dark default. All colours
   are CSS variables at the top of `styles.css` (light values under `:root`, dark overrides under
