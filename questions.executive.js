@@ -1409,9 +1409,10 @@ const QUESTIONS_EXEC = [
         "fill": false
       },
       {
-        "shape": "circle",
-        "rot": 0,
-        "fill": false
+        "shape": "arrow",
+        "rot": 270,
+        "fill": false,
+        "dots": 1
       },
       {
         "shape": "arrow",
@@ -1420,7 +1421,7 @@ const QUESTIONS_EXEC = [
       }
     ],
     "answerIndex": 3,
-    "explanation": "One thing changes across the sequence: the figure rotates clockwise by 90 degrees each step. The next figure is therefore arrow, rotated 270 degrees, with no dots (option 4)."
+    "explanation": "One thing changes: the figure rotates clockwise by 90 degrees each step. The next figure is arrow, rotated 270 degrees (option 4)."
   },
   {
     "id": "ex-abs-02",
@@ -1431,27 +1432,27 @@ const QUESTIONS_EXEC = [
     "question": "Which figure is the odd one out?",
     "options": [
       {
-        "shape": "triangle",
+        "shape": "pie",
         "rot": 0,
         "fill": false
       },
       {
-        "shape": "triangle",
+        "shape": "pie",
         "rot": 90,
         "fill": false
       },
       {
-        "shape": "triangle",
+        "shape": "pie",
         "rot": 180,
         "fill": false
       },
       {
-        "shape": "triangle",
+        "shape": "pie",
         "rot": 0,
         "fill": true
       },
       {
-        "shape": "triangle",
+        "shape": "pie",
         "rot": 270,
         "fill": false
       }
@@ -1469,17 +1470,27 @@ const QUESTIONS_EXEC = [
         {
           "shape": "triangle",
           "rot": 0,
+          "fill": true
+        },
+        {
+          "shape": "circle",
+          "rot": 0,
           "fill": false
         },
         {
           "shape": "triangle",
-          "rot": 90,
+          "rot": 0,
+          "fill": true
+        },
+        {
+          "shape": "circle",
+          "rot": 0,
           "fill": false
         },
         {
           "shape": "triangle",
-          "rot": 180,
-          "fill": false
+          "rot": 0,
+          "fill": true
         }
       ]
     },
@@ -1487,13 +1498,13 @@ const QUESTIONS_EXEC = [
     "options": [
       {
         "shape": "triangle",
-        "rot": 180,
-        "fill": false
+        "rot": 0,
+        "fill": true
       },
       {
-        "shape": "triangle",
-        "rot": 270,
-        "fill": false
+        "shape": "circle",
+        "rot": 0,
+        "fill": true
       },
       {
         "shape": "triangle",
@@ -1501,13 +1512,13 @@ const QUESTIONS_EXEC = [
         "fill": false
       },
       {
-        "shape": "triangle",
-        "rot": 270,
-        "fill": true
+        "shape": "circle",
+        "rot": 0,
+        "fill": false
       }
     ],
-    "answerIndex": 1,
-    "explanation": "One thing changes across the sequence: the figure rotates clockwise by 90 degrees each step. The next figure is therefore unfilled triangle, rotated 270 degrees, with no dots (option 2)."
+    "answerIndex": 3,
+    "explanation": "Two figures alternate: filled triangle and outline circle. After filled triangle the next is outline circle (option 4)."
   },
   {
     "id": "ex-abs-04",
@@ -1518,7 +1529,7 @@ const QUESTIONS_EXEC = [
     "question": "Which figure is the odd one out?",
     "options": [
       {
-        "shape": "square",
+        "shape": "play",
         "rot": 0,
         "fill": false
       },
@@ -1544,7 +1555,7 @@ const QUESTIONS_EXEC = [
       }
     ],
     "answerIndex": 0,
-    "explanation": "Four of the figures are triangles; option 1 is a square, so it is the odd one out."
+    "explanation": "Four of the figures are triangles; option 1 is a play-triangle, so it is the odd one out."
   },
   {
     "id": "ex-abs-05",
@@ -1554,53 +1565,57 @@ const QUESTIONS_EXEC = [
     "stimulus": {
       "series": [
         {
-          "shape": "square",
+          "shape": "star",
           "rot": 0,
           "fill": true
         },
         {
           "shape": "square",
           "rot": 0,
-          "fill": true,
-          "dots": 1
+          "fill": false
+        },
+        {
+          "shape": "star",
+          "rot": 0,
+          "fill": true
         },
         {
           "shape": "square",
           "rot": 0,
-          "fill": true,
-          "dots": 2
+          "fill": false
+        },
+        {
+          "shape": "star",
+          "rot": 0,
+          "fill": true
         }
       ]
     },
     "question": "Which figure comes next in the sequence?",
     "options": [
       {
-        "shape": "square",
+        "shape": "star",
         "rot": 0,
-        "fill": true,
-        "dots": 2
+        "fill": true
       },
       {
         "shape": "square",
         "rot": 0,
-        "fill": false,
-        "dots": 3
+        "fill": true
       },
       {
-        "shape": "circle",
+        "shape": "star",
         "rot": 0,
-        "fill": true,
-        "dots": 3
+        "fill": false
       },
       {
         "shape": "square",
         "rot": 0,
-        "fill": true,
-        "dots": 3
+        "fill": false
       }
     ],
     "answerIndex": 3,
-    "explanation": "One thing changes across the sequence: the number of dots increases by one each step. The next figure is therefore filled square, with 3 dots (option 4)."
+    "explanation": "Two figures alternate: filled star and outline square. After filled star the next is outline square (option 4)."
   },
   {
     "id": "ex-abs-06",
@@ -1611,33 +1626,38 @@ const QUESTIONS_EXEC = [
     "question": "Which figure is the odd one out?",
     "options": [
       {
-        "shape": "triangle",
+        "shape": "arrow",
         "rot": 0,
-        "fill": false
+        "fill": false,
+        "size": "lg"
       },
       {
-        "shape": "triangle",
+        "shape": "arrow",
         "rot": 90,
-        "fill": false
+        "fill": false,
+        "size": "lg"
       },
       {
-        "shape": "triangle",
+        "shape": "arrow",
         "rot": 0,
-        "fill": true
+        "fill": false,
+        "size": "sm"
       },
       {
-        "shape": "triangle",
+        "shape": "arrow",
         "rot": 180,
-        "fill": false
+        "fill": false,
+        "size": "lg"
       },
       {
-        "shape": "triangle",
+        "shape": "arrow",
         "rot": 270,
-        "fill": false
+        "fill": false,
+        "size": "lg"
       }
     ],
     "answerIndex": 2,
-    "explanation": "Every figure is an outline except one. Option 3 is filled (solid), so it is the odd one out."
+    "explanation": "Every figure is the same size except one. Option 3 is smaller than the rest, so it is the odd one out."
   },
   {
     "id": "ex-abs-07",
@@ -1647,7 +1667,7 @@ const QUESTIONS_EXEC = [
     "stimulus": {
       "series": [
         {
-          "shape": "circle",
+          "shape": "hexagon",
           "rot": 0,
           "fill": true
         },
@@ -1657,7 +1677,17 @@ const QUESTIONS_EXEC = [
           "fill": false
         },
         {
+          "shape": "hexagon",
+          "rot": 0,
+          "fill": true
+        },
+        {
           "shape": "circle",
+          "rot": 0,
+          "fill": false
+        },
+        {
+          "shape": "hexagon",
           "rot": 0,
           "fill": true
         }
@@ -1666,28 +1696,28 @@ const QUESTIONS_EXEC = [
     "question": "Which figure comes next in the sequence?",
     "options": [
       {
-        "shape": "circle",
+        "shape": "hexagon",
         "rot": 0,
         "fill": true
       },
       {
         "shape": "circle",
         "rot": 0,
-        "fill": false
+        "fill": true
       },
       {
-        "shape": "square",
+        "shape": "hexagon",
         "rot": 0,
         "fill": false
       },
       {
-        "shape": "triangle",
+        "shape": "circle",
         "rot": 0,
         "fill": false
       }
     ],
-    "answerIndex": 1,
-    "explanation": "One thing changes across the sequence: the fill alternates between filled and unfilled each step. The next figure is therefore unfilled circle, with no dots (option 2)."
+    "answerIndex": 3,
+    "explanation": "Two figures alternate: filled hexagon and outline circle. After filled hexagon the next is outline circle (option 4)."
   },
   {
     "id": "ex-abs-08",
@@ -1718,13 +1748,13 @@ const QUESTIONS_EXEC = [
         "fill": false
       },
       {
-        "shape": "square",
+        "shape": "triangle",
         "rot": 0,
-        "fill": false
+        "fill": true
       }
     ],
     "answerIndex": 4,
-    "explanation": "Four of the figures are triangles; option 5 is a square, so it is the odd one out."
+    "explanation": "Every figure is an outline except one. Option 5 is filled (solid), so it is the odd one out."
   },
   {
     "id": "ex-abs-09",
@@ -1734,20 +1764,20 @@ const QUESTIONS_EXEC = [
     "stimulus": {
       "series": [
         {
-          "shape": "diamond",
+          "shape": "square",
           "rot": 0,
-          "fill": false
+          "fill": true
         },
         {
-          "shape": "diamond",
+          "shape": "square",
           "rot": 0,
-          "fill": false,
+          "fill": true,
           "dots": 1
         },
         {
-          "shape": "diamond",
+          "shape": "square",
           "rot": 0,
-          "fill": false,
+          "fill": true,
           "dots": 2
         }
       ]
@@ -1755,32 +1785,32 @@ const QUESTIONS_EXEC = [
     "question": "Which figure comes next in the sequence?",
     "options": [
       {
-        "shape": "diamond",
+        "shape": "square",
         "rot": 0,
-        "fill": false,
+        "fill": true,
         "dots": 2
       },
       {
-        "shape": "diamond",
+        "shape": "square",
+        "rot": 0,
+        "fill": false,
+        "dots": 3
+      },
+      {
+        "shape": "square",
         "rot": 0,
         "fill": true,
-        "dots": 3
+        "dots": 1
       },
       {
-        "shape": "circle",
+        "shape": "square",
         "rot": 0,
-        "fill": false,
-        "dots": 3
-      },
-      {
-        "shape": "diamond",
-        "rot": 0,
-        "fill": false,
+        "fill": true,
         "dots": 3
       }
     ],
     "answerIndex": 3,
-    "explanation": "One thing changes across the sequence: the number of dots increases by one each step. The next figure is therefore unfilled diamond, with 3 dots (option 4)."
+    "explanation": "One thing changes: the number of dots increases by one each step. The next figure is filled square, with 3 dots (option 4)."
   },
   {
     "id": "ex-abs-10",
@@ -1791,33 +1821,33 @@ const QUESTIONS_EXEC = [
     "question": "Which figure is the odd one out?",
     "options": [
       {
-        "shape": "triangle",
+        "shape": "arrow",
         "rot": 0,
         "fill": false
       },
       {
-        "shape": "triangle",
+        "shape": "circle",
         "rot": 0,
-        "fill": true
+        "fill": false
       },
       {
-        "shape": "triangle",
+        "shape": "arrow",
         "rot": 90,
         "fill": false
       },
       {
-        "shape": "triangle",
+        "shape": "arrow",
         "rot": 180,
         "fill": false
       },
       {
-        "shape": "triangle",
+        "shape": "arrow",
         "rot": 270,
         "fill": false
       }
     ],
     "answerIndex": 1,
-    "explanation": "Every figure is an outline except one. Option 2 is filled (solid), so it is the odd one out."
+    "explanation": "Four of the figures are arrows; option 2 is a circle, so it is the odd one out."
   },
   {
     "id": "ex-abs-11",
@@ -1827,18 +1857,28 @@ const QUESTIONS_EXEC = [
     "stimulus": {
       "series": [
         {
-          "shape": "triangle",
+          "shape": "circle",
           "rot": 0,
           "fill": true
         },
         {
           "shape": "triangle",
-          "rot": 90,
+          "rot": 0,
+          "fill": false
+        },
+        {
+          "shape": "square",
+          "rot": 0,
+          "fill": true
+        },
+        {
+          "shape": "circle",
+          "rot": 0,
           "fill": false
         },
         {
           "shape": "triangle",
-          "rot": 180,
+          "rot": 0,
           "fill": true
         }
       ]
@@ -1846,13 +1886,8 @@ const QUESTIONS_EXEC = [
     "question": "Which figure comes next in the sequence?",
     "options": [
       {
-        "shape": "triangle",
-        "rot": 180,
-        "fill": false
-      },
-      {
-        "shape": "triangle",
-        "rot": 270,
+        "shape": "circle",
+        "rot": 0,
         "fill": false
       },
       {
@@ -1861,13 +1896,18 @@ const QUESTIONS_EXEC = [
         "fill": false
       },
       {
-        "shape": "triangle",
-        "rot": 270,
+        "shape": "square",
+        "rot": 0,
         "fill": true
+      },
+      {
+        "shape": "square",
+        "rot": 0,
+        "fill": false
       }
     ],
-    "answerIndex": 1,
-    "explanation": "Several things change together: the figure rotates clockwise by 90 degrees each step; the fill alternates between filled and unfilled each step. The next figure is therefore unfilled triangle, rotated 270 degrees, with no dots (option 2)."
+    "answerIndex": 3,
+    "explanation": "Several things change together: the shape cycles circle → triangle → square; the fill alternates each step. The next figure is outline square (option 4)."
   },
   {
     "id": "ex-abs-12",
@@ -1915,53 +1955,57 @@ const QUESTIONS_EXEC = [
     "stimulus": {
       "series": [
         {
-          "shape": "triangle",
+          "shape": "pie",
           "rot": 0,
           "fill": true
         },
         {
-          "shape": "triangle",
+          "shape": "pie",
           "rot": 90,
-          "fill": true,
-          "dots": 1
+          "fill": false
         },
         {
-          "shape": "triangle",
+          "shape": "pie",
           "rot": 180,
-          "fill": true,
-          "dots": 2
+          "fill": true
+        },
+        {
+          "shape": "pie",
+          "rot": 270,
+          "fill": false
+        },
+        {
+          "shape": "pie",
+          "rot": 0,
+          "fill": true
         }
       ]
     },
     "question": "Which figure comes next in the sequence?",
     "options": [
       {
-        "shape": "triangle",
+        "shape": "pie",
         "rot": 180,
-        "fill": true,
-        "dots": 3
+        "fill": false
       },
       {
-        "shape": "triangle",
+        "shape": "pie",
         "rot": 0,
-        "fill": true,
-        "dots": 3
+        "fill": false
       },
       {
-        "shape": "triangle",
-        "rot": 270,
-        "fill": true,
-        "dots": 2
+        "shape": "pie",
+        "rot": 90,
+        "fill": true
       },
       {
-        "shape": "triangle",
-        "rot": 270,
-        "fill": true,
-        "dots": 3
+        "shape": "pie",
+        "rot": 90,
+        "fill": false
       }
     ],
     "answerIndex": 3,
-    "explanation": "Several things change together: the figure rotates clockwise by 90 degrees each step; the number of dots increases by one each step. The next figure is therefore filled triangle, rotated 270 degrees, with 3 dots (option 4)."
+    "explanation": "Several things change together: the pac-shape rotates clockwise by 90 degrees each step; the fill alternates each step. The next figure is outline pac-shape, rotated 90 degrees (option 4)."
   },
   {
     "id": "ex-abs-14",
@@ -1972,34 +2016,38 @@ const QUESTIONS_EXEC = [
     "question": "Which figure is the odd one out?",
     "options": [
       {
-        "shape": "triangle",
+        "shape": "arrow",
         "rot": 0,
         "fill": false,
-        "dots": 2
+        "size": "lg"
       },
       {
-        "shape": "triangle",
+        "shape": "arrow",
         "rot": 0,
-        "fill": false
+        "fill": false,
+        "size": "sm"
       },
       {
-        "shape": "triangle",
+        "shape": "arrow",
         "rot": 90,
-        "fill": false
+        "fill": false,
+        "size": "sm"
       },
       {
-        "shape": "triangle",
+        "shape": "arrow",
         "rot": 180,
-        "fill": false
+        "fill": false,
+        "size": "sm"
       },
       {
-        "shape": "triangle",
+        "shape": "arrow",
         "rot": 270,
-        "fill": false
+        "fill": false,
+        "size": "sm"
       }
     ],
     "answerIndex": 0,
-    "explanation": "Every figure has no dots except one. Option 1 carries 2 dots, so it is the odd one out."
+    "explanation": "Every figure is the same size except one. Option 1 is larger than the rest, so it is the odd one out."
   },
   {
     "id": "ex-abs-15",
@@ -2009,53 +2057,57 @@ const QUESTIONS_EXEC = [
     "stimulus": {
       "series": [
         {
-          "shape": "square",
+          "shape": "star",
+          "rot": 0,
+          "fill": false
+        },
+        {
+          "shape": "hexagon",
           "rot": 0,
           "fill": true
         },
         {
-          "shape": "square",
+          "shape": "circle",
           "rot": 0,
-          "fill": false,
-          "dots": 1
+          "fill": false
         },
         {
-          "shape": "square",
+          "shape": "star",
           "rot": 0,
-          "fill": true,
-          "dots": 2
+          "fill": true
+        },
+        {
+          "shape": "hexagon",
+          "rot": 0,
+          "fill": false
         }
       ]
     },
     "question": "Which figure comes next in the sequence?",
     "options": [
       {
-        "shape": "square",
+        "shape": "star",
         "rot": 0,
-        "fill": true,
-        "dots": 3
+        "fill": true
       },
       {
-        "shape": "square",
+        "shape": "hexagon",
         "rot": 0,
-        "fill": false,
-        "dots": 3
-      },
-      {
-        "shape": "square",
-        "rot": 0,
-        "fill": false,
-        "dots": 2
+        "fill": true
       },
       {
         "shape": "circle",
         "rot": 0,
-        "fill": false,
-        "dots": 3
+        "fill": false
+      },
+      {
+        "shape": "circle",
+        "rot": 0,
+        "fill": true
       }
     ],
-    "answerIndex": 1,
-    "explanation": "Several things change together: the fill alternates between filled and unfilled each step; the number of dots increases by one each step. The next figure is therefore unfilled square, with 3 dots (option 2)."
+    "answerIndex": 3,
+    "explanation": "Several things change together: the shape cycles star → hexagon → circle; the fill alternates each step. The next figure is filled circle (option 4)."
   },
   {
     "id": "ex-abs-16",
@@ -2066,37 +2118,33 @@ const QUESTIONS_EXEC = [
     "question": "Which figure is the odd one out?",
     "options": [
       {
-        "shape": "arrow",
-        "rot": 0,
-        "fill": false,
-        "dots": 3
-      },
-      {
-        "shape": "arrow",
-        "rot": 90,
-        "fill": false,
-        "dots": 3
-      },
-      {
-        "shape": "arrow",
+        "shape": "triangle",
         "rot": 0,
         "fill": false
       },
       {
-        "shape": "arrow",
-        "rot": 180,
-        "fill": false,
-        "dots": 3
+        "shape": "triangle",
+        "rot": 90,
+        "fill": false
       },
       {
-        "shape": "arrow",
+        "shape": "play",
+        "rot": 0,
+        "fill": false
+      },
+      {
+        "shape": "triangle",
+        "rot": 180,
+        "fill": false
+      },
+      {
+        "shape": "triangle",
         "rot": 270,
-        "fill": false,
-        "dots": 3
+        "fill": false
       }
     ],
     "answerIndex": 2,
-    "explanation": "Every figure carries dots except one. Option 3 has no dots, so it is the odd one out."
+    "explanation": "Four of the figures are triangles; option 3 is a play-triangle, so it is the odd one out."
   },
   {
     "id": "ex-abs-17",
@@ -2106,53 +2154,66 @@ const QUESTIONS_EXEC = [
     "stimulus": {
       "series": [
         {
-          "shape": "arrow",
+          "shape": "square",
           "rot": 0,
-          "fill": false
+          "fill": false,
+          "corner": "tl"
         },
         {
-          "shape": "arrow",
-          "rot": 90,
+          "shape": "square",
+          "rot": 0,
           "fill": false,
-          "dots": 1
+          "corner": "tr"
         },
         {
-          "shape": "arrow",
-          "rot": 180,
+          "shape": "square",
+          "rot": 0,
           "fill": false,
-          "dots": 2
+          "corner": "br"
+        },
+        {
+          "shape": "square",
+          "rot": 0,
+          "fill": false,
+          "corner": "bl"
+        },
+        {
+          "shape": "square",
+          "rot": 0,
+          "fill": false,
+          "corner": "tl"
         }
       ]
     },
     "question": "Which figure comes next in the sequence?",
     "options": [
       {
-        "shape": "arrow",
-        "rot": 180,
-        "fill": false,
-        "dots": 3
-      },
-      {
-        "shape": "arrow",
+        "shape": "square",
         "rot": 0,
         "fill": false,
-        "dots": 3
+        "corner": "br"
       },
       {
-        "shape": "arrow",
-        "rot": 270,
+        "shape": "square",
+        "rot": 0,
         "fill": false,
-        "dots": 2
+        "corner": "tl"
       },
       {
-        "shape": "arrow",
-        "rot": 270,
+        "shape": "square",
+        "rot": 0,
+        "fill": true,
+        "corner": "tr"
+      },
+      {
+        "shape": "square",
+        "rot": 0,
         "fill": false,
-        "dots": 3
+        "corner": "tr"
       }
     ],
     "answerIndex": 3,
-    "explanation": "Several things change together: the figure rotates clockwise by 90 degrees each step; the number of dots increases by one each step. The next figure is therefore arrow, rotated 270 degrees, with 3 dots (option 4)."
+    "explanation": "The corner mark moves clockwise around the corners each step (top-left, top-right, bottom-right, bottom-left). The next figure is outline square, with a top-right corner mark (option 4)."
   },
   {
     "id": "ex-abs-18",
@@ -2203,53 +2264,57 @@ const QUESTIONS_EXEC = [
     "stimulus": {
       "series": [
         {
-          "shape": "circle",
+          "shape": "play",
           "rot": 0,
           "fill": true
         },
         {
-          "shape": "circle",
+          "shape": "plus",
           "rot": 0,
-          "fill": false,
-          "dots": 1
+          "fill": false
         },
         {
-          "shape": "circle",
+          "shape": "play",
           "rot": 0,
-          "fill": true,
-          "dots": 2
+          "fill": true
+        },
+        {
+          "shape": "plus",
+          "rot": 0,
+          "fill": false
+        },
+        {
+          "shape": "play",
+          "rot": 0,
+          "fill": true
         }
       ]
     },
     "question": "Which figure comes next in the sequence?",
     "options": [
       {
-        "shape": "circle",
+        "shape": "play",
         "rot": 0,
-        "fill": true,
-        "dots": 3
+        "fill": true
       },
       {
-        "shape": "circle",
+        "shape": "plus",
         "rot": 0,
-        "fill": false,
-        "dots": 3
+        "fill": true
       },
       {
-        "shape": "circle",
+        "shape": "play",
         "rot": 0,
-        "fill": false,
-        "dots": 2
+        "fill": false
       },
       {
-        "shape": "square",
+        "shape": "plus",
         "rot": 0,
-        "fill": false,
-        "dots": 3
+        "fill": false
       }
     ],
-    "answerIndex": 1,
-    "explanation": "Several things change together: the fill alternates between filled and unfilled each step; the number of dots increases by one each step. The next figure is therefore unfilled circle, with 3 dots (option 2)."
+    "answerIndex": 3,
+    "explanation": "Two figures alternate: filled play-triangle and outline plus (+). After filled play-triangle the next is outline plus (+) (option 4)."
   },
   {
     "id": "ex-abs-20",
@@ -2260,34 +2325,38 @@ const QUESTIONS_EXEC = [
     "question": "Which figure is the odd one out?",
     "options": [
       {
-        "shape": "arrow",
-        "rot": 0,
-        "fill": false
-      },
-      {
-        "shape": "arrow",
+        "shape": "triangle",
         "rot": 0,
         "fill": false,
-        "dots": 2
+        "size": "sm"
       },
       {
-        "shape": "arrow",
+        "shape": "triangle",
+        "rot": 0,
+        "fill": false,
+        "size": "lg"
+      },
+      {
+        "shape": "triangle",
         "rot": 90,
-        "fill": false
+        "fill": false,
+        "size": "sm"
       },
       {
-        "shape": "arrow",
+        "shape": "triangle",
         "rot": 180,
-        "fill": false
+        "fill": false,
+        "size": "sm"
       },
       {
-        "shape": "arrow",
+        "shape": "triangle",
         "rot": 270,
-        "fill": false
+        "fill": false,
+        "size": "sm"
       }
     ],
     "answerIndex": 1,
-    "explanation": "Every figure has no dots except one. Option 2 carries 2 dots, so it is the odd one out."
+    "explanation": "Every figure is the same size except one. Option 2 is larger than the rest, so it is the odd one out."
   },
   {
     "id": "ex-abs-21",
@@ -2297,53 +2366,57 @@ const QUESTIONS_EXEC = [
     "stimulus": {
       "series": [
         {
-          "shape": "diamond",
+          "shape": "circle",
+          "rot": 0,
+          "fill": true
+        },
+        {
+          "shape": "star",
           "rot": 0,
           "fill": false
         },
         {
-          "shape": "diamond",
+          "shape": "triangle",
           "rot": 0,
-          "fill": true,
-          "dots": 1
+          "fill": true
         },
         {
-          "shape": "diamond",
+          "shape": "square",
           "rot": 0,
-          "fill": false,
-          "dots": 2
+          "fill": false
+        },
+        {
+          "shape": "circle",
+          "rot": 0,
+          "fill": true
         }
       ]
     },
     "question": "Which figure comes next in the sequence?",
     "options": [
       {
-        "shape": "diamond",
+        "shape": "triangle",
         "rot": 0,
-        "fill": false,
-        "dots": 3
-      },
-      {
-        "shape": "diamond",
-        "rot": 0,
-        "fill": true,
-        "dots": 2
+        "fill": false
       },
       {
         "shape": "circle",
         "rot": 0,
-        "fill": true,
-        "dots": 3
+        "fill": false
       },
       {
-        "shape": "diamond",
+        "shape": "star",
         "rot": 0,
-        "fill": true,
-        "dots": 3
+        "fill": true
+      },
+      {
+        "shape": "star",
+        "rot": 0,
+        "fill": false
       }
     ],
     "answerIndex": 3,
-    "explanation": "Several things change together: the fill alternates between filled and unfilled each step; the number of dots increases by one each step. The next figure is therefore filled diamond, with 3 dots (option 4)."
+    "explanation": "Several things change together: the shape cycles circle → star → triangle → square; the fill alternates each step. The next figure is outline star (option 4)."
   },
   {
     "id": "ex-abs-22",
@@ -2391,53 +2464,57 @@ const QUESTIONS_EXEC = [
     "stimulus": {
       "series": [
         {
-          "shape": "arrow",
+          "shape": "pie",
           "rot": 0,
           "fill": false
         },
         {
-          "shape": "arrow",
+          "shape": "pie",
           "rot": 270,
-          "fill": false,
-          "dots": 1
+          "fill": true
         },
         {
-          "shape": "arrow",
+          "shape": "pie",
           "rot": 180,
-          "fill": false,
-          "dots": 2
+          "fill": false
+        },
+        {
+          "shape": "pie",
+          "rot": 90,
+          "fill": true
+        },
+        {
+          "shape": "pie",
+          "rot": 0,
+          "fill": false
         }
       ]
     },
     "question": "Which figure comes next in the sequence?",
     "options": [
       {
-        "shape": "arrow",
-        "rot": 180,
-        "fill": false,
-        "dots": 3
-      },
-      {
-        "shape": "arrow",
-        "rot": 90,
-        "fill": false,
-        "dots": 3
-      },
-      {
-        "shape": "arrow",
+        "shape": "pie",
         "rot": 0,
-        "fill": false,
-        "dots": 3
+        "fill": true
       },
       {
-        "shape": "arrow",
-        "rot": 90,
-        "fill": false,
-        "dots": 2
+        "shape": "pie",
+        "rot": 180,
+        "fill": true
+      },
+      {
+        "shape": "pie",
+        "rot": 270,
+        "fill": false
+      },
+      {
+        "shape": "pie",
+        "rot": 270,
+        "fill": true
       }
     ],
-    "answerIndex": 1,
-    "explanation": "Several things change together: the figure rotates anti-clockwise by 90 degrees each step; the number of dots increases by one each step. The next figure is therefore arrow, rotated 90 degrees, with 3 dots (option 2)."
+    "answerIndex": 3,
+    "explanation": "Several things change together: the pac-shape rotates anti-clockwise by 90 degrees each step; the fill alternates each step. The next figure is filled pac-shape, rotated 270 degrees (option 4)."
   },
   {
     "id": "ex-abs-24",
@@ -2448,37 +2525,33 @@ const QUESTIONS_EXEC = [
     "question": "Which figure is the odd one out?",
     "options": [
       {
-        "shape": "arrow",
+        "shape": "star",
         "rot": 0,
         "fill": false
       },
       {
-        "shape": "arrow",
+        "shape": "triangle",
         "rot": 0,
-        "fill": false,
-        "dots": 1
+        "fill": false
       },
       {
-        "shape": "arrow",
+        "shape": "triangle",
         "rot": 90,
-        "fill": false,
-        "dots": 1
+        "fill": false
       },
       {
-        "shape": "arrow",
+        "shape": "triangle",
         "rot": 180,
-        "fill": false,
-        "dots": 1
+        "fill": false
       },
       {
-        "shape": "arrow",
+        "shape": "triangle",
         "rot": 270,
-        "fill": false,
-        "dots": 1
+        "fill": false
       }
     ],
     "answerIndex": 0,
-    "explanation": "Every figure carries dots except one. Option 1 has no dots, so it is the odd one out."
+    "explanation": "Four of the figures are triangles; option 1 is a star, so it is the odd one out."
   },
   {
     "id": "ex-abs-25",
@@ -2488,47 +2561,66 @@ const QUESTIONS_EXEC = [
     "stimulus": {
       "series": [
         {
-          "shape": "triangle",
+          "shape": "hexagon",
           "rot": 0,
-          "fill": false
+          "fill": true,
+          "size": "sm"
         },
         {
-          "shape": "triangle",
-          "rot": 270,
-          "fill": true
+          "shape": "star",
+          "rot": 0,
+          "fill": false,
+          "size": "lg"
         },
         {
-          "shape": "triangle",
-          "rot": 180,
-          "fill": false
+          "shape": "hexagon",
+          "rot": 0,
+          "fill": true,
+          "size": "sm"
+        },
+        {
+          "shape": "star",
+          "rot": 0,
+          "fill": false,
+          "size": "lg"
+        },
+        {
+          "shape": "hexagon",
+          "rot": 0,
+          "fill": true,
+          "size": "sm"
         }
       ]
     },
     "question": "Which figure comes next in the sequence?",
     "options": [
       {
-        "shape": "triangle",
-        "rot": 180,
-        "fill": true
-      },
-      {
-        "shape": "triangle",
+        "shape": "hexagon",
         "rot": 0,
-        "fill": true
+        "fill": true,
+        "size": "sm"
       },
       {
-        "shape": "triangle",
-        "rot": 90,
-        "fill": false
+        "shape": "star",
+        "rot": 0,
+        "fill": true,
+        "size": "lg"
       },
       {
-        "shape": "triangle",
-        "rot": 90,
-        "fill": true
+        "shape": "hexagon",
+        "rot": 0,
+        "fill": false,
+        "size": "lg"
+      },
+      {
+        "shape": "star",
+        "rot": 0,
+        "fill": false,
+        "size": "lg"
       }
     ],
     "answerIndex": 3,
-    "explanation": "Several things change together: the figure rotates anti-clockwise by 90 degrees each step; the fill alternates between filled and unfilled each step. The next figure is therefore filled triangle, rotated 90 degrees, with no dots (option 4)."
+    "explanation": "Two figures alternate: small filled hexagon and large outline star. After small filled hexagon the next is large outline star (option 4)."
   },
   {
     "id": "ex-abs-26",
@@ -2580,53 +2672,66 @@ const QUESTIONS_EXEC = [
     "stimulus": {
       "series": [
         {
-          "shape": "triangle",
+          "shape": "pie",
           "rot": 0,
-          "fill": true
+          "fill": true,
+          "size": "sm"
         },
         {
-          "shape": "triangle",
+          "shape": "pie",
           "rot": 90,
           "fill": false,
-          "dots": 1
+          "size": "lg"
         },
         {
-          "shape": "triangle",
+          "shape": "pie",
           "rot": 180,
           "fill": true,
-          "dots": 2
+          "size": "sm"
+        },
+        {
+          "shape": "pie",
+          "rot": 270,
+          "fill": false,
+          "size": "lg"
+        },
+        {
+          "shape": "pie",
+          "rot": 0,
+          "fill": true,
+          "size": "sm"
         }
       ]
     },
     "question": "Which figure comes next in the sequence?",
     "options": [
       {
-        "shape": "triangle",
+        "shape": "pie",
         "rot": 180,
         "fill": false,
-        "dots": 3
+        "size": "lg"
       },
       {
-        "shape": "triangle",
-        "rot": 270,
-        "fill": false,
-        "dots": 3
-      },
-      {
-        "shape": "triangle",
+        "shape": "pie",
         "rot": 0,
         "fill": false,
-        "dots": 3
+        "size": "lg"
       },
       {
-        "shape": "triangle",
-        "rot": 270,
+        "shape": "pie",
+        "rot": 90,
         "fill": true,
-        "dots": 3
+        "size": "lg"
+      },
+      {
+        "shape": "pie",
+        "rot": 90,
+        "fill": false,
+        "size": "lg"
       }
     ],
-    "answerIndex": 1,
-    "explanation": "Several things change together: the figure rotates clockwise by 90 degrees each step; the fill alternates between filled and unfilled each step; the number of dots increases by one each step. The next figure is therefore unfilled triangle, rotated 270 degrees, with 3 dots (option 2)."
+    "answerIndex": 3,
+    "explanation": "Several things change together: the pac-shape rotates clockwise by 90 degrees each step; the fill alternates each step; the size alternates small / large each step. The next figure is large outline pac-shape, rotated 90 degrees (option 4)."
   },
   {
     "id": "ex-abs-28",
@@ -2678,53 +2783,66 @@ const QUESTIONS_EXEC = [
     "stimulus": {
       "series": [
         {
+          "shape": "star",
+          "rot": 0,
+          "fill": true,
+          "size": "sm"
+        },
+        {
+          "shape": "hexagon",
+          "rot": 0,
+          "fill": false,
+          "size": "lg"
+        },
+        {
           "shape": "triangle",
           "rot": 0,
-          "fill": false
-        },
-        {
-          "shape": "triangle",
-          "rot": 270,
           "fill": true,
-          "dots": 1
+          "size": "sm"
         },
         {
-          "shape": "triangle",
-          "rot": 180,
+          "shape": "star",
+          "rot": 0,
           "fill": false,
-          "dots": 2
+          "size": "lg"
+        },
+        {
+          "shape": "hexagon",
+          "rot": 0,
+          "fill": true,
+          "size": "sm"
         }
       ]
     },
     "question": "Which figure comes next in the sequence?",
     "options": [
       {
-        "shape": "triangle",
-        "rot": 180,
-        "fill": true,
-        "dots": 3
+        "shape": "star",
+        "rot": 0,
+        "fill": false,
+        "size": "lg"
+      },
+      {
+        "shape": "hexagon",
+        "rot": 0,
+        "fill": false,
+        "size": "lg"
       },
       {
         "shape": "triangle",
         "rot": 0,
         "fill": true,
-        "dots": 3
+        "size": "lg"
       },
       {
         "shape": "triangle",
-        "rot": 90,
+        "rot": 0,
         "fill": false,
-        "dots": 3
-      },
-      {
-        "shape": "triangle",
-        "rot": 90,
-        "fill": true,
-        "dots": 3
+        "size": "lg"
       }
     ],
     "answerIndex": 3,
-    "explanation": "Several things change together: the figure rotates anti-clockwise by 90 degrees each step; the fill alternates between filled and unfilled each step; the number of dots increases by one each step. The next figure is therefore filled triangle, rotated 90 degrees, with 3 dots (option 4)."
+    "explanation": "Several things change together: the shape cycles star → hexagon → triangle; the fill alternates each step; the size alternates small / large each step. The next figure is large outline triangle (option 4)."
   },
   {
     "id": "ex-abs-30",
@@ -2776,50 +2894,66 @@ const QUESTIONS_EXEC = [
     "stimulus": {
       "series": [
         {
-          "shape": "triangle",
+          "shape": "square",
           "rot": 0,
-          "fill": true,
-          "dots": 3
-        },
-        {
-          "shape": "triangle",
-          "rot": 90,
           "fill": false,
-          "dots": 2
+          "corner": "tl"
         },
         {
-          "shape": "triangle",
-          "rot": 180,
-          "fill": true,
-          "dots": 1
+          "shape": "square",
+          "rot": 0,
+          "fill": false,
+          "corner": "bl"
+        },
+        {
+          "shape": "square",
+          "rot": 0,
+          "fill": false,
+          "corner": "br"
+        },
+        {
+          "shape": "square",
+          "rot": 0,
+          "fill": false,
+          "corner": "tr"
+        },
+        {
+          "shape": "square",
+          "rot": 0,
+          "fill": false,
+          "corner": "tl"
         }
       ]
     },
     "question": "Which figure comes next in the sequence?",
     "options": [
       {
-        "shape": "triangle",
-        "rot": 180,
-        "fill": false
-      },
-      {
-        "shape": "triangle",
-        "rot": 270,
-        "fill": false
-      },
-      {
-        "shape": "triangle",
+        "shape": "square",
         "rot": 0,
-        "fill": false
+        "fill": false,
+        "corner": "br"
       },
       {
-        "shape": "triangle",
-        "rot": 270,
-        "fill": true
+        "shape": "square",
+        "rot": 0,
+        "fill": false,
+        "corner": "tl"
+      },
+      {
+        "shape": "square",
+        "rot": 0,
+        "fill": true,
+        "corner": "bl"
+      },
+      {
+        "shape": "square",
+        "rot": 0,
+        "fill": false,
+        "corner": "bl"
       }
     ],
-    "answerIndex": 1,
-    "explanation": "Several things change together: the figure rotates clockwise by 90 degrees each step; the fill alternates between filled and unfilled each step; the number of dots decreases by one each step. The next figure is therefore unfilled triangle, rotated 270 degrees, with no dots (option 2)."
+    "answerIndex": 3,
+    "explanation": "The corner mark moves anti-clockwise around the corners each step (top-left, top-right, bottom-right, bottom-left). The next figure is outline square, with a bottom-left corner mark (option 4)."
   },
   {
     "id": "ex-abs-32",
@@ -2871,50 +3005,66 @@ const QUESTIONS_EXEC = [
     "stimulus": {
       "series": [
         {
-          "shape": "triangle",
+          "shape": "circle",
           "rot": 0,
           "fill": false,
-          "dots": 3
+          "size": "sm"
         },
         {
-          "shape": "triangle",
-          "rot": 270,
+          "shape": "square",
+          "rot": 0,
           "fill": true,
-          "dots": 2
+          "size": "lg"
         },
         {
-          "shape": "triangle",
-          "rot": 180,
+          "shape": "star",
+          "rot": 0,
           "fill": false,
-          "dots": 1
+          "size": "sm"
+        },
+        {
+          "shape": "hexagon",
+          "rot": 0,
+          "fill": true,
+          "size": "lg"
+        },
+        {
+          "shape": "circle",
+          "rot": 0,
+          "fill": false,
+          "size": "sm"
         }
       ]
     },
     "question": "Which figure comes next in the sequence?",
     "options": [
       {
-        "shape": "triangle",
-        "rot": 180,
-        "fill": true
-      },
-      {
-        "shape": "triangle",
+        "shape": "star",
         "rot": 0,
-        "fill": true
+        "fill": true,
+        "size": "lg"
       },
       {
-        "shape": "triangle",
-        "rot": 90,
-        "fill": false
+        "shape": "circle",
+        "rot": 0,
+        "fill": true,
+        "size": "lg"
       },
       {
-        "shape": "triangle",
-        "rot": 90,
-        "fill": true
+        "shape": "square",
+        "rot": 0,
+        "fill": false,
+        "size": "lg"
+      },
+      {
+        "shape": "square",
+        "rot": 0,
+        "fill": true,
+        "size": "lg"
       }
     ],
     "answerIndex": 3,
-    "explanation": "Several things change together: the figure rotates anti-clockwise by 90 degrees each step; the fill alternates between filled and unfilled each step; the number of dots decreases by one each step. The next figure is therefore filled triangle, rotated 90 degrees, with no dots (option 4)."
+    "explanation": "Several things change together: the shape cycles circle → square → star → hexagon; the fill alternates each step; the size alternates small / large each step. The next figure is large filled square (option 4)."
   },
   {
     "id": "ex-abs-34",
@@ -2966,51 +3116,53 @@ const QUESTIONS_EXEC = [
     "stimulus": {
       "series": [
         {
-          "shape": "arrow",
+          "shape": "triangle",
           "rot": 0,
-          "fill": false,
-          "dots": 3
+          "fill": true
         },
         {
-          "shape": "arrow",
-          "rot": 270,
-          "fill": false,
-          "dots": 2
-        },
-        {
-          "shape": "arrow",
-          "rot": 180,
+          "shape": "triangle",
+          "rot": 90,
           "fill": false,
           "dots": 1
+        },
+        {
+          "shape": "triangle",
+          "rot": 180,
+          "fill": true,
+          "dots": 2
         }
       ]
     },
     "question": "Which figure comes next in the sequence?",
     "options": [
       {
-        "shape": "arrow",
+        "shape": "triangle",
         "rot": 180,
-        "fill": false
-      },
-      {
-        "shape": "arrow",
-        "rot": 90,
-        "fill": false
-      },
-      {
-        "shape": "arrow",
-        "rot": 0,
-        "fill": false
-      },
-      {
-        "shape": "arrow",
-        "rot": 90,
         "fill": false,
-        "dots": 1
+        "dots": 3
+      },
+      {
+        "shape": "triangle",
+        "rot": 0,
+        "fill": false,
+        "dots": 3
+      },
+      {
+        "shape": "triangle",
+        "rot": 270,
+        "fill": true,
+        "dots": 3
+      },
+      {
+        "shape": "triangle",
+        "rot": 270,
+        "fill": false,
+        "dots": 3
       }
     ],
-    "answerIndex": 1,
-    "explanation": "Several things change together: the figure rotates anti-clockwise by 90 degrees each step; the number of dots decreases by one each step. The next figure is therefore arrow, rotated 90 degrees, with no dots (option 2)."
+    "answerIndex": 3,
+    "explanation": "Several things change together: the figure rotates clockwise by 90 degrees each step; the fill alternates each step; the number of dots increases by one each step. The next figure is outline triangle, rotated 270 degrees, with 3 dots (option 4)."
   },
   {
     "id": "ex-abs-36",
@@ -3062,51 +3214,66 @@ const QUESTIONS_EXEC = [
     "stimulus": {
       "series": [
         {
-          "shape": "arrow",
+          "shape": "pie",
           "rot": 0,
-          "fill": false,
-          "dots": 3
+          "fill": true,
+          "size": "sm"
         },
         {
-          "shape": "arrow",
+          "shape": "pie",
+          "rot": 270,
+          "fill": false,
+          "size": "lg"
+        },
+        {
+          "shape": "pie",
+          "rot": 180,
+          "fill": true,
+          "size": "sm"
+        },
+        {
+          "shape": "pie",
           "rot": 90,
           "fill": false,
-          "dots": 2
+          "size": "lg"
         },
         {
-          "shape": "arrow",
-          "rot": 180,
-          "fill": false,
-          "dots": 1
+          "shape": "pie",
+          "rot": 0,
+          "fill": true,
+          "size": "sm"
         }
       ]
     },
     "question": "Which figure comes next in the sequence?",
     "options": [
       {
-        "shape": "arrow",
-        "rot": 180,
-        "fill": false
-      },
-      {
-        "shape": "arrow",
+        "shape": "pie",
         "rot": 0,
-        "fill": false
+        "fill": false,
+        "size": "lg"
       },
       {
-        "shape": "arrow",
+        "shape": "pie",
+        "rot": 180,
+        "fill": false,
+        "size": "lg"
+      },
+      {
+        "shape": "pie",
+        "rot": 270,
+        "fill": true,
+        "size": "lg"
+      },
+      {
+        "shape": "pie",
         "rot": 270,
         "fill": false,
-        "dots": 1
-      },
-      {
-        "shape": "arrow",
-        "rot": 270,
-        "fill": false
+        "size": "lg"
       }
     ],
     "answerIndex": 3,
-    "explanation": "Several things change together: the figure rotates clockwise by 90 degrees each step; the number of dots decreases by one each step. The next figure is therefore arrow, rotated 270 degrees, with no dots (option 4)."
+    "explanation": "Several things change together: the pac-shape rotates anti-clockwise by 90 degrees each step; the fill alternates each step; the size alternates small / large each step. The next figure is large outline pac-shape, rotated 270 degrees (option 4)."
   },
   {
     "id": "ex-abs-38",
@@ -3158,53 +3325,66 @@ const QUESTIONS_EXEC = [
     "stimulus": {
       "series": [
         {
-          "shape": "square",
-          "rot": 0,
-          "fill": false
-        },
-        {
-          "shape": "square",
+          "shape": "play",
           "rot": 0,
           "fill": true,
-          "dots": 1
+          "size": "sm"
         },
         {
-          "shape": "square",
+          "shape": "plus",
           "rot": 0,
           "fill": false,
-          "dots": 2
+          "size": "lg"
+        },
+        {
+          "shape": "triangle",
+          "rot": 0,
+          "fill": true,
+          "size": "sm"
+        },
+        {
+          "shape": "play",
+          "rot": 0,
+          "fill": false,
+          "size": "lg"
+        },
+        {
+          "shape": "plus",
+          "rot": 0,
+          "fill": true,
+          "size": "sm"
         }
       ]
     },
     "question": "Which figure comes next in the sequence?",
     "options": [
       {
-        "shape": "square",
+        "shape": "play",
         "rot": 0,
         "fill": false,
-        "dots": 3
+        "size": "lg"
       },
       {
-        "shape": "square",
+        "shape": "plus",
         "rot": 0,
-        "fill": true,
-        "dots": 3
+        "fill": false,
+        "size": "lg"
       },
       {
-        "shape": "square",
+        "shape": "triangle",
         "rot": 0,
         "fill": true,
-        "dots": 2
+        "size": "lg"
       },
       {
-        "shape": "circle",
+        "shape": "triangle",
         "rot": 0,
-        "fill": true,
-        "dots": 3
+        "fill": false,
+        "size": "lg"
       }
     ],
-    "answerIndex": 1,
-    "explanation": "Several things change together: the fill alternates between filled and unfilled each step; the number of dots increases by one each step. The next figure is therefore filled square, with 3 dots (option 2)."
+    "answerIndex": 3,
+    "explanation": "Several things change together: the shape cycles play-triangle → plus (+) → triangle; the fill alternates each step; the size alternates small / large each step. The next figure is large outline triangle (option 4)."
   },
   {
     "id": "ex-abs-40",

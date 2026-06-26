@@ -80,6 +80,10 @@ const STRINGS = {
     about_purpose: "A free, offline practice tool for the Saville Swift Comprehension and Executive aptitude tests. It mirrors the real test structure and timing so you can build speed and accuracy before the day, with worked answers and a study guide for every section.",
     about_contact: "Questions or feedback? Reach me on WhatsApp.",
     about_wa: "Message on WhatsApp",
+    about_official: "Official Saville practice",
+    about_official_sub: "Free sample tests from the test publisher:",
+    about_link1: "Saville Assessment: Practice Tests",
+    about_link2: "Saville Consulting: Candidate Preparation",
     open_assessment: "Open →",
     assess_comprehension_full: "Swift Comprehension", assess_comprehension_grade: "(Grades 2-5)",
     assess_comprehension_sub: "Verbal · Numerical · Error checking",
@@ -666,23 +670,60 @@ function computeResults() {
    RENDERING - STIMULUS
    ========================================================================== */
 // Renders one abstract-reasoning figure from a compact spec as inline SVG.
-// spec: { shape: "square|circle|triangle|diamond|arrow", rot, fill, dots }
+// spec: { shape: "square|circle|triangle|diamond|arrow|pie", rot, fill,
+//         size: "sm|md|lg", corner: "tl|tr|br|bl", dots }
 function absFigure(spec) {
   const s = spec || {};
-  const c = 32, stroke = "currentColor", fill = s.fill ? "currentColor" : "none";
-  const rot = `rotate(${s.rot || 0} ${c} ${c})`;
-  let shape = "";
+  const stroke = "currentColor", fill = s.fill ? "currentColor" : "none", sw = 3;
+  const rot = s.rot || 0;
+  let body = "";
   switch (s.shape) {
-    case "circle": shape = `<circle cx="32" cy="32" r="17" fill="${fill}" stroke="${stroke}" stroke-width="3"/>`; break;
-    case "triangle": shape = `<polygon points="32,14 50,48 14,48" fill="${fill}" stroke="${stroke}" stroke-width="3" stroke-linejoin="round" transform="${rot}"/>`; break;
-    case "diamond": shape = `<polygon points="32,11 53,32 32,53 11,32" fill="${fill}" stroke="${stroke}" stroke-width="3" stroke-linejoin="round" transform="${rot}"/>`; break;
-    case "arrow": shape = `<g transform="${rot}"><line x1="32" y1="48" x2="32" y2="16" stroke="${stroke}" stroke-width="3" stroke-linecap="round"/><polyline points="23,25 32,15 41,25" fill="none" stroke="${stroke}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>`; break;
-    default: shape = `<rect x="15" y="15" width="34" height="34" rx="3" fill="${fill}" stroke="${stroke}" stroke-width="3" transform="${rot}"/>`;
+    case "circle": body = `<circle cx="32" cy="32" r="17" fill="${fill}" stroke="${stroke}" stroke-width="${sw}"/>`; break;
+    case "triangle": body = `<polygon points="32,14 50,48 14,48" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="round"/>`; break;
+    case "diamond": body = `<polygon points="32,11 53,32 32,53 11,32" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="round"/>`; break;
+    case "arrow": body = `<line x1="32" y1="48" x2="32" y2="16" stroke="${stroke}" stroke-width="${sw}" stroke-linecap="round"/><polyline points="23,25 32,15 41,25" fill="none" stroke="${stroke}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round"/>`; break;
+    case "pie": {
+      // pacman: a circle with a 90-degree wedge removed; the mouth opens right at
+      // rot 0 and turns with rot. The visible body is the 270-degree arc.
+      const r = 17, d = Math.PI / 180;
+      const sx = (32 + r * Math.cos(45 * d)).toFixed(1), sy = (32 + r * Math.sin(45 * d)).toFixed(1);
+      const ex = (32 + r * Math.cos(-45 * d)).toFixed(1), ey = (32 + r * Math.sin(-45 * d)).toFixed(1);
+      body = `<path d="M32 32 L${sx} ${sy} A${r} ${r} 0 1 1 ${ex} ${ey} Z" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="round"/>`;
+      break;
+    }
+    case "star": {
+      const d = Math.PI / 180; let pts = [];
+      for (let i = 0; i < 10; i++) { const a = (-90 + i * 36) * d, rr = i % 2 === 0 ? 19 : 8; pts.push((32 + rr * Math.cos(a)).toFixed(1) + "," + (32 + rr * Math.sin(a)).toFixed(1)); }
+      body = `<polygon points="${pts.join(" ")}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="round"/>`;
+      break;
+    }
+    case "hexagon": {
+      const d = Math.PI / 180; let pts = [];
+      for (let i = 0; i < 6; i++) { const a = (i * 60) * d; pts.push((32 + 18 * Math.cos(a)).toFixed(1) + "," + (32 + 18 * Math.sin(a)).toFixed(1)); }
+      body = `<polygon points="${pts.join(" ")}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="round"/>`;
+      break;
+    }
+    case "plus": {
+      const a = 8, e = 18, c = 32;
+      const p = [[c - a, c - e], [c + a, c - e], [c + a, c - a], [c + e, c - a], [c + e, c + a], [c + a, c + a], [c + a, c + e], [c - a, c + e], [c - a, c + a], [c - e, c + a], [c - e, c - a], [c - a, c - a]].map((q) => q.join(",")).join(" ");
+      body = `<polygon points="${p}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="round"/>`;
+      break;
+    }
+    case "cross": body = `<line x1="18" y1="18" x2="46" y2="46" stroke="${stroke}" stroke-width="${sw}" stroke-linecap="round"/><line x1="46" y1="18" x2="18" y2="46" stroke="${stroke}" stroke-width="${sw}" stroke-linecap="round"/>`; break;
+    case "play": body = `<polygon points="21,15 21,49 49,32" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="round"/>`; break;
+    default: body = `<rect x="15" y="15" width="34" height="34" rx="3" fill="${fill}" stroke="${stroke}" stroke-width="${sw}"/>`;
   }
+  const scale = { sm: 0.6, md: 1, lg: 1.28 }[s.size] || 1;
+  const tf = `translate(32 32) rotate(${rot}) scale(${scale}) translate(-32 -32)`;
+  const inner = `<g transform="${tf}">${body}</g>`;
+  // Corner marker: a solid right-triangle pinned to one corner of the tile.
+  let corner = "";
+  const cm = { tl: "0,0 24,0 0,24", tr: "64,0 40,0 64,24", br: "64,64 40,64 64,40", bl: "0,64 24,64 0,40" }[s.corner];
+  if (cm) corner = `<polygon points="${cm}" fill="${stroke}"/>`;
   let dots = "";
   const n = s.dots || 0;
-  for (let i = 0; i < n; i++) dots += `<circle cx="${13 + i * 13}" cy="57" r="3.4" fill="${stroke}"/>`;
-  return `<svg class="absfig" viewBox="0 0 64 64" aria-hidden="true">${shape}${dots}</svg>`;
+  for (let i = 0; i < n; i++) dots += `<circle cx="${13 + i * 13}" cy="58" r="3.2" fill="${stroke}"/>`;
+  return `<svg class="absfig" viewBox="0 0 64 64" aria-hidden="true">${corner}${inner}${dots}</svg>`;
 }
 
 // How an answer value is shown on review / verdict lines. Abstract answers are
@@ -961,6 +1002,13 @@ function renderAbout() {
         ${WA_SVG}<span>${t("about_wa")}</span>
       </a>
       <div class="about-num">+966 50 550 2594</div>
+
+      <div class="about-official">
+        <h2>${t("about_official")}</h2>
+        <p class="about-text">${t("about_official_sub")}</p>
+        <a class="res-link" href="https://www.savilleassessment.com/practice-tests/" target="_blank" rel="noopener noreferrer">${t("about_link1")} <span class="res-ext">↗</span></a>
+        <a class="res-link" href="https://www.savilleconsulting.dk/en/candidate-preparation/aptitude-assessesment/" target="_blank" rel="noopener noreferrer">${t("about_link2")} <span class="res-ext">↗</span></a>
+      </div>
 
       <footer class="sig about-sig">
         <span class="sig-text" id="sig-text"></span><span class="sig-alien" id="sig-alien">${ALIEN_SVG}</span><span class="sig-cursor">_</span>
