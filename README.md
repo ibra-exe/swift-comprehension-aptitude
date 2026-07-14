@@ -1,6 +1,6 @@
 # Swift Aptitude Practice
 
-A self-contained, **fully offline** practice app for the Saville *Swift* aptitude tests, with two
+A self-contained, **web-based** practice app for the Saville *Swift* aptitude tests, with two
 separate assessments selected on the main page:
 
 - **Swift Comprehension Aptitude** (operational/admin level) — Verbal, Numerical, Abstract and
@@ -12,7 +12,7 @@ Each assessment has its own question bank, sections and mock structure. Flow: **
 assessment → home (tests)**. The app is public (no login). All questions are original, written to
 match the real formats.
 
-No backend. No build step. No network. Just static files.
+No backend. No build step. Just static files.
 
 ---
 

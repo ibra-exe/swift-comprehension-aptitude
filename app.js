@@ -1,6 +1,6 @@
 /* ==========================================================================
    Saville Swift Comprehension - app logic
-   Pure vanilla JS. No framework, no network. Reads the bank from questions.js.
+   Pure vanilla JS. No framework, no build step. Reads the bank from questions.js.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -77,7 +77,7 @@ const STRINGS = {
     // about
     about_link: "About",
     about_title: "About this tool",
-    about_purpose: "A free, offline practice tool for the Saville Swift Comprehension and Executive aptitude tests. It mirrors the real test structure and timing so you can build speed and accuracy before the day, with worked answers and a study guide for every section.",
+    about_purpose: "A free web-based practice tool for the Saville Swift Comprehension and Executive aptitude tests. It mirrors the real test structure and timing so you can build speed and accuracy before the day, with worked answers and a study guide for every section.",
     about_contact: "Questions or feedback? Reach me on WhatsApp.",
     about_wa: "Message on WhatsApp",
     about_official: "Official Saville practice",
@@ -816,7 +816,7 @@ function renderStimulus(q, { reviewDiff = false } = {}) {
   return "";
 }
 
-// Renders a chart as inline SVG (no libraries, fully offline).
+// Renders a chart as inline SVG (no libraries).
 const CHART_COLORS = ["#5b82ff", "#43c47e", "#e0a23a", "#c879e6", "#ef6f6c", "#3fc1c9"];
 function renderChart(chart) {
   return chart.type === "bar" ? renderBar(chart) : renderPie(chart);
